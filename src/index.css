@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@media (max-width: 380px) {
+   .intro > h1 {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+   }
+}
