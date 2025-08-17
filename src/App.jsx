@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import {React, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Custom Hooks
 import { useInteractiveCursor } from './hooks/useInteractiveCursor';
@@ -14,6 +15,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 // --- BACKGROUND ---
 const GridPatternBackground = ({ theme }) => {
@@ -35,8 +37,6 @@ const GridPatternBackground = ({ theme }) => {
 
 // --- MAIN APP COMPONENT ---
 export default function App() {
-    const [page, setPage] = useState('home');
-    const [path, setPath] = useState(null); // 'finance' or 'frontend'
     const [isLoading, setIsLoading] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -47,6 +47,8 @@ export default function App() {
         }
         return 'dark';
     });
+
+    const location = useLocation();
     
     useEffect(() => {
         setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -70,22 +72,6 @@ export default function App() {
         }
     }, [theme]);
 
-    const navigateTo = (newPage) => {
-        if (page === newPage) return;
-        setPage(newPage);
-        setIsMenuOpen(false);
-    };
-    
-    const selectPath = (chosenPath) => {
-        setPath(chosenPath);
-        navigateTo('about');
-    };
-    
-    const goHome = () => {
-        setPath(null);
-        navigateTo('home');
-    }
-
     const toggleTheme = () => {
         setTheme(currentTheme => currentTheme === 'light' ? 'dark' : 'light');
     };
@@ -94,26 +80,12 @@ export default function App() {
         ? 'bg-[#0D0D0D] text-white selection:bg-[#C51A24] selection:text-white'
         : 'bg-[#F5F5F5] text-black selection:bg-[#C51A24] selection:text-white';
 
-    const renderPage = () => {
-        if (!path) {
-            return <HomePage theme={theme} selectPath={selectPath} navigateTo={navigateTo} />;
-        }
-        
-        switch(page) {
-            case 'about': return <AboutPage theme={theme} path={path} />;
-            case 'projects':
-                return path === 'frontend' ? <ProjectsPage theme={theme} path={path} /> : <AboutPage theme={theme} path={path} />;
-            case 'contact': return <ContactPage theme={theme} path={path} />;
-            default: return <AboutPage theme={theme} path={path} />;
-        }
-    };
-
     return (
         <>
             <link href="https://fonts.cdnfonts.com/css/neue-machina" rel="stylesheet" />
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-            <div className={`relative antialiased font-['Inter',_sans-serif] min-h-screen w-full transition-colors duration-500 ${themeClasses}`}>
+            <div className={`relative antialiased font-['Inter',_sans_serif] min-h-screen w-full transition-colors duration-500 ${themeClasses}`}>
                 {!isTouchDevice && (
                     <motion.div
                         variants={cursorVariants}
@@ -137,27 +109,25 @@ export default function App() {
                     <div className="relative z-10">
                         <GridPatternBackground theme={theme} />
                         <Header 
-                            currentPage={page} 
-                            navigateTo={navigateTo}
-                            goHome={goHome}
-                            path={path}
                             onMenuClick={() => setIsMenuOpen(!isMenuOpen)}
                             theme={theme}
                             toggleTheme={toggleTheme}
                             isTouchDevice={isTouchDevice}
                             isMenuOpen={isMenuOpen}
-                            selectPath={selectPath}
                         />
                         <MobileMenu 
                             isOpen={isMenuOpen} 
-                            navigateTo={navigateTo}
-                            path={path}
+                            closeMenu={() => setIsMenuOpen(false)}
                             theme={theme}
                         />
                         <AnimatePresence mode="wait">
-                            <main key={page + path}>
-                                {renderPage()}
-                            </main>
+                           <Routes location={location} key={location.pathname}>
+                                <Route index element={<HomePage theme={theme} />} />
+                                <Route path="/contact" element={<ContactPage theme={theme} />} /> 
+                                <Route path="/:path" element={<AboutPage theme={theme} />} />
+                                <Route path="/:path/projects" element={<ProjectsPage theme={theme} />} />
+                                <Route path="*" element={<NotFoundPage theme={theme} />} />
+                           </Routes>
                         </AnimatePresence>
                     </div>
                 )}

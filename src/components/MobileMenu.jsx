@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const mobileNavVariants = {
   open: {
@@ -27,19 +28,28 @@ const mobileLinkVariants = {
   }
 };
 
-const MobileMenu = ({ isOpen, navigateTo, path, theme }) => {
-    const baseNavItems = [
-        { id: 'about', label: 'About' },
-        { id: 'contact', label: 'Contact' },
-    ];
-    
-    const navItems = path === 'frontend' 
+const MobileMenu = ({ isOpen, closeMenu, theme }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const pathnameParts = location.pathname.split('/');
+    const path = ['work', 'dev'].includes(pathnameParts[1]) ? pathnameParts[1] : null;
+
+    const navItems = path === 'dev' 
         ? [
-            { id: 'about', label: 'About' },
-            { id: 'projects', label: 'Projects' },
-            { id: 'contact', label: 'Contact' },
+            { to: `/${path}`, label: 'About' },
+            { to: `/${path}/projects`, label: 'Projects' },
+            { to: '/contact', label: 'Contact' },
           ]
-        : baseNavItems;
+        : [
+            { to: `/${path}`, label: 'About' },
+            { to: '/contact', label: 'Contact' },
+        ];
+
+    const handleNavigation = (to) => {
+        navigate(to);
+        closeMenu();
+    };
 
     const menuVariants = {
         open: {
@@ -76,8 +86,8 @@ const MobileMenu = ({ isOpen, navigateTo, path, theme }) => {
                         className="h-full flex flex-col items-center justify-center space-y-6"
                     >
                         {navItems.map(item => (
-                            <motion.li key={item.id} variants={mobileLinkVariants}>
-                                <button onClick={() => navigateTo(item.id)} className="text-4xl font-bold" data-cursorvariant="hover">{item.label}</button>
+                            <motion.li key={item.to} variants={mobileLinkVariants}>
+                                <button onClick={() => handleNavigation(item.to)} className="text-4xl font-bold" data-cursorvariant="hover">{item.label}</button>
                             </motion.li>
                         ))}
                     </motion.ul>

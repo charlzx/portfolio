@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useParams } from 'react-router-dom';
 import { DownloadIcon } from '../components/Icons';
+import NotFoundPage from './NotFoundPage';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 const pageVariants = {
     initial: { opacity: 0, y: 20 },
@@ -8,9 +11,17 @@ const pageVariants = {
     exit: { opacity: 0, y: -20, transition: { duration: 0.5, ease: 'easeInOut' } }
 };
 
-const AboutPage = ({ theme, path }) => {
+const AboutPage = ({ theme }) => {
+    const { path } = useParams();
+   
+    // --- FIX ---
+    // Validate the path. If it's not 'work' or 'dev', show the 404 page.
+    if (path !== 'work' && path !== 'dev') {
+        return <NotFoundPage theme={theme} />;
+    }
+
     const content = {
-        finance: {
+        work: {
             title: "About Me: The Financial Analyst",
             intro: "With a keen eye for market dynamics and a passion for data-driven insights, I specialize in financial modeling, valuation, and strategic investment analysis. My goal is to translate complex financial data into actionable strategies that drive business growth.",
             experience: [
@@ -25,9 +36,9 @@ const AboutPage = ({ theme, path }) => {
                 { degree: "MSc in Finance", university: "London School of Economics", years: "2017 - 2018" },
                 { degree: "BSc in Economics", university: "University of Lagos", years: "2013 - 2017" },
             ],
-            cvUrl: "/charles-obuzor-finance-cv.pdf", // IMPORTANT: Replace with the actual path to your CV
+            cvUrl: "/charles-obuzor-finance-cv.pdf",
         },
-        frontend: {
+        dev: {
             title: "About Me: The Frontend Developer",
             intro: "As a creative developer, I build beautiful, functional, and user-centric web experiences. I am proficient in the modern frontend stack, including React, Next.js, and Tailwind CSS, and I have a passion for creating pixel-perfect designs and intuitive interactions.",
             experience: [
@@ -62,7 +73,7 @@ const AboutPage = ({ theme, path }) => {
                 <div className="flex flex-col md:flex-row justify-between md:items-start mb-8 gap-4">
                     <h1 className="text-4xl md:text-5xl font-bold" data-cursorvariant="hover">{currentContent.title}</h1>
                     <div className="flex items-center gap-4 flex-shrink-0">
-                        {path === 'finance' && (
+                        {path === 'work' && (
                             <a
                                 href={currentContent.cvUrl}
                                 download

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useParams, Navigate } from 'react-router-dom';
 import { GithubIcon, ExternalLinkIcon } from '../components/Icons';
 
 const pageVariants = {
@@ -60,7 +61,14 @@ const ProjectCard = ({ project, theme }) => {
 };
 
 
-const ProjectsPage = ({ theme, path }) => {
+const ProjectsPage = ({ theme }) => {
+    const { path } = useParams();
+
+    // If the path isn't 'dev', redirect to the homepage
+    if (path !== 'dev') {
+        return <Navigate to="/" />;
+    }
+
     const dummyProjects = [
         {
             title: "E-commerce Platform",
