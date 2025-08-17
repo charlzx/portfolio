@@ -15,12 +15,12 @@ const HomePage = ({ theme }) => {
     const navigate = useNavigate();
 
     const HighlightedLink = ({ children, onClick, href }) => {
-        const linkColor = theme === 'dark' ? 'text-white font-bold' : 'text-black font-bold';
         const underlineColor = theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300';
-        
+        const linkColor = theme === 'dark' ? 'text-white hover:text-black' : 'text-black hover:text-white';
+        const bgColor = theme === 'dark' ? 'hover:bg-white' : 'hover:bg-black';
+
         const commonProps = {
-            className: `group cursor-pointer relative inline-block transition-colors duration-300 ${linkColor}`,
-            "data-cursorvariant": "hover",
+            className: `cursor-pointer font-bold transition-colors duration-300 ${linkColor} ${bgColor} px-1`,
         };
 
         const content = (
