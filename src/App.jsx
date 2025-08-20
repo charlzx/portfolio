@@ -1,8 +1,8 @@
-import {React, useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-// Custom Hooks
+// Hooks
 import { useInteractiveCursor } from './hooks/useInteractiveCursor';
 
 // Components
@@ -16,6 +16,8 @@ import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
+import Terminal from './pages/Terminal';
+
 
 // --- BACKGROUND ---
 const GridPatternBackground = ({ theme }) => {
@@ -49,23 +51,25 @@ export default function App() {
     });
 
     const location = useLocation();
-    
+    // This is the key change: we check if the current path is '/terminal'
+    const isTerminalPage = location.pathname === '/terminal';
+
     useEffect(() => {
         setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     }, []);
 
     const { x: cursorX, y: cursorY, cursorVariant, cursorVariants } = useInteractiveCursor(isTouchDevice);
-    
+
     const smoothCursorX = useSpring(cursorX, { stiffness: 500, damping: 40 });
     const smoothCursorY = useSpring(cursorY, { stiffness: 500, damping: 40 });
-    
+
     const springConfig = { type: 'spring', stiffness: 200, damping: 20 };
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoading(false), 2500);
         return () => clearTimeout(timer);
     }, []);
-    
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage.setItem('theme', theme);
@@ -76,7 +80,7 @@ export default function App() {
         setTheme(currentTheme => currentTheme === 'light' ? 'dark' : 'light');
     };
 
-    const themeClasses = theme === 'dark' 
+    const themeClasses = theme === 'dark'
         ? 'bg-[#0D0D0D] text-white selection:bg-[#C51A24] selection:text-white'
         : 'bg-[#F5F5F5] text-black selection:bg-[#C51A24] selection:text-white';
 
@@ -85,14 +89,19 @@ export default function App() {
             <link href="https://fonts.cdnfonts.com/css/neue-machina" rel="stylesheet" />
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-            <div className={`relative antialiased font-['Inter',_sans_serif] min-h-screen w-full transition-colors duration-500 ${themeClasses}`}>
-                {!isTouchDevice && (
+            {/* Conditionally apply theme and cursor styles. */}
+            <div className={`relative antialiased font-['Inter',_sans_serif] min-h-screen w-full 
+                ${!isTerminalPage ? `transition-colors duration-500 ${themeClasses}` : ''} 
+                ${!isTouchDevice && !isTerminalPage ? 'cursor-none' : 'cursor-auto'}`}>
+                
+                {/* Conditionally render the custom cursor. It won't appear on the terminal page. */}
+                {!isTouchDevice && !isTerminalPage && (
                     <motion.div
                         variants={cursorVariants}
                         animate={cursorVariant}
                         transition={springConfig}
                         className="pointer-events-none fixed top-0 left-0 z-[100] rounded-full"
-                        style={{ 
+                        style={{
                             x: smoothCursorX,
                             y: smoothCursorY,
                             translateX: '-50%',
@@ -104,29 +113,36 @@ export default function App() {
                 <AnimatePresence>
                     {isLoading && <Preloader theme={theme} />}
                 </AnimatePresence>
-                
+
                 {!isLoading && (
                     <div className="relative z-10">
-                        <GridPatternBackground theme={theme} />
-                        <Header 
-                            onMenuClick={() => setIsMenuOpen(!isMenuOpen)}
-                            theme={theme}
-                            toggleTheme={toggleTheme}
-                            isTouchDevice={isTouchDevice}
-                            isMenuOpen={isMenuOpen}
-                        />
-                        <MobileMenu 
-                            isOpen={isMenuOpen} 
-                            closeMenu={() => setIsMenuOpen(false)}
-                            theme={theme}
-                        />
+                        {/* Conditionally render the background, header, and menu. */}
+                        {!isTerminalPage && (
+                            <>
+                                <GridPatternBackground theme={theme} />
+                                <Header
+                                    onMenuClick={() => setIsMenuOpen(!isMenuOpen)}
+                                    theme={theme}
+                                    toggleTheme={toggleTheme}
+                                    isTouchDevice={isTouchDevice}
+                                    isMenuOpen={isMenuOpen}
+                                />
+                                <MobileMenu
+                                    isOpen={isMenuOpen}
+                                    closeMenu={() => setIsMenuOpen(false)}
+                                    theme={theme}
+                                />
+                            </>
+                        )}
                         <AnimatePresence mode="wait">
                            <Routes location={location} key={location.pathname}>
                                 <Route index element={<HomePage theme={theme} />} />
-                                <Route path="/contact" element={<ContactPage theme={theme} />} /> 
+                                <Route path="/contact" element={<ContactPage theme={theme} />} />
                                 <Route path="/:path" element={<AboutPage theme={theme} />} />
                                 <Route path="/:path/projects" element={<ProjectsPage theme={theme} />} />
                                 <Route path="*" element={<NotFoundPage theme={theme} />} />
+                                {/* The terminal route renders without the themed layout */}
+                                <Route path="/terminal" element={<Terminal theme={theme} />} />
                            </Routes>
                         </AnimatePresence>
                     </div>
