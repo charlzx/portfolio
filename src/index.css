@@ -24,5 +24,24 @@ body {
       display: inline;
     }
   }
+
+  /* Responsive project image hover: smaller scale on mobile, larger on desktop */
+  .project-img {
+    transition: transform .3s;
+    border: 1px solid rgba(13, 13, 13, 0.301);
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 767px) {
+    .project-img:hover {
+      transform: scale(1.03);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .project-img:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 

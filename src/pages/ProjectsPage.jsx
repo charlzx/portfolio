@@ -2,6 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink } from 'lucide-react';
 import { useEffect } from 'react';
+import crwn3Img from '../assets/crwn3.png';
+import gymxImg from '../assets/gymx.png';
+import heirswealthImg from '../assets/heirswealth.png';
+import radioImg from '../assets/radio.png';
+import portfolioImg from '../assets/my-portfolio.png';
+import solisysImg from '../assets/solisys.png';
 
 const pageVariants = {
     initial: { opacity: 0, y: 20 },
@@ -20,7 +26,7 @@ const ProjectCard = ({ project, theme, isReversed }) => {
                 <img 
                     src={project.imageUrl} 
                     alt={`${project.title} preview`} 
-                    className="w-full h-full object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover rounded-lg shadow-lg project-img"
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/0D0D0D/C51A24?text=Image+Not+Found'; }}
                 />
             </a>
@@ -71,39 +77,55 @@ const ProjectCard = ({ project, theme, isReversed }) => {
 
 
 const ProjectsPage = ({ theme }) => {
-    const dummyProjects = [
+    const Projects = [
         {
-            title: "E-commerce Platform",
+            title: "CRWN3",
             description: "A full-featured e-commerce site with product listings, a shopping cart, and a checkout process. Built with a focus on performance and user experience.",
-            technologies: ["React", "Redux", "Node.js", "Express", "MongoDB"],
-            liveUrl: "https://example.com",
-            githubUrl: "https://github.com/charlzx",
-            imageUrl: "https://placehold.co/600x400/1a1a1a/ffffff?text=E-commerce",
+            technologies: ["React", "Vite", "Tailwind", "Leaflet.js"],
+            liveUrl: "https://crwn3.vercel.app/",
+            githubUrl: "https://github.com/charlzx/shop",
+            imageUrl: crwn3Img,
         },
         {
-            title: "Task Management App",
-            description: "A Kanban-style task management application that allows users to create, organize, and track their tasks through different stages of completion.",
-            technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-            liveUrl: "https://example.com",
-            githubUrl: "https://github.com/charlzx",
-            imageUrl: "https://placehold.co/600x400/1a1a1a/ffffff?text=Task+Manager",
+            title: "SMART GYM",
+            description: "A responsive fitness website featuring workout program sections, class schedules, and modern UI components for an engaging user experience.",
+            technologies: ["React", "Vite", "Tailwind", "Rechart.js", "React-Icons"],
+            liveUrl: "https://gymx.vercel.app/",
+            githubUrl: "https://github.com/charlzx/gym-app",
+            imageUrl: gymxImg,
         },
         {
-            title: "Portfolio Website v2",
+            title: "HEIRSWEALTH",
+            description: "A full-spectrum solar energy company offering residential, industrial, and community installations, delivering sustainable, cost-efficient power systems to empower clients long-term.",
+            technologies: ["React", "Vite", "Tailwind", "Framer Motion"],
+            liveUrl: "https://heirswealth.com",
+            githubUrl: "",
+            imageUrl: heirswealthImg,
+        },
+        {
+            title: "GTA Radio",
+            description: "A modern web application that recreates the authentic Grand Theft Auto radio experience with real-time synchronized playback across all users.",
+            technologies: ["React", "Vite", "Tailwind"],
+            liveUrl: "https://gta-live.vercel.app/",
+            githubUrl: "https://github.com/charlzx/gta-radio",
+            imageUrl: radioImg,
+        },
+        {
+            title: "SOLISYS",
+            description: "A web app that guides users through designing off-grid solar systems — from load estimation to inverter, battery, and panel sizing — with printable, client-ready summaries.",
+            technologies: ["React", "Tailwind", "Vite"],
+            liveUrl: "https://solisys.vercel.app/",
+            githubUrl: "https://github.com/charlzx/solisys",
+            imageUrl: solisysImg,
+        },
+        {
+            title: "My Portfolio",
             description: "The very site you are on now. A personal portfolio to showcase my frontend development skills, built with modern web technologies and clean design principles.",
-            technologies: ["React", "Framer Motion", "Tailwind CSS", "Vite"],
+            technologies: ["React", "Framer Motion", "Tailwind", "Vite"],
             liveUrl: "https://charlz.dev",
             githubUrl: "https://github.com/charlzx/portfolio",
-            imageUrl: "https://placehold.co/600x400/1a1a1a/ffffff?text=Portfolio",
-        },
-        {
-            title: "Weather Dashboard",
-            description: "A clean and simple weather dashboard that provides current weather conditions and a 5-day forecast for any city using a third-party API.",
-            technologies: ["React", "Chart.js", "OpenWeatherMap API"],
-            liveUrl: "https://example.com",
-            githubUrl: "https://github.com/charlzx",
-            imageUrl: "https://placehold.co/600x400/1a1a1a/ffffff?text=Weather+App",
-        },
+            imageUrl: portfolioImg,
+        }
     ];
 
     useEffect(() => {
@@ -129,7 +151,7 @@ const ProjectsPage = ({ theme }) => {
                     </p>
                 </div>
                 <div className="max-w-5xl mx-auto">
-                    {dummyProjects.map((project, index) => (
+                    {Projects.map((project, index) => (
                         <ProjectCard key={index} project={project} theme={theme} isReversed={index % 2 !== 0} />
                     ))}
                 </div>
