@@ -25,9 +25,9 @@ const ContactPage = ({ theme }) => {
     const subtleStrong = isDark ? 'text-gray-300' : 'text-gray-700';
     const cardBg = isDark ? 'bg-white/5' : 'bg-black/5';
     const hairline = isDark ? 'border-white/10' : 'border-black/10';
-    const inputBg = isDark ? 'bg-white/5' : 'bg-black/5';
+    
 
-    const inputClasses = `w-full p-3 rounded-lg border focus:outline-none focus:ring-2 ring-offset-0 focus:ring-[#C51A24] transition-all ${inputBg} ${hairline} placeholder-gray-500`;
+    
 
     useEffect(() => {
         if (typeof document === 'undefined') return;
@@ -132,6 +132,12 @@ function Form() {
     const [message, setMessage] = useState('');
     const [status, setStatus] = useState('idle'); // idle | sending | success | error
 
+    useEffect(() => {
+        if (status !== 'success') return;
+        const t = setTimeout(() => setStatus('idle'), 3000);
+        return () => clearTimeout(t);
+    }, [status]);
+
     const FORMSPREE_ID = 'mandvdpe';
     const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
 
@@ -150,7 +156,7 @@ function Form() {
             } else {
                 setStatus('error');
             }
-        } catch (err) {
+        } catch {
             setStatus('error');
         }
     };

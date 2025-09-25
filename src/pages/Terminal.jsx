@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Settings, X, Minus, Square } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import Projects from '../data/projects';
 
 // --- THEMES (EXPANDED WITH SCROLLBAR STYLES) ---
 const themes = {
@@ -46,29 +47,11 @@ Intro: As a frontend developer, I build beautiful, functional, and user-centric 
 ## Education
 - BSc in Business Administration | University of Benin (2018 - 2023)
 `,
-      'projects': {
-        'ecommerce-platform.md': `
-# E-commerce Platform
-A full-featured e-commerce site with product listings, a shopping cart, and a checkout process. Built with a focus on performance and user experience.
-- Technologies: React, Redux, Node.js, Express, MongoDB
-- Live URL: https://example.com
-- GitHub: https://github.com
-`,
-        'task-manager.md': `
-# Task Management App
-A Kanban-style task management application that allows users to create, organize, and track their tasks through different stages of completion.
-- Technologies: Next.js, TypeScript, Tailwind CSS, Framer Motion
-- Live URL: https://example.com
-- GitHub: https://github.com
-`,
-        'portfolio-v2.md': `
-# Portfolio Website v2
-The previous version of this portfolio. A personal portfolio to showcase my skills in frontend development, built with modern web technologies.
-- Technologies: React, Framer Motion, Tailwind CSS
-- Live URL: https://example.com
-- GitHub: https://github.com
-`,
-      },
+      'projects': Object.fromEntries(Projects.map(p => {
+  const key = `${p.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')}.md`;
+  const md = `\n# ${p.title}\n${p.description}\n- Technologies: ${p.technologies.join(', ')}\n- Live URL: ${p.liveUrl || ''}\n- GitHub: ${p.githubUrl || ''}\n`;
+  return [key, md];
+      })),
       'contact.txt': `
 You can reach me via the following channels:
 - Email: charlesobuzor@outlook.com
@@ -102,7 +85,7 @@ const parseUserAgent = () => {
 
 // Component to render text with clickable links
 const LinkifiedText = ({ text, themeClasses }) => {
-  const linkRegex = /(\b(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])|(\bwww\.[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])|(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/ig;
+  const linkRegex = new RegExp('(\\b(?:https?|ftp|file):\\/\\/[-A-Z0-9+&@#\\/\\%?=~_|!:,.;]*[-A-Z0-9+&@#\\/%=~_|])|(\\bwww\\.[-A-Z0-9+&@#\\/\\%?=~_|!:,.;]*[-A-Z0-9+&@#\\/%=~_|])|(\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,})', 'ig');
   if (!text || typeof text !== 'string') return <>{text}</>;
 
   const parts = text.split(linkRegex).filter(part => part !== undefined);
@@ -124,10 +107,10 @@ const LinkifiedText = ({ text, themeClasses }) => {
       })}
     </>
   );
-};
+}; 
 
 // Component to animate text typing
-const TypingAnimation = ({ text, onComplete, themeClasses }) => {
+const TypingAnimation = ({ text, onComplete, onProgress, themeClasses }) => {
   const [displayText, setDisplayText] = useState('');
 
   useEffect(() => {
@@ -149,6 +132,18 @@ const TypingAnimation = ({ text, onComplete, themeClasses }) => {
     return () => clearInterval(interval);
   }, [text, onComplete]);
 
+  useEffect(() => {
+    if (onProgress && displayText.length > 0) {
+      // Run after render so DOM (and scrollHeight) is updated
+      try {
+        window.requestAnimationFrame(() => onProgress(displayText.length));
+      } catch {
+        // fallback
+        setTimeout(() => onProgress(displayText.length), 0);
+      }
+    }
+  }, [displayText, onProgress]);
+
   return (
     <pre className="whitespace-pre-wrap">
       {displayText}
@@ -158,7 +153,7 @@ const TypingAnimation = ({ text, onComplete, themeClasses }) => {
 };
 
 // A wrapper to handle rendering different types of output (JSX vs. string)
-const OutputRenderer = ({ content, onComplete, themeClasses }) => {
+const OutputRenderer = ({ content, onComplete, onProgress, themeClasses }) => {
   useEffect(() => {
     if (typeof content !== 'string') {
       const timer = setTimeout(() => {
@@ -169,7 +164,7 @@ const OutputRenderer = ({ content, onComplete, themeClasses }) => {
   }, [content, onComplete]);
 
   if (typeof content === 'string') {
-    return <TypingAnimation text={content} onComplete={onComplete} themeClasses={themeClasses} />;
+    return <TypingAnimation text={content} onComplete={onComplete} onProgress={onProgress} themeClasses={themeClasses} />;
   }
   return content;
 };
@@ -253,6 +248,17 @@ export default function App() {
 
   const terminalRef = useRef(null);
   const inputRef = useRef(null);
+
+  const smoothScrollToBottom = useCallback(() => {
+    const el = terminalRef.current;
+    if (!el) return;
+    // Prefer native smooth scroll when available
+    try {
+      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    } catch {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, []);
 
   // --- File System & Path Logic ---
   const resolvePath = (path, forCd = false) => {
@@ -392,32 +398,35 @@ export default function App() {
         const findKey = (obj, val) => Object.keys(obj).find(key => key.toLowerCase() === val.toLowerCase());
 
         switch (option) {
-            case 'theme':
-                if (!value) return `Current theme: ${settings.theme}. Available: ${Object.keys(themes).join(', ')}`;
-                const themeKey = findKey(themes, value);
-                if (themeKey) {
-                    setSettings(s => ({ ...s, theme: themeKey }));
-                    return `Theme set to ${themeKey}.`;
-                }
-                return { text: `Error: '${value}' is not a valid theme.`, isError: true };
-            case 'font':
-                if (!value) return `Current font: ${settings.font}. Available: ${Object.keys(fontStyles).join(', ')}`;
-                const fontKey = findKey(fontStyles, value);
-                if (fontKey) {
-                    setSettings(s => ({ ...s, font: fontKey }));
-                    return `Font set to ${fontKey}.`;
-                }
-                return { text: `Error: '${value}' is not a valid font.`, isError: true };
-            case 'size':
-                if (!value) return `Current font size: ${settings.size}. Available: ${Object.keys(fontSizes).join(', ')}`;
-                const sizeKey = findKey(fontSizes, value);
-                if (sizeKey) {
-                    setSettings(s => ({ ...s, size: sizeKey }));
-                    return `Font size set to ${sizeKey}.`;
-                }
-                return { text: `Error: '${value}' is not a valid size.`, isError: true };
-            default:
-                return { text: `Error: '${option}' is not a valid setting.`, isError: true };
+      case 'theme': {
+        if (!value) return `Current theme: ${settings.theme}. Available: ${Object.keys(themes).join(', ')}`;
+        const themeKey = findKey(themes, value);
+        if (themeKey) {
+          setSettings(s => ({ ...s, theme: themeKey }));
+          return `Theme set to ${themeKey}.`;
+        }
+        return { text: `Error: '${value}' is not a valid theme.`, isError: true };
+      }
+      case 'font': {
+        if (!value) return `Current font: ${settings.font}. Available: ${Object.keys(fontStyles).join(', ')}`;
+        const fontKey = findKey(fontStyles, value);
+        if (fontKey) {
+          setSettings(s => ({ ...s, font: fontKey }));
+          return `Font set to ${fontKey}.`;
+        }
+        return { text: `Error: '${value}' is not a valid font.`, isError: true };
+      }
+      case 'size': {
+        if (!value) return `Current font size: ${settings.size}. Available: ${Object.keys(fontSizes).join(', ')}`;
+        const sizeKey = findKey(fontSizes, value);
+        if (sizeKey) {
+          setSettings(s => ({ ...s, size: sizeKey }));
+          return `Font size set to ${sizeKey}.`;
+        }
+        return { text: `Error: '${value}' is not a valid size.`, isError: true };
+      }
+      default:
+        return { text: `Error: '${option}' is not a valid setting.`, isError: true };
         }
     },
     neofetch: () => (
@@ -466,13 +475,17 @@ export default function App() {
   // --- Effects ---
   useEffect(() => { localStorage.setItem('terminal-settings', JSON.stringify(settings)); }, [settings]);
   useEffect(() => { const link = document.createElement('link'); link.href = "https://fonts.googleapis.com/css2?family=Inconsolata&family=Source+Code+Pro&family=Roboto+Mono&family=Ubuntu+Mono&display=swap"; link.rel = 'stylesheet'; document.head.appendChild(link); return () => { document.head.removeChild(link) } }, []);
-  useEffect(() => { setHistory([{ command: 'welcome', output: commands.welcome(), isTyping: false, path: ['home', 'charles'] }]); }, []);
+  useEffect(() => { setHistory([{ command: 'welcome', output: (
+    <div>
+      <h1 className="text-2xl font-bold mb-2">Welcome to my Portfolio!</h1>
+      <p>This is a simulated terminal environment. All my portfolio content is stored in a virtual file system.</p>
+      <p className="mt-2">You can use direct commands like `about` or `projects`, or navigate the file system with `dir`, `cd`, and `cat`. Type `help` for a full list of commands.</p>
+    </div>
+  ), isTyping: false, path: ['home', 'charles'] }]); }, []);
   
   useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-    }
-  }, [history, isProcessing]);
+    smoothScrollToBottom();
+  }, [history, isProcessing, smoothScrollToBottom]);
 
   useEffect(() => {
     const styleId = 'dynamic-scrollbar-styles';
@@ -600,7 +613,9 @@ export default function App() {
                   </div>
                   <div className={`${entry.isError ? themeClasses.error : themeClasses.output}`}>
                     {entry.isTyping ? (
-                      <OutputRenderer content={entry.output} onComplete={() => onTypingComplete(index)} themeClasses={themeClasses} />
+                      <OutputRenderer content={entry.output} onComplete={() => onTypingComplete(index)} onProgress={() => {
+                        smoothScrollToBottom();
+                      }} themeClasses={themeClasses} />
                     ) : (
                       typeof entry.output === 'string' ? (
                         <pre className="whitespace-pre-wrap"><LinkifiedText text={entry.output} themeClasses={themeClasses} /></pre>
