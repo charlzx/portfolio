@@ -1,10 +1,3 @@
-import crwn3Img from '../assets/crwn3.webp';
-import gymxImg from '../assets/gymx.webp';
-import heirswealthImg from '../assets/heirswealth.webp';
-import radioImg from '../assets/radio.webp';
-import portfolioImg from '../assets/my-portfolio.webp';
-import solisysImg from '../assets/solisys.webp';
-
 const Projects = [
   {
     title: 'CRWN3',
@@ -12,7 +5,7 @@ const Projects = [
     technologies: ['React', 'Vite', 'Tailwind', 'Leaflet.js'],
     liveUrl: 'https://crwn3.vercel.app/',
     githubUrl: 'https://github.com/charlzx/shop',
-    imageUrl: crwn3Img,
+    imageUrl: '/crwn3.webp',
   },
   {
     title: 'SMART GYM',
@@ -20,7 +13,7 @@ const Projects = [
     technologies: ['React', 'Vite', 'Tailwind', 'Rechart.js', 'React-Icons'],
     liveUrl: 'https://gymx.vercel.app/',
     githubUrl: 'https://github.com/charlzx/gym-app',
-    imageUrl: gymxImg,
+    imageUrl: '/gymx.webp',
   },
   {
     title: 'HEIRSWEALTH',
@@ -28,7 +21,7 @@ const Projects = [
     technologies: ['React', 'Vite', 'Tailwind', 'Framer Motion'],
     liveUrl: 'https://heirswealth.com',
     githubUrl: '',
-    imageUrl: heirswealthImg,
+    imageUrl: '/heirswealth.webp',
   },
   {
     title: 'GTA Radio',
@@ -36,7 +29,7 @@ const Projects = [
     technologies: ['React', 'Vite', 'Tailwind'],
     liveUrl: 'https://gta-live.vercel.app/',
     githubUrl: 'https://github.com/charlzx/gta-radio',
-    imageUrl: radioImg,
+    imageUrl: '/radio.webp',
   },
   {
     title: 'SOLISYS',
@@ -44,15 +37,15 @@ const Projects = [
     technologies: ['React', 'Tailwind', 'Vite'],
     liveUrl: 'https://solisys.vercel.app/',
     githubUrl: 'https://github.com/charlzx/solisys',
-    imageUrl: solisysImg,
+    imageUrl: '/solisys.webp',
   },
   {
     title: 'My Portfolio',
     description: 'The very site you are on now. A personal portfolio to showcase my frontend development skills, built with modern web technologies and clean design principles.',
-    technologies: ['React', 'Framer Motion', 'Tailwind', 'Vite'],
+    technologies: ['React', 'Framer Motion', 'Tailwind', 'Next.js'],
     liveUrl: 'https://charlz.dev',
     githubUrl: 'https://github.com/charlzx/portfolio',
-    imageUrl: portfolioImg,
+    imageUrl: '/my-portfolio.webp',
   },
 ];
 

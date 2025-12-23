@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useSpring } from 'framer-motion';
 
 export const useMagneticEffect = (ref) => {
-    const x = useSpring(0, { stiffness: 150, damping: 15, mass: 0.1 });
-    const y = useSpring(0, { stiffness: 150, damping: 15, mass: 0.1 });
+    const x = useSpring(0, { stiffness: 300, damping: 30, mass: 0.5 });
+    const y = useSpring(0, { stiffness: 300, damping: 30, mass: 0.5 });
 
     useEffect(() => {
         const el = ref.current;
@@ -16,8 +16,8 @@ export const useMagneticEffect = (ref) => {
             const distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
 
             if (distance < rect.width * 1.5) { // Activation distance
-                x.set((e.clientX - centerX) * 0.2);
-                y.set((e.clientY - centerY) * 0.2);
+                x.set((e.clientX - centerX) * 0.25);
+                y.set((e.clientY - centerY) * 0.25);
             } else {
                 x.set(0);
                 y.set(0);

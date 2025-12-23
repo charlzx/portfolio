@@ -1,8 +1,12 @@
+'use client';
+
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { SunIcon, MoonIcon, GithubIcon } from './Icons';
 import { useScrollPosition } from '../hooks/useScrollPosition';
+import { useTheme } from '../context/ThemeContext';
 
 const Path = props => (
   <motion.path
@@ -41,13 +45,14 @@ const MenuToggle = ({ toggle }) => (
   </button>
 );
 
-const Header = ({ onMenuClick, theme, toggleTheme, isMenuOpen }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+const Header = ({ onMenuClick, isMenuOpen }) => {
+    const router = useRouter();
+    const pathname = usePathname();
     const scrolled = useScrollPosition();
+    const { theme, toggleTheme } = useTheme();
 
     // Determine if we're on a page that should show navigation
-    const showNavigation = location.pathname !== '/terminal';
+    const showNavigation = pathname !== '/terminal';
 
     const navItems = [
         { to: '/about', label: 'About' },
@@ -77,13 +82,13 @@ const Header = ({ onMenuClick, theme, toggleTheme, isMenuOpen }) => {
     return (
         <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${headerBgClass} ${borderClass}`}>
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                 <button className={`flex items-center space-x-2 ${textColorClass}`} onClick={() => navigate('/')} data-cursorvariant="hover">
+                 <Link href="/" className={`flex items-center space-x-2 ${textColorClass}`} data-cursorvariant="hover">
                      <svg width="24" height="24" viewBox="0 0 100 100">
                         <path d="M20,80 L50,20 L80,80 Z" fill="none" stroke="#C51A24" strokeWidth="8"/>
                         <path d="M25,70 L75,70" fill="none" stroke="#C51A24" strokeWidth="8"/>
                     </svg>
                     {showNavigation && <span className="text-lg font-bold tracking-wider">CHARLZ</span>}
-                </button>
+                </Link>
                 <AnimatePresence>
                 {showNavigation && (
                     <motion.nav 
@@ -92,28 +97,26 @@ const Header = ({ onMenuClick, theme, toggleTheme, isMenuOpen }) => {
                         exit={{ opacity: 0, y: -20 }}
                         className={`hidden md:flex items-center space-x-2 backdrop-blur-sm ${navPillBg} border ${navPillBorder} p-1 rounded-full`}
                     >
-                        {navItems.map(item => (
-                            <NavLink 
-                                key={item.to} 
-                                to={item.to} 
-                                end={item.to.split('/').length <= 2}
-                                className={({ isActive }) => `relative text-sm uppercase tracking-widest transition-colors duration-300 px-4 py-2 rounded-full ${isActive ? 'text-white' : inactiveTextColor}`}
-                                data-cursorvariant="hover"
-                            >
-                                {({ isActive }) => (
-                                    <>
-                                        {isActive && (
-                                            <motion.span
-                                                className="absolute inset-0 rounded-full bg-[#C51A24]"
-                                                layoutId="active-pill"
-                                                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                                            />
-                                        )}
-                                        <span className="relative z-10">{item.label}</span>
-                                    </>
-                                )}
-                            </NavLink>
-                        ))}
+                        {navItems.map(item => {
+                            const isActive = pathname === item.to;
+                            return (
+                                <Link 
+                                    key={item.to} 
+                                    href={item.to} 
+                                    className={`relative text-sm uppercase tracking-widest transition-colors duration-300 px-4 py-2 rounded-full ${isActive ? 'text-white' : inactiveTextColor}`}
+                                    data-cursorvariant="hover"
+                                >
+                                    {isActive && (
+                                        <motion.span
+                                            className="absolute inset-0 rounded-full bg-[#C51A24]"
+                                            layoutId="active-pill"
+                                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                        />
+                                    )}
+                                    <span className="relative z-10">{item.label}</span>
+                                </Link>
+                            );
+                        })}
                     </motion.nav>
                 )}
                 </AnimatePresence>

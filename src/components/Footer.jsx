@@ -1,7 +1,11 @@
+'use client';
+
 import React from 'react';
 import { Github, Mail, Terminal } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
-const Footer = ({ theme }) => {
+const Footer = () => {
+    const { theme } = useTheme();
     const isDark = theme === 'dark';
     const borderColor = isDark ? 'border-white/10' : 'border-black/10';
     const textColor = isDark ? 'text-gray-400' : 'text-gray-600';
