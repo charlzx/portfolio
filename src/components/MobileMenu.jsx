@@ -1,7 +1,9 @@
-import React from 'react';
+'use client';
+
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { SunIcon, MoonIcon, GithubIcon } from './Icons';
+import { useTheme } from '../context/ThemeContext';
 
 const mobileNavVariants = {
   open: {
@@ -29,8 +31,9 @@ const mobileLinkVariants = {
   }
 };
 
-const MobileMenu = ({ isOpen, closeMenu, theme, toggleTheme }) => {
-    const navigate = useNavigate();
+const MobileMenu = ({ isOpen, closeMenu }) => {
+    const router = useRouter();
+    const { theme, toggleTheme } = useTheme();
 
     const navItems = [
         { to: '/about', label: 'About' },
@@ -39,7 +42,7 @@ const MobileMenu = ({ isOpen, closeMenu, theme, toggleTheme }) => {
     ];
 
     const handleNavigation = (to) => {
-        navigate(to);
+        router.push(to);
         closeMenu();
     };
 

@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+'use client';
+
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useMagneticEffect } from '../hooks/useMagneticEffect';
 
