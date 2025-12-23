@@ -2,7 +2,6 @@
 
 'use client';
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';

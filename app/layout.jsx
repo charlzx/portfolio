@@ -81,10 +81,6 @@ export default function RootLayout({ children }) {
     const smoothCursorY = useSpring(cursorY, { stiffness: 500, damping: 40 });
     const springConfig = { type: 'spring', stiffness: 200, damping: 20 };
 
-    const toggleTheme = () => {
-        setTheme(currentTheme => currentTheme === 'light' ? 'dark' : 'light');
-    };
-
     const themeClasses = theme === 'dark'
         ? 'bg-[#0D0D0D] text-white selection:bg-[#C51A24] selection:text-white'
         : 'bg-[#F5F5F5] text-black selection:bg-[#C51A24] selection:text-white';

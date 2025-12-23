@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { Mail, Send } from 'lucide-react';
-import { useEffect } from 'react';
 import MagneticButton from '../components/MagneticButton';
 import { useTheme } from '../context/ThemeContext';
 

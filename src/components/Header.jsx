@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { SunIcon, MoonIcon, GithubIcon } from './Icons';
+import { usePathname } from 'next/navigation';
+import { SunIcon, MoonIcon } from './Icons';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { useTheme } from '../context/ThemeContext';
 
@@ -46,7 +45,6 @@ const MenuToggle = ({ toggle }) => (
 );
 
 const Header = ({ onMenuClick, isMenuOpen }) => {
-    const router = useRouter();
     const pathname = usePathname();
     const scrolled = useScrollPosition();
     const { theme, toggleTheme } = useTheme();

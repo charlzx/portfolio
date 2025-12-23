@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Github, Mail, Terminal } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 

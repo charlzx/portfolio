@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Settings, X, Minus, Square } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Settings } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Projects from '../data/projects';
 import About from '../data/about';
