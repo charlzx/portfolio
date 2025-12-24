@@ -5,7 +5,7 @@ import About from "@/data/about";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="px-6 md:px-12 lg:px-24 py-20">
+    <section id="about" className="px-4 md:px-12 lg:px-24 py-20">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <div className="text-muted-foreground text-sm mb-6">

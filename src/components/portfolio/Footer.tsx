@@ -8,7 +8,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="px-6 md:px-12 lg:px-24 py-8 border-t border-border">
+    <footer className="px-4 md:px-12 lg:px-24 py-8 border-t border-border">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="text-muted-foreground text-sm text-center md:text-left">
           <span className="text-primary">&gt;</span> © {currentYear} Charlz. <span className="block sm:inline">All rights reserved.</span>

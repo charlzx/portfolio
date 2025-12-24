@@ -30,7 +30,7 @@ const SkillsSection = () => {
   const showTabs = categories.length > 1;
 
   return (
-    <section id="skills" className="px-6 md:px-12 lg:px-24 py-20">
+    <section id="skills" className="px-4 md:px-12 lg:px-24 py-20">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <div className="text-muted-foreground text-sm mb-6 text-center">
@@ -44,9 +44,9 @@ const SkillsSection = () => {
             Technologies and Tools
           </h2>
 
-          {/* Category Tabs - Only show if multiple categories */}
+          {/* Category Tabs - Only show if multiple categories and on desktop */}
           {showTabs && (
-            <div className="flex justify-center gap-4 mb-12">
+            <div className="hidden md:flex justify-center gap-4 mb-12">
               {categories.map((category) => (
                 <motion.button
                   key={category.id}

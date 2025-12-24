@@ -45,7 +45,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="px-6 md:px-12 lg:px-24 py-20">
+    <section id="contact" className="px-4 md:px-12 lg:px-24 py-20">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <div className="text-muted-foreground text-sm mb-6">

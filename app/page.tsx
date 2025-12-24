@@ -13,7 +13,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
-      <main className="pt-16">\n        <HeroSection />
+      <main className="pt-16">
+        <HeroSection />
         <AboutSection />
         <ProjectsSection />
         <SkillsSection />
