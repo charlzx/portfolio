@@ -103,7 +103,7 @@ const HeroSection = () => {
           <motion.button 
             onClick={() => handleNavigate("projects")}
             data-cursorvariant="hover"
-            className="px-6 py-3 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
+            className="px-6 py-3 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -112,7 +112,7 @@ const HeroSection = () => {
           <motion.button 
             onClick={() => handleNavigate("contact")}
             data-cursorvariant="hover"
-            className="px-6 py-3 border border-primary text-primary hover:bg-primary/10 transition-colors"
+            className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

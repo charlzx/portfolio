@@ -10,8 +10,8 @@ const Footer = () => {
   return (
     <footer className="px-6 md:px-12 lg:px-24 py-8 border-t border-border">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="text-muted-foreground text-sm">
-          <span className="text-primary">&gt;</span> © {currentYear} Charlz. All rights reserved.
+        <div className="text-muted-foreground text-sm text-center md:text-left">
+          <span className="text-primary">&gt;</span> © {currentYear} Charlz. <span className="block sm:inline">All rights reserved.</span>
         </div>
         
         <div className="flex items-center gap-4 text-muted-foreground text-xs">
@@ -27,6 +27,7 @@ const Footer = () => {
           >
             <Terminal size={14} />
           </Link>
+          <span>|</span>
           <ThemeSelector iconOnly />
         </div>
       </div>

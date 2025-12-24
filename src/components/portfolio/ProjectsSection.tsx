@@ -44,7 +44,7 @@ const ProjectsSection = () => {
                 <motion.button
                   key={category.id}
                   onClick={() => setActiveTab(category.id)}
-                  className={`px-6 py-3 font-semibold transition-colors ${
+                  className={`px-6 py-3 rounded-md text-xs font-semibold transition-colors ${
                     activeTab === category.id
                       ? 'bg-primary text-primary-foreground'
                       : 'border border-primary text-primary hover:bg-primary/10'
@@ -53,7 +53,7 @@ const ProjectsSection = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  [{category.id}_projects]
+                  [{category.id}]
                 </motion.button>
               ))}
             </div>
@@ -75,7 +75,7 @@ const ProjectsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-50px" }}
               transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-              className="bg-card border border-border hover:border-primary/50 transition-all duration-300 overflow-hidden"
+              className="bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-300 overflow-hidden"
               data-cursorvariant="hover"
             >
               {/* Project Image */}

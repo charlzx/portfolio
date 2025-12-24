@@ -26,7 +26,7 @@ const ExperienceSection = () => {
             {Experience.map((exp, index) => (
               <motion.div 
                 key={index}
-                className="p-4 bg-card border border-border hover:border-primary/50 transition-all duration-300"
+                className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: "-50px" }}

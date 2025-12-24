@@ -72,7 +72,7 @@ const ThemeSelector = ({ iconOnly = false }: ThemeSelectorProps) => {
                         onClick={() => handleThemeSelect(themeKey)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className={`p-4 border-2 transition-colors text-left relative ${
+                        className={`p-4 rounded-lg border-2 transition-colors text-left relative ${
                           theme === themeKey
                             ? "border-primary bg-primary/10"
                             : "border-border hover:border-primary/50 bg-secondary"

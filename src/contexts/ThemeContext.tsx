@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-export type ThemeColor = "amber" | "white" | "matrix" | "red" | "cyan" | "purple" | "light";
+export type ThemeColor = "amber" | "monochrome" | "navy" | "sunset" | "forest" | "lavender" | "peach";
 
 interface ThemeContextType {
   theme: ThemeColor;
@@ -13,24 +13,25 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const themeColors: Record<ThemeColor, { primary: string; accent: string; name: string; isLight?: boolean }> = {
   amber: { primary: "45 100% 50%", accent: "45 100% 50%", name: "Amber" },
-  white: { primary: "0 0% 95%", accent: "0 0% 85%", name: "Monochrome" },
-  matrix: { primary: "120 100% 50%", accent: "120 100% 40%", name: "Matrix" },
-  red: { primary: "0 80% 55%", accent: "0 70% 50%", name: "Crimson" },
-  cyan: { primary: "185 100% 50%", accent: "185 100% 40%", name: "Cyan" },
-  purple: { primary: "270 70% 60%", accent: "270 70% 50%", name: "Purple" },
-  light: { primary: "220 80% 50%", accent: "220 80% 50%", name: "Light", isLight: true },
+  monochrome: { primary: "0 0% 20%", accent: "0 0% 30%", name: "Monochrome", isLight: true },
+  navy: { primary: "220 90% 35%", accent: "220 90% 30%", name: "Navy", isLight: true },
+  sunset: { primary: "15 100% 60%", accent: "15 100% 55%", name: "Sunset" },
+  forest: { primary: "130 100% 55%", accent: "130 100% 50%", name: "Forest" },
+  lavender: { primary: "270 100% 75%", accent: "270 100% 70%", name: "Lavender" },
+  peach: { primary: "25 90% 45%", accent: "25 90% 40%", name: "Peach", isLight: true },
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<ThemeColor>("white");
+  const [theme, setTheme] = useState<ThemeColor>("monochrome");
   const [mounted, setMounted] = useState(false);
 
   // Handle hydration
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("portfolio-theme");
-    if (saved) {
-      setTheme(saved as ThemeColor);
+    const saved = localStorage.getItem("portfolio-theme") as ThemeColor;
+    // Validate saved theme exists in current theme options
+    if (saved && themeColors[saved]) {
+      setTheme(saved);
     }
   }, []);
 
@@ -41,13 +42,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const root = document.documentElement;
     const colors = themeColors[theme];
     
-    // Toggle light/dark class
+    // Safety check
+    if (!colors) return;
+    
+    // Remove all theme classes
+    root.classList.remove("light", "dark", "navy", "sunset", "forest", "lavender", "peach");
+    
+    // Add appropriate theme class
     if (colors.isLight) {
-      root.classList.add("light");
-      root.classList.remove("dark");
+      root.classList.add(theme);
     } else {
-      root.classList.add("dark");
-      root.classList.remove("light");
+      root.classList.add("dark", theme);
     }
     
     root.style.setProperty("--primary", colors.primary);

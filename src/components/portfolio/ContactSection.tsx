@@ -76,7 +76,7 @@ const ContactSection = () => {
                   href="https://github.com/charlzx"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 bg-secondary hover:bg-secondary/80 transition-colors group"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors group"
                   whileHover={{ x: 5 }}
                 >
                   <Github className="text-primary" size={20} />
@@ -148,7 +148,7 @@ const ContactSection = () => {
                     placeholder="Your Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded-md focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
                     required
                     data-cursorvariant="hover"
                   />
@@ -165,7 +165,7 @@ const ContactSection = () => {
                     placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded-md focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
                     required
                     data-cursorvariant="hover"
                   />
@@ -182,7 +182,7 @@ const ContactSection = () => {
                     placeholder="Your message..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground resize-none"
+                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded-md focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground resize-none"
                     required
                     data-cursorvariant="hover"
                   />
@@ -191,7 +191,7 @@ const ContactSection = () => {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-background font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-primary text-background font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                   data-cursorvariant="hover"
                 >
                   <Send size={16} />

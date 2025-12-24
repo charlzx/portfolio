@@ -92,7 +92,7 @@ const Navigation = () => {
                   key={item.name}
                   onClick={(e) => handleNavClick(e, item.href)}
                   data-cursorvariant="hover"
-                  className="px-3 py-2 text-muted-foreground hover:text-primary transition-colors text-sm"
+                  className="px-3 py-2 rounded-md text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
                   <span className="text-border">[</span>
                   {item.name}
