@@ -2,10 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [],
-    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [],
   },
+};
 
-}
-
-export default nextConfig
+export default nextConfig;
