@@ -83,14 +83,14 @@ const SkillsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="bg-card border-l-4 border-l-primary border-y border-r border-border hover:bg-card/50 p-4 transition-all duration-300 group"
+                className="bg-card border-l-4 border-l-primary border-y border-r border-border hover:bg-card/50 p-3 md:p-4 transition-all duration-300 group"
                 data-cursorvariant="hover"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                   <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                     {IconComponent && <IconComponent />}
                   </div>
-                  <div className="text-foreground font-semibold text-sm whitespace-nowrap">
+                  <div className="text-foreground font-semibold text-sm break-words min-w-0">
                     {skill.name}
                   </div>
                 </div>

@@ -33,11 +33,19 @@ const ExperienceSection = () => {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 whileHover={{ y: -2 }}
               >
+                {/* Period badge - shows on top for mobile */}
+                <div className="mb-3 md:hidden">
+                  <span className="inline-block text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">
+                    {exp.period}
+                  </span>
+                </div>
+
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <h3 className="text-foreground font-semibold leading-tight">
                     {exp.role}
                   </h3>
-                  <span className="text-xs font-mono text-primary whitespace-nowrap">
+                  {/* Period on the right for desktop */}
+                  <span className="hidden md:block text-xs font-mono text-primary whitespace-nowrap">
                     {exp.period}
                   </span>
                 </div>
