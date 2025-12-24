@@ -70,18 +70,19 @@ const HeroSection = () => {
               repeatDelay: 1,
               ease: "easeInOut"
             }}
-          >👋🏾</motion.span>,
+            aria-label="waving hand"
+          >👋🏾</motion.span>, I'm Charlz
         </motion.h1>
         
-        <motion.p 
+        <motion.h2 
           className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
         >
           {displayText}
-          <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} text-primary`}>▋</span>
-        </motion.p>
+          <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} text-primary`} aria-hidden="true">▋</span>
+        </motion.h2>
         
         <motion.div 
           className="text-muted-foreground text-sm space-y-1"

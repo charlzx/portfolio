@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const themeColors: Record<ThemeColor, { primary: string; accent: string; name: string; isLight?: boolean }> = {
   amber: { primary: "45 100% 50%", accent: "45 100% 50%", name: "Amber" },
-  monochrome: { primary: "0 0% 20%", accent: "0 0% 30%", name: "Monochrome", isLight: true },
+  monochrome: { primary: "0 0% 95%", accent: "0 0% 85%", name: "Monochrome" },
   navy: { primary: "220 90% 35%", accent: "220 90% 30%", name: "Navy", isLight: true },
   sunset: { primary: "15 100% 60%", accent: "15 100% 55%", name: "Sunset" },
   forest: { primary: "130 100% 55%", accent: "130 100% 50%", name: "Forest" },

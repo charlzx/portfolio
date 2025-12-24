@@ -6,32 +6,79 @@ import Providers from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Charlz - Frontend Developer Portfolio",
-  description: "Frontend developer focused on building beautiful interfaces for the web. Specializing in React, Next.js, and Tailwind CSS.",
-  keywords: ['Frontend Developer', 'React', 'Next.js', 'Tailwind CSS', 'Portfolio', 'Web Development', 'Charles Obuzor', 'UI', 'UX', 'JavaScript', 'TypeScript'],
-  authors: [{ name: 'Charles Obuzor' }],
+  metadataBase: new URL('https://charlz.dev'),
+  title: {
+    default: 'Charlz - Frontend Developer',
+    template: '%s | Charlz Portfolio',
+  },
+  description: 'Frontend developer and UI engineer specializing in React, Next.js, TypeScript, and Tailwind CSS. Building beautiful, accessible, and performant web applications with modern technologies.',
+  keywords: [
+    'Frontend Developer',
+    'React Developer',
+    'Next.js Developer',
+    'TypeScript',
+    'Tailwind CSS',
+    'Web Development',
+    'Charles Obuzor',
+    'Charlz',
+    'Portfolio',
+    'UI/UX Design',
+    'JavaScript',
+    'Full Stack Developer',
+    'Software Engineer',
+    'Web Designer',
+  ],
+  authors: [{ name: 'Charles Obuzor', url: 'https://charlz.dev' }],
   creator: 'Charles Obuzor',
+  publisher: 'Charles Obuzor',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
   openGraph: {
-    title: "Charlz - Frontend Developer Portfolio",
-    description: "Frontend developer specializing in React, Next.js, and Tailwind CSS. Building beautiful, responsive web experiences.",
-    url: 'https://charlz.dev',
-    siteName: "Charlz's Portfolio",
-    locale: 'en_US',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://charlz.dev',
+    title: 'Charlz - Frontend Developer & UI Engineer',
+    description: 'Frontend developer specializing in React, Next.js, and TypeScript. Building beautiful, accessible web experiences.',
+    siteName: "Charlz's Portfolio",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Charlz - Frontend Developer Portfolio',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Charlz - Frontend Developer Portfolio",
-    description: "Frontend developer specializing in React, Next.js, and Tailwind CSS",
-    creator: '@charlzx',
+    title: 'Charlz - Frontend Developer & UI Engineer',
+    description: 'Frontend developer specializing in React, Next.js, and TypeScript. Building beautiful web experiences.',
+    creator: '@charlzObuzor',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
+  alternates: {
+    canonical: 'https://charlz.dev',
+  },
+  category: 'technology',
 };
 
 export default function RootLayout({
@@ -39,8 +86,43 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Charles Obuzor',
+    alternateName: 'Charlz',
+    url: 'https://charlz.dev',
+    image: 'https://charlz.dev/og-image.png',
+    jobTitle: 'Frontend Developer',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Freelance',
+    },
+    sameAs: [
+      'https://github.com/charlzx',
+      'https://twitter.com/charlzObuzor',
+      'https://linkedin.com/in/charlzObuzor',
+    ],
+    knowsAbout: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'Tailwind CSS',
+      'Frontend Development',
+      'UI/UX Design',
+      'Web Development',
+    ],
+  };
+
   return (
     <html lang="en" className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <Providers>
           {children}
