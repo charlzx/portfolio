@@ -1,14 +1,51 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import TerminalWindow from "./TerminalWindow";
 import AnimatedSection from "./AnimatedSection";
-import { Github, Mail } from "lucide-react";
+import { Github, Mail, Send } from "lucide-react";
 import XLogo from "@/components/icons/XLogo";
 
 const ContactSection = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    if (status !== 'success') return;
+    const timer = setTimeout(() => setStatus('idle'), 3000);
+    return () => clearTimeout(timer);
+  }, [status]);
+
+  const FORMSPREE_ID = 'mandvdpe';
+  const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+      if (res.ok) {
+        setStatus('success');
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
   return (
-    <section id="contact" className="px-6 md:px-12 lg:px-24 py-20 bg-card/50">
+    <section id="contact" className="px-6 md:px-12 lg:px-24 py-20">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <div className="text-muted-foreground text-sm mb-6">
@@ -19,9 +56,10 @@ const ContactSection = () => {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.1}>
-          <TerminalWindow title="contact.sh">
-            <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column - Contact Info */}
+          <AnimatedSection delay={0.1}>
+            <div className="space-y-6 flex flex-col justify-center h-full">
               <div>
                 <p className="text-foreground mb-4">
                   <span className="text-primary">&gt;</span> If you want to collaborate or talk shop, you can contact me.
@@ -71,14 +109,14 @@ const ContactSection = () => {
                 </motion.a>
 
                 <motion.a 
-                  href="mailto:hello@charlz.dev"
+                  href="mailto:charlesobuzor@outlook.com"
                   className="flex items-center gap-3 p-3 bg-secondary hover:bg-secondary/80 transition-colors group"
                   whileHover={{ x: 5 }}
                 >
                   <Mail className="text-primary" size={20} />
                   <div>
                     <p className="text-foreground font-medium group-hover:text-primary transition-colors">
-                      hello@charlz.dev
+                      charlesobuzor@outlook.com
                     </p>
                     <p className="text-muted-foreground text-xs">
                       Send me an email
@@ -93,8 +131,87 @@ const ContactSection = () => {
                 </p>
               </div>
             </div>
-          </TerminalWindow>
-        </AnimatedSection>
+          </AnimatedSection>
+
+          {/* Right Column - Contact Form */}
+          <AnimatedSection delay={0.2}>
+            <TerminalWindow title="send-message.sh">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="text-muted-foreground text-xs mb-2 block">
+                    <span className="text-primary">&gt;</span> Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                    required
+                    data-cursorvariant="hover"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="text-muted-foreground text-xs mb-2 block">
+                    <span className="text-primary">&gt;</span> Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                    required
+                    data-cursorvariant="hover"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="text-muted-foreground text-xs mb-2 block">
+                    <span className="text-primary">&gt;</span> Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    placeholder="Your message..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground resize-none"
+                    required
+                    data-cursorvariant="hover"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === 'sending'}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-background font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                  data-cursorvariant="hover"
+                >
+                  <Send size={16} />
+                  {status === 'sending' ? 'Sending...' : 'Send Message'}
+                </button>
+
+                {status === 'success' && (
+                  <p className="text-green-500 text-sm">
+                    <span className="text-primary">&gt;</span> Message sent successfully!
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="text-red-500 text-sm">
+                    <span className="text-primary">&gt;</span> Error sending message. Please try again.
+                  </p>
+                )}
+              </form>
+            </TerminalWindow>
+          </AnimatedSection>
+        </div>
       </div>
     </section>
   );

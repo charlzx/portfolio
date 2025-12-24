@@ -6,10 +6,9 @@ import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const navItems = [
   { name: "about", href: "about" },
+  { name: "projects", href: "projects" },
   { name: "skills", href: "skills" },
   { name: "experience", href: "experience" },
-  { name: "projects", href: "projects" },
-  { name: "education", href: "education" },
   { name: "contact", href: "contact" },
 ];
 
@@ -60,7 +59,8 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { scrollTo } = useSmoothScroll();
 
-  const handleNavClick = (sectionId: string) => {
+  const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
     scrollTo(sectionId);
     setIsOpen(false);
   };
@@ -70,27 +70,34 @@ const Navigation = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
         <div className="px-6 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto flex items-center justify-between h-16">
-            <a href="#" className="flex items-center gap-2" data-cursorvariant="hover">
+            <button 
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex items-center gap-2" 
+              data-cursorvariant="hover"
+            >
               <svg width="24" height="24" viewBox="0 0 100 100">
                 <path d="M20,80 L50,20 L80,80 Z" fill="none" className="stroke-primary" strokeWidth="8"/>
                 <path d="M25,70 L75,70" fill="none" className="stroke-primary" strokeWidth="8"/>
               </svg>
               <span className="text-lg font-bold tracking-wider">CHARLZ</span>
-            </a>
+            </button>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => (
-                <span
+                <button
                   key={item.name}
-                  onClick={() => handleNavClick(item.href)}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   data-cursorvariant="hover"
-                  className="px-3 py-2 text-muted-foreground hover:text-primary transition-colors text-sm cursor-pointer"
+                  className="px-3 py-2 text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
                   <span className="text-border">[</span>
                   {item.name}
                   <span className="text-border">]</span>
-                </span>
+                </button>
               ))}
             </div>
 
@@ -121,10 +128,10 @@ const Navigation = () => {
               }}
             >
               {navItems.map((item) => (
-                <motion.span
+                <motion.button
                   key={item.name}
-                  onClick={() => handleNavClick(item.href)}
-                  className="text-2xl md:text-3xl text-muted-foreground hover:text-primary transition-colors cursor-pointer font-mono"
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-2xl md:text-3xl text-muted-foreground hover:text-primary transition-colors font-mono"
                   variants={{
                     open: { y: 0, opacity: 1 },
                     closed: { y: 20, opacity: 0 }
@@ -133,7 +140,7 @@ const Navigation = () => {
                   <span className="text-border">[</span>
                   {item.name}
                   <span className="text-border">]</span>
-                </motion.span>
+                </motion.button>
               ))}
             </motion.div>
           </motion.div>

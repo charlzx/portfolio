@@ -6,22 +6,16 @@ const Projects = [
     liveUrl: 'https://crwn3.vercel.app/',
     githubUrl: 'https://github.com/charlzx/shop',
     imageUrl: '/crwn3.webp',
+    category: 'personal',
   },
-  {
-    title: 'SMART GYM',
-    description: 'A responsive fitness website featuring workout program sections, class schedules, and modern UI components for an engaging user experience.',
-    technologies: ['React', 'Vite', 'Tailwind', 'Rechart.js', 'React-Icons'],
-    liveUrl: 'https://gymx.vercel.app/',
-    githubUrl: 'https://github.com/charlzx/gym-app',
-    imageUrl: '/gymx.webp',
-  },
-  {
+   {
     title: 'HEIRSWEALTH',
     description: 'A full-spectrum solar energy company offering residential, industrial, and community installations, delivering sustainable, cost-efficient power systems to empower clients long-term.',
     technologies: ['React', 'Vite', 'Tailwind', 'Framer Motion'],
     liveUrl: 'https://heirswealth.com',
     githubUrl: '',
     imageUrl: '/heirswealth.webp',
+    category: 'personal',
   },
   {
     title: 'GTA Radio',
@@ -30,6 +24,16 @@ const Projects = [
     liveUrl: 'https://gta-live.vercel.app/',
     githubUrl: 'https://github.com/charlzx/gta-radio',
     imageUrl: '/radio.webp',
+    category: 'personal',
+  },
+  {
+    title: 'SMART GYM',
+    description: 'A responsive fitness website featuring workout program sections, class schedules, and modern UI components for an engaging user experience.',
+    technologies: ['React', 'Vite', 'Tailwind', 'Rechart.js'],
+    liveUrl: 'https://gymx.vercel.app/',
+    githubUrl: 'https://github.com/charlzx/gym-app',
+    imageUrl: '/gymx.webp',
+    category: 'personal',
   },
   {
     title: 'SOLISYS',
@@ -38,6 +42,7 @@ const Projects = [
     liveUrl: 'https://solisys.vercel.app/',
     githubUrl: 'https://github.com/charlzx/solisys',
     imageUrl: '/solisys.webp',
+    category: 'collaborations',
   },
   {
     title: 'My Portfolio',
@@ -46,6 +51,7 @@ const Projects = [
     liveUrl: 'https://charlz.dev',
     githubUrl: 'https://github.com/charlzx/portfolio',
     imageUrl: '/my-portfolio.webp',
+    category: 'personal',
   },
 ];
 

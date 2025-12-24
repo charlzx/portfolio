@@ -72,7 +72,7 @@ const ThemeSelector = ({ iconOnly = false }: ThemeSelectorProps) => {
                         onClick={() => handleThemeSelect(themeKey)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className={`p-4 border transition-colors text-left ${
+                        className={`p-4 border-2 transition-colors text-left relative ${
                           theme === themeKey
                             ? "border-primary bg-primary/10"
                             : "border-border hover:border-primary/50 bg-secondary"
@@ -80,7 +80,9 @@ const ThemeSelector = ({ iconOnly = false }: ThemeSelectorProps) => {
                       >
                         <div className="flex items-center gap-3">
                           <div
-                            className="w-4 h-4 rounded-full"
+                            className={`w-4 h-4 rounded-full ${
+                              theme === themeKey ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : ""
+                            }`}
                             style={{
                               backgroundColor: `hsl(${themeColors[themeKey].primary})`,
                             }}
@@ -92,11 +94,6 @@ const ThemeSelector = ({ iconOnly = false }: ThemeSelectorProps) => {
                             {themeColors[themeKey].name}
                           </span>
                         </div>
-                        {theme === themeKey && (
-                          <p className="text-xs text-muted-foreground mt-2">
-                            [active]
-                          </p>
-                        )}
                       </motion.button>
                     ))}
                   </div>

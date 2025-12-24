@@ -7,6 +7,22 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { useInteractiveCursor } from "@/hooks/useInteractiveCursor";
 import Preloader from "@/components/portfolio/Preloader";
 
+// Grid Pattern Background Component
+const GridPatternBackground = () => {
+  return (
+    <div 
+      className="fixed inset-0 z-0 pointer-events-none"
+      style={{
+        backgroundImage: `
+          linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+        `,
+        backgroundSize: '40px 40px'
+      }}
+    />
+  );
+};
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true to avoid flash
@@ -29,6 +45,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
       <div className={`relative min-h-screen ${!isTouchDevice && !isTerminalPage ? 'cursor-none' : 'cursor-auto'}`}>
+        {/* Grid Pattern Background */}
+        {!isTerminalPage && <GridPatternBackground />}
+        
         {/* Custom Cursor */}
         {!isTouchDevice && !isTerminalPage && (
           <motion.div
@@ -49,7 +68,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           {isLoading && <Preloader />}
         </AnimatePresence>
         
-        {!isLoading && children}
+        <div className="relative z-10">
+          {!isLoading && children}
+        </div>
       </div>
     </ThemeProvider>
   );
