@@ -36,7 +36,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-4 md:px-12 lg:px-24 py-20 relative">
+    <section className="min-h-screen flex flex-col justify-center px-4 md:px-12 lg:px-24 py-16 md:py-20 relative">
       <motion.div 
         className="max-w-6xl mx-auto w-full"
         initial={{ opacity: 0, y: 30 }}
@@ -75,7 +75,7 @@ const HeroSection = () => {
         </motion.h1>
         
         <motion.h2 
-          className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-8"
+          className="text-2xl md:text-4xl lg:text-5xl text-foreground font-bold mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
