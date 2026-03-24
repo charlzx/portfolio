@@ -751,7 +751,7 @@ export default function Portfolio() {
             maxWidth: "52ch",
             marginBottom: 40,
           }}>
-            I build frontend the way I play chess; deliberate, clean, always thinking ahead.
+            I build stuffs
             <br />
             <span style={{ color: "var(--fg)", fontWeight: 600 }}>
               React · Next.js · React Native · TypeScript.
