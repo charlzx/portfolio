@@ -739,8 +739,7 @@ export default function Portfolio() {
             color: "var(--fg)",
             marginBottom: 28,
           }}>
-            Charles<br />
-            <span style={{ color: "var(--fg3)" }}>Obuzor.</span>
+            Charles <span style={{ color: "var(--fg3)" }}>Obuzor.</span>
           </h1>
 
           <p className="a3" style={{
