@@ -778,7 +778,11 @@ export default function Portfolio() {
               lineHeight: 1.75,
               color: "var(--fg2)",
             }}>
-              When I&apos;m not debugging code or exploring new technologies, I read books, scroll online, test UI layouts, listen to music or play chess. I treat frontend development as a craft — something I do to stay sharp and think clearly.
+              When I&apos;m not debugging code or exploring new technologies, I read books, scroll online, test UI layouts, listen to{" "}
+              <a href="https://open.spotify.com/user/s76ocb47g23yzpwrf939hyvvw" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}>music</a>
+              {" "}or play{" "}
+              <a href="https://www.chess.com/member/charlz-x" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}>chess</a>
+              . I treat frontend development as a craft — something I do to stay sharp and think clearly.
             </p>
           </div>
         </Reveal>
