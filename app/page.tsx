@@ -937,26 +937,11 @@ export default function Portfolio() {
           © {new Date().getFullYear()} Charles Obuzor
         </span>
 
-        <div style={{ display: "flex", gap: 24, flexWrap: "wrap", alignItems: "center" }}>
-          {[
-            { label: "about", href: "#about" },
-            { label: "projects", href: "/projects" },
-            { label: "skills", href: "#skills" },
-            { label: "contact", href: "#contact" },
-          ].map(l => (
-            <a key={l.label} href={l.href} className="nb-footer-link">{l.label}</a>
-          ))}
-        </div>
-
-        <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-          <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" className="nb-footer-link">GitHub ↗</a>
-          <a href="https://x.com/charlzObuzor" target="_blank" rel="noreferrer" className="nb-footer-link">X ↗</a>
-          <a
-            href="#about"
-            className="nb-footer-link"
-            onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-          >↑ top</a>
-        </div>
+        <a
+          href="#about"
+          className="nb-footer-link"
+          onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+        >↑ top</a>
       </footer>
     </div>
   );
