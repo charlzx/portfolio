@@ -76,85 +76,132 @@ function ContactForm() {
     }
   };
 
+  const tapeStyle: React.CSSProperties = {
+    position: "absolute",
+    width: 64,
+    height: 28,
+    background: "rgba(255,255,240,0.58)",
+    border: "1px solid rgba(220,210,150,0.5)",
+    borderRadius: 2,
+    boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+  };
+
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 560, display: "flex", flexDirection: "column", gap: 20 }}>
+    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%" }}>
       <style>{`
-        .nb-input {
+        .nb-cf-input {
           font-family: var(--font-hand);
           font-size: clamp(22px, 2.2vw, 24px);
-          color: var(--fg);
+          color: #1a1400;
           background: transparent;
           border: none;
-          border-bottom: 1.5px solid var(--border);
+          border-bottom: 1.5px solid rgba(0,0,0,0.18);
           outline: none;
           padding: 8px 0;
           width: 100%;
           transition: border-color 0.2s;
         }
-        .nb-input::placeholder { color: var(--fg3); }
-        .nb-input:focus { border-bottom-color: var(--fg2); }
-        .nb-textarea {
+        .nb-cf-input::placeholder { color: #8a7a30; }
+        .nb-cf-input:focus { border-bottom-color: rgba(0,0,0,0.45); }
+        .nb-cf-textarea {
           font-family: var(--font-hand);
           font-size: clamp(22px, 2.2vw, 24px);
-          color: var(--fg);
+          color: #1a1400;
           background: transparent;
           border: none;
-          border-bottom: 1.5px solid var(--border);
+          border-bottom: 1.5px solid rgba(0,0,0,0.18);
           outline: none;
           padding: 8px 0;
           width: 100%;
           resize: none;
-          min-height: 120px;
+          min-height: 130px;
           transition: border-color 0.2s;
         }
-        .nb-textarea::placeholder { color: var(--fg3); }
-        .nb-textarea:focus { border-bottom-color: var(--fg2); }
+        .nb-cf-textarea::placeholder { color: #8a7a30; }
+        .nb-cf-textarea:focus { border-bottom-color: rgba(0,0,0,0.45); }
+        .nb-cf-btn {
+          font-family: var(--font-hand);
+          font-size: clamp(22px, 2.2vw, 24px);
+          font-weight: 700;
+          color: #1a1400;
+          background: rgba(0,0,0,0.08);
+          border: 1.5px solid rgba(0,0,0,0.2);
+          border-radius: 4px;
+          padding: 8px 24px;
+          cursor: pointer;
+          transition: background 0.2s, border-color 0.2s;
+        }
+        .nb-cf-btn:hover { background: rgba(0,0,0,0.14); border-color: rgba(0,0,0,0.35); }
+        .nb-cf-btn:disabled { opacity: 0.55; cursor: not-allowed; }
       `}</style>
-      <input
-        className="nb-input"
-        type="text"
-        name="name"
-        placeholder="Your name"
-        value={form.name}
-        onChange={handleChange}
-        required
-        disabled={status === "sending"}
-      />
-      <input
-        className="nb-input"
-        type="email"
-        name="email"
-        placeholder="Your email"
-        value={form.email}
-        onChange={handleChange}
-        required
-        disabled={status === "sending"}
-      />
-      <textarea
-        className="nb-textarea"
-        name="message"
-        placeholder="Your message"
-        value={form.message}
-        onChange={handleChange}
-        required
-        disabled={status === "sending"}
-      />
-      <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
-        <button type="submit" className="nb-btn" disabled={status === "sending"} style={{ opacity: status === "sending" ? 0.6 : 1 }}>
-          {status === "sending" ? "Sending…" : "Send message →"}
-        </button>
-        {status === "success" && (
-          <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#22c55e" }}>
-            Message sent!
-          </span>
-        )}
-        {status === "error" && (
-          <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#ef4444" }}>
-            Something went wrong. Try again.
-          </span>
-        )}
-      </div>
-    </form>
+
+      {/* Tape — top left */}
+      <div style={{ ...tapeStyle, top: -14, left: 24, transform: "rotate(-42deg)" }} />
+      {/* Tape — bottom right */}
+      <div style={{ ...tapeStyle, bottom: -14, right: 24, transform: "rotate(-42deg)" }} />
+
+      {/* Sticky note card */}
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          background: "#fde84b",
+          borderRadius: 2,
+          padding: "40px 36px 36px",
+          boxShadow:
+            "0 1px 2px rgba(0,0,0,0.07), 0 4px 10px rgba(0,0,0,0.10), 0 12px 28px rgba(0,0,0,0.12), 2px 16px 32px rgba(180,140,0,0.10)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 22,
+          transform: "rotate(-1.2deg)",
+          transformOrigin: "center center",
+        }}
+      >
+        <input
+          className="nb-cf-input"
+          type="text"
+          name="name"
+          placeholder="Your name"
+          value={form.name}
+          onChange={handleChange}
+          required
+          disabled={status === "sending"}
+        />
+        <input
+          className="nb-cf-input"
+          type="email"
+          name="email"
+          placeholder="Your email"
+          value={form.email}
+          onChange={handleChange}
+          required
+          disabled={status === "sending"}
+        />
+        <textarea
+          className="nb-cf-textarea"
+          name="message"
+          placeholder="Your message"
+          value={form.message}
+          onChange={handleChange}
+          required
+          disabled={status === "sending"}
+        />
+        <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+          <button type="submit" className="nb-cf-btn" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : "Send message →"}
+          </button>
+          {status === "success" && (
+            <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#166534" }}>
+              Message sent!
+            </span>
+          )}
+          {status === "error" && (
+            <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#991b1b" }}>
+              Something went wrong. Try again.
+            </span>
+          )}
+        </div>
+      </form>
+    </div>
   );
 }
 
