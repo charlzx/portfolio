@@ -733,7 +733,7 @@ export default function Portfolio() {
           <h1 className="a2" style={{
             fontFamily: "var(--font-head)",
             fontWeight: 700,
-            fontSize: "clamp(56px, 9vw, 120px)",
+            fontSize: "clamp(44px, 6.5vw, 88px)",
             letterSpacing: "-0.038em",
             lineHeight: 1.0,
             color: "var(--fg)",
