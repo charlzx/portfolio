@@ -327,14 +327,15 @@ export default function Portfolio() {
         @media (max-width: 540px) { .nb-skills-grid { grid-template-columns: 1fr; } }
 
         .nb-skills-cat {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 24px);
-          color: var(--fg3);
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
+          font-family: var(--font-head);
+          font-size: clamp(32px, 4.5vw, 58px);
+          font-weight: 700;
+          letter-spacing: -0.025em;
+          color: var(--fg);
           border-bottom: 1.5px solid var(--border);
           padding-bottom: 6px;
           margin-bottom: 14px;
+          line-height: 1.1;
         }
 
         .nb-skill-item {
@@ -682,7 +683,7 @@ export default function Portfolio() {
           <p className="nb-label">— 03 / contact</p>
         </Reveal>
 
-        <div style={{ maxWidth: 640 }}>
+        <div>
           <Reveal delay={0.05}>
             <h2 style={{
               fontFamily: "var(--font-head)",
@@ -692,6 +693,7 @@ export default function Portfolio() {
               lineHeight: 1.02,
               color: "var(--fg)",
               marginBottom: 24,
+              whiteSpace: "nowrap",
             }}>
               Let&apos;s build <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>something.</em>
             </h2>
