@@ -477,38 +477,47 @@ export default function Portfolio() {
         }
 
 
-        /* ── SKILLS LIST ── */
-        .nb-skills-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 40px 48px;
-          max-width: 680px;
+        /* ── SKILLS PILLS ── */
+        .nb-skills-groups {
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+          max-width: 720px;
         }
-        @media (max-width: 540px) { .nb-skills-grid { grid-template-columns: 1fr; } }
 
         .nb-skills-cat {
-          font-family: var(--font-head);
-          font-size: clamp(32px, 4.5vw, 58px);
-          font-weight: 700;
-          letter-spacing: -0.025em;
-          color: var(--fg);
-          border-bottom: 1.5px solid var(--border);
-          padding-bottom: 6px;
-          margin-bottom: 14px;
-          line-height: 1.1;
+          font-family: var(--font-hand);
+          font-size: clamp(18px, 1.8vw, 21px);
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--fg3);
+          margin-bottom: 16px;
         }
 
-        .nb-skill-item {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 26px);
-          color: var(--fg2);
-          padding: 3px 0;
-          line-height: 1.4;
+        .nb-pills-row {
           display: flex;
-          gap: 10px;
-          align-items: baseline;
+          flex-wrap: wrap;
+          gap: 10px 12px;
         }
-        .nb-skill-item::before { content: "—"; color: var(--fg3); flex-shrink: 0; }
+
+        .nb-pill {
+          font-family: var(--font-hand);
+          font-size: clamp(22px, 2vw, 25px);
+          color: var(--fg2);
+          padding: 6px 18px;
+          border-radius: 999px;
+          border: 1.8px solid var(--border);
+          background: transparent;
+          line-height: 1.3;
+          transition: border-color 0.2s, color 0.2s;
+          cursor: default;
+          position: relative;
+        }
+        .nb-pill:hover {
+          border-color: var(--fg3);
+          color: var(--fg);
+        }
 
         /* ── BUTTONS ── */
         .nb-btn {
@@ -846,13 +855,21 @@ export default function Portfolio() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="nb-skills-grid">
-            {SKILLS.map(group => (
+          <div className="nb-skills-groups">
+            {SKILLS.map((group, gi) => (
               <div key={group.category}>
                 <p className="nb-skills-cat">{group.category}</p>
-                {group.items.map(item => (
-                  <p key={item} className="nb-skill-item">{item}</p>
-                ))}
+                <div className="nb-pills-row">
+                  {group.items.map((item, ii) => (
+                    <span
+                      key={item}
+                      className="nb-pill"
+                      style={{ animationDelay: `${(gi * group.items.length + ii) * 0.04}s` }}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
