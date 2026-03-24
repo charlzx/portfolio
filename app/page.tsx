@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
+const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
+
 const SKILLS = [
   { category: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "JavaScript", "Expo", "Tailwind CSS", "Framer Motion"] },
   { category: "Tools & Platform", items: ["Git / GitHub", "Vite", "Vercel", "Convex"] },
@@ -43,6 +45,116 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
     }}>
       {children}
     </div>
+  );
+}
+
+function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ maxWidth: 560, display: "flex", flexDirection: "column", gap: 20 }}>
+      <style>{`
+        .nb-input {
+          font-family: var(--font-hand);
+          font-size: clamp(22px, 2.2vw, 24px);
+          color: var(--fg);
+          background: transparent;
+          border: none;
+          border-bottom: 1.5px solid var(--border);
+          outline: none;
+          padding: 8px 0;
+          width: 100%;
+          transition: border-color 0.2s;
+        }
+        .nb-input::placeholder { color: var(--fg3); }
+        .nb-input:focus { border-bottom-color: var(--fg2); }
+        .nb-textarea {
+          font-family: var(--font-hand);
+          font-size: clamp(22px, 2.2vw, 24px);
+          color: var(--fg);
+          background: transparent;
+          border: none;
+          border-bottom: 1.5px solid var(--border);
+          outline: none;
+          padding: 8px 0;
+          width: 100%;
+          resize: none;
+          min-height: 120px;
+          transition: border-color 0.2s;
+        }
+        .nb-textarea::placeholder { color: var(--fg3); }
+        .nb-textarea:focus { border-bottom-color: var(--fg2); }
+      `}</style>
+      <input
+        className="nb-input"
+        type="text"
+        name="name"
+        placeholder="Your name"
+        value={form.name}
+        onChange={handleChange}
+        required
+        disabled={status === "sending"}
+      />
+      <input
+        className="nb-input"
+        type="email"
+        name="email"
+        placeholder="Your email"
+        value={form.email}
+        onChange={handleChange}
+        required
+        disabled={status === "sending"}
+      />
+      <textarea
+        className="nb-textarea"
+        name="message"
+        placeholder="Your message"
+        value={form.message}
+        onChange={handleChange}
+        required
+        disabled={status === "sending"}
+      />
+      <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+        <button type="submit" className="nb-btn" disabled={status === "sending"} style={{ opacity: status === "sending" ? 0.6 : 1 }}>
+          {status === "sending" ? "Sending…" : "Send message →"}
+        </button>
+        {status === "success" && (
+          <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#22c55e" }}>
+            Message sent!
+          </span>
+        )}
+        {status === "error" && (
+          <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#ef4444" }}>
+            Something went wrong. Try again.
+          </span>
+        )}
+      </div>
+    </form>
   );
 }
 
@@ -580,10 +692,10 @@ export default function Portfolio() {
             fontSize: "clamp(22px, 2.4vw, 26px)",
             lineHeight: 1.65,
             color: "var(--fg2)",
-            maxWidth: "58ch",
+            maxWidth: "52ch",
             marginBottom: 40,
           }}>
-            Frontend developer building beautiful interfaces for the web.
+            I build frontend the way I play chess; deliberate, clean, always thinking ahead.
             <br />
             <span style={{ color: "var(--fg)", fontWeight: 600 }}>
               React · Next.js · React Native · TypeScript.
@@ -603,22 +715,9 @@ export default function Portfolio() {
         {/* Right: margin note sticky panel */}
         <div className="a5">
           <div className="nb-margin-note">
-            <p style={{
-              fontFamily: "var(--font-hand)",
-              fontSize: "clamp(22px, 2.2vw, 24px)",
-              color: "#7a6600",
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              marginBottom: 20,
-              borderBottom: "1px solid rgba(0,0,0,0.12)",
-              paddingBottom: 12,
-            }}>
-              — about me
-            </p>
-
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6600" }}>Status</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6600", marginBottom: 4 }}>Status</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "#1a1400", display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e", display: "inline-block", flexShrink: 0 }} />
                   Available for work
@@ -639,7 +738,7 @@ export default function Portfolio() {
                       textDecoration: "underline",
                       textUnderlineOffset: "3px",
                       textDecorationColor: "rgba(0,0,0,0.25)",
-                      transition: "color 0.2s, text-decoration-color 0.2s",
+                      transition: "color 0.2s",
                     }}
                       onMouseEnter={e => (e.currentTarget.style.color = "#000")}
                       onMouseLeave={e => (e.currentTarget.style.color = "#3a3000")}
@@ -652,6 +751,37 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ── ABOUT ── */}
+      <section className="nb-section">
+        <Reveal>
+          <p className="nb-label">— 01 / about</p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <h2 className="nb-h2">A bit about me.</h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ maxWidth: 680 }}>
+            <p style={{
+              fontFamily: "var(--font-hand)",
+              fontSize: "clamp(22px, 2.4vw, 26px)",
+              lineHeight: 1.75,
+              color: "var(--fg2)",
+              marginBottom: 24,
+            }}>
+              I&apos;m Charlz, a frontend developer focused on building beautiful interfaces for the web. I focus on clean design, fast performance, and practical features. I enjoy breaking down problems and building tools that just work.
+            </p>
+            <p style={{
+              fontFamily: "var(--font-hand)",
+              fontSize: "clamp(22px, 2.4vw, 26px)",
+              lineHeight: 1.75,
+              color: "var(--fg2)",
+            }}>
+              When I&apos;m not debugging code or exploring new technologies, I read books, scroll online, test UI layouts, listen to music or play chess. I treat frontend development as a craft — something I do to stay sharp and think clearly.
+            </p>
+          </div>
+        </Reveal>
       </section>
 
       {/* ── SKILLS ── */}
@@ -683,49 +813,37 @@ export default function Portfolio() {
           <p className="nb-label">— 03 / contact</p>
         </Reveal>
 
-        <div>
-          <Reveal delay={0.05}>
-            <h2 style={{
-              fontFamily: "var(--font-head)",
-              fontWeight: 700,
-              fontSize: "clamp(40px, 6vw, 80px)",
-              letterSpacing: "-0.038em",
-              lineHeight: 1.02,
-              color: "var(--fg)",
-              marginBottom: 24,
-              whiteSpace: "nowrap",
-            }}>
-              Let&apos;s build <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>something.</em>
-            </h2>
-          </Reveal>
+        <Reveal delay={0.05}>
+          <h2 style={{
+            fontFamily: "var(--font-head)",
+            fontWeight: 700,
+            fontSize: "clamp(40px, 6vw, 80px)",
+            letterSpacing: "-0.038em",
+            lineHeight: 1.02,
+            color: "var(--fg)",
+            marginBottom: 16,
+            whiteSpace: "nowrap",
+          }}>
+            Let&apos;s build <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>something.</em>
+          </h2>
+        </Reveal>
 
-          <Reveal delay={0.1}>
-            <p style={{
-              fontFamily: "var(--font-hand)",
-              fontSize: "clamp(22px, 2.4vw, 26px)",
-              lineHeight: 1.7,
-              color: "var(--fg2)",
-              marginBottom: 40,
-            }}>
-              Open to freelance work, collaborations, and full-time engineering roles.
-              Remote-first.
-            </p>
-          </Reveal>
+        <Reveal delay={0.08}>
+          <p style={{
+            fontFamily: "var(--font-hand)",
+            fontSize: "clamp(22px, 2.4vw, 26px)",
+            lineHeight: 1.7,
+            color: "var(--fg2)",
+            marginBottom: 48,
+            maxWidth: 520,
+          }}>
+            Open to freelance work, collaborations, and full-time engineering roles. Remote-first.
+          </p>
+        </Reveal>
 
-          <Reveal delay={0.15}>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="mailto:charlesobuzor@outlook.com" className="nb-btn">
-                charlesobuzor@outlook.com
-              </a>
-              <a href="https://linkedin.com/in/charlzObuzor" target="_blank" rel="noreferrer" className="nb-btn-out">
-                LinkedIn ↗
-              </a>
-              <a href="https://twitter.com/charlzObuzor" target="_blank" rel="noreferrer" className="nb-btn-out">
-                X / Twitter ↗
-              </a>
-            </div>
-          </Reveal>
-        </div>
+        <Reveal delay={0.12}>
+          <ContactForm />
+        </Reveal>
       </section>
 
       {/* ── FOOTER ── */}
