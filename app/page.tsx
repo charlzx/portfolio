@@ -63,9 +63,9 @@ export default function Portfolio() {
     "--border":   "rgba(232,220,200,0.12)",
     "--shadow":   "rgba(0,0,0,0.4)",
   } : {
-    "--bg":       "#fdfaf3",
-    "--bg2":      "#f8f4e8",
-    "--surface":  "#fef9ec",
+    "--bg":       "#f4f4f0",
+    "--bg2":      "#ebebE7",
+    "--surface":  "#f7f7f3",
     "--rule":     "rgba(100,149,237,0.17)",
     "--margin":   "rgba(210,50,50,0.4)",
     "--fg":       "#1a1208",
@@ -221,16 +221,16 @@ export default function Portfolio() {
           font-family: var(--font-hand);
           font-size: clamp(22px, 2.2vw, 24px);
           background: none;
-          border: 1.5px solid var(--border);
+          border: none;
           border-radius: 4px;
           color: var(--fg3);
           cursor: pointer;
           padding: 2px 10px;
-          transition: color 0.2s, border-color 0.2s;
+          transition: color 0.2s;
           line-height: 1.5;
           flex-shrink: 0;
         }
-        .nb-toggle:hover { color: var(--fg); border-color: var(--fg3); }
+        .nb-toggle:hover { color: var(--fg); }
 
         /* ── MOBILE MENU OVERLAY ── */
         .nb-mobile-menu {
