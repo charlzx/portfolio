@@ -86,6 +86,7 @@ function ContactForm() {
     border: "1px solid rgba(220,210,150,0.5)",
     borderRadius: 2,
     boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+    zIndex: 10,
   };
 
   return (
@@ -875,7 +876,7 @@ export default function Portfolio() {
             marginBottom: 16,
             whiteSpace: "nowrap",
           }}>
-            Let&apos;s build <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>something.</em>
+            Let&apos;s build <span style={{ color: "var(--fg3)" }}>something.</span>
           </h2>
         </Reveal>
 
@@ -886,14 +887,91 @@ export default function Portfolio() {
             lineHeight: 1.7,
             color: "var(--fg2)",
             marginBottom: 48,
-            maxWidth: 520,
+            maxWidth: 560,
           }}>
-            Open to freelance work, collaborations, and full-time engineering roles. Remote-first.
+            If you want to collaborate or talk shop, you can contact me.
+            <br /><br />
+            I&apos;m always interested in hearing about new projects, opportunities, or just connecting with fellow developers.
           </p>
         </Reveal>
 
         <Reveal delay={0.12}>
-          <ContactForm />
+          <div style={{ display: "flex", gap: 40, flexWrap: "wrap", alignItems: "flex-start" }}>
+            <ContactForm />
+            {/* Links post-it */}
+            <div style={{ position: "relative", display: "inline-block", maxWidth: 320, width: "100%", flexShrink: 0 }}>
+              {/* Tape — top left */}
+              <div style={{
+                position: "absolute", top: -14, left: 20,
+                width: 64, height: 28,
+                background: "rgba(255,255,240,0.58)",
+                border: "1px solid rgba(220,210,150,0.5)",
+                borderRadius: 2, boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+                transform: "rotate(-42deg)", zIndex: 10,
+              }} />
+              {/* Tape — bottom right */}
+              <div style={{
+                position: "absolute", bottom: -14, right: 20,
+                width: 64, height: 28,
+                background: "rgba(255,255,240,0.58)",
+                border: "1px solid rgba(220,210,150,0.5)",
+                borderRadius: 2, boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+                transform: "rotate(-42deg)", zIndex: 10,
+              }} />
+              <div style={{
+                background: "#fde84b",
+                borderRadius: 2,
+                padding: "36px 32px 32px",
+                boxShadow: "0 1px 2px rgba(0,0,0,0.07), 0 4px 10px rgba(0,0,0,0.10), 0 12px 28px rgba(0,0,0,0.12)",
+                transform: "rotate(1.8deg)",
+                transformOrigin: "center center",
+                display: "flex",
+                flexDirection: "column",
+                gap: 22,
+              }}>
+                {[
+                  {
+                    handle: "@charlzx",
+                    desc: "Check out my projects and contributions",
+                    href: "https://github.com/charlzx",
+                  },
+                  {
+                    handle: "@charlzObuzor",
+                    desc: "Follow me on X",
+                    href: "https://twitter.com/charlzObuzor",
+                  },
+                  {
+                    handle: "charlesobuzor@outlook.com",
+                    desc: "Send me an email",
+                    href: "mailto:charlesobuzor@outlook.com",
+                  },
+                ].map(item => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel="noreferrer"
+                    style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}
+                  >
+                    <span style={{
+                      fontFamily: "var(--font-hand)",
+                      fontSize: "clamp(22px, 2.2vw, 24px)",
+                      fontWeight: 700,
+                      color: "#1a1400",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                      textDecorationColor: "rgba(0,0,0,0.3)",
+                    }}>{item.handle}</span>
+                    <span style={{
+                      fontFamily: "var(--font-hand)",
+                      fontSize: "clamp(18px, 1.8vw, 20px)",
+                      color: "#7a6600",
+                    }}>{item.desc}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </Reveal>
       </section>
 
