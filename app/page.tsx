@@ -157,9 +157,9 @@ function ContactForm() {
         }}
       >
         {/* Tape — top left */}
-        <div style={{ ...tapeStyle, top: -14, left: 20, transform: "rotate(-41deg)" }} />
+        <div style={{ ...tapeStyle, top: 6, left: 20, transform: "rotate(-41deg)" }} />
         {/* Tape — bottom right */}
-        <div style={{ ...tapeStyle, bottom: -14, right: 20, transform: "rotate(-41deg)" }} />
+        <div style={{ ...tapeStyle, bottom: 6, right: 20, transform: "rotate(-41deg)" }} />
         <input
           className="nb-cf-input"
           type="text"
