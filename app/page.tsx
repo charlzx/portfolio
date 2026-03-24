@@ -480,7 +480,7 @@ export default function Portfolio() {
 
         .nb-toc-badge {
           font-family: var(--font-hand);
-          font-size: 18px;
+          font-size: clamp(18px, 1.8vw, 20px);
           font-weight: 600;
           color: #4ade80;
           background: rgba(74,222,128,0.12);
@@ -524,7 +524,7 @@ export default function Portfolio() {
 
         .nb-tech {
           font-family: var(--font-hand);
-          font-size: 19px;
+          font-size: clamp(22px, 2vw, 24px);
           color: var(--fg3);
           border-bottom: 1px solid var(--border);
           padding-bottom: 2px;
@@ -606,7 +606,7 @@ export default function Portfolio() {
 
         .nb-tl-meta {
           font-family: var(--font-hand);
-          font-size: 21px;
+          font-size: clamp(22px, 2.2vw, 24px);
           color: var(--fg3);
           margin-bottom: 10px;
           line-height: 1.3;
@@ -744,7 +744,7 @@ export default function Portfolio() {
         }
         .nb-footer-link {
           font-family: var(--font-hand);
-          font-size: 21px;
+          font-size: 22px;
           color: var(--fg3);
           text-decoration: none;
           transition: color 0.2s;
@@ -764,11 +764,22 @@ export default function Portfolio() {
 
       {/* Mobile menu overlay */}
       <div className={`nb-mobile-menu ${menuOpen ? "open" : "closed"}`}>
+        {/* Red margin line inside overlay */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 72,
+          width: 1.5,
+          background: "var(--margin)",
+          opacity: 0.55,
+          pointerEvents: "none",
+        }} />
         <button className="nb-mobile-menu-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
           ✕
         </button>
         <div style={{ marginBottom: 8 }}>
-          <span style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>charlz.</span>
+          <span style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>charlz.</span>
         </div>
         {NAV_ITEMS.map(id => (
           <button
@@ -882,9 +893,9 @@ export default function Portfolio() {
           <div className="nb-margin-note">
             <p style={{
               fontFamily: "var(--font-hand)",
-              fontSize: 18,
+              fontSize: 22,
               color: "var(--fg3)",
-              letterSpacing: "0.06em",
+              letterSpacing: "0.04em",
               textTransform: "uppercase",
               marginBottom: 20,
               borderBottom: "1px solid var(--border)",
@@ -895,22 +906,22 @@ export default function Portfolio() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>Role</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>Role</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)", fontWeight: 600 }}>Frontend Developer</p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>Based in</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>Based in</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)" }}>Abuja, Nigeria</p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>Status</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>Status</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)", display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }} />
                   Available for work
                 </p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   {[
                     { label: "github.com/charlzx", href: "https://github.com/charlzx" },
@@ -1125,7 +1136,7 @@ export default function Portfolio() {
 
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
-        <span style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>
+        <span style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>
           © 2025 Charles Obuzor — charlz.dev
         </span>
         <div style={{ display: "flex", gap: 20 }}>
