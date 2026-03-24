@@ -319,7 +319,7 @@ export default function Portfolio() {
         /* ── TOGGLE ── */
         .nb-toggle {
           font-family: var(--font-hand);
-          font-size: 20px;
+          font-size: 22px;
           background: none;
           border: 1.5px solid var(--border);
           border-radius: 4px;
@@ -398,7 +398,7 @@ export default function Portfolio() {
         /* ── SECTION LABEL ── */
         .nb-label {
           font-family: var(--font-hand);
-          font-size: 20px;
+          font-size: 22px;
           color: var(--fg3);
           margin-bottom: 20px;
           letter-spacing: 0.02em;
@@ -563,6 +563,18 @@ export default function Portfolio() {
           width: 2px;
           background: var(--border);
         }
+        /* Dash caps at top and bottom of the timeline line */
+        .nb-timeline::before,
+        .nb-timeline::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: 16px;
+          height: 2px;
+          background: var(--border);
+        }
+        .nb-timeline::before { top: 8px; }
+        .nb-timeline::after  { bottom: 40px; }
 
         .nb-tl-entry {
           position: relative;
@@ -618,7 +630,7 @@ export default function Portfolio() {
 
         .nb-skills-cat {
           font-family: var(--font-hand);
-          font-size: 20px;
+          font-size: 22px;
           color: var(--fg3);
           letter-spacing: 0.06em;
           text-transform: uppercase;
@@ -870,9 +882,9 @@ export default function Portfolio() {
           <div className="nb-margin-note">
             <p style={{
               fontFamily: "var(--font-hand)",
-              fontSize: 14,
+              fontSize: 18,
               color: "var(--fg3)",
-              letterSpacing: "0.1em",
+              letterSpacing: "0.06em",
               textTransform: "uppercase",
               marginBottom: 20,
               borderBottom: "1px solid var(--border)",
@@ -883,22 +895,22 @@ export default function Portfolio() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 18, color: "var(--fg3)" }}>Role</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>Role</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)", fontWeight: 600 }}>Frontend Developer</p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 18, color: "var(--fg3)" }}>Based in</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>Based in</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)" }}>Abuja, Nigeria</p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 18, color: "var(--fg3)" }}>Status</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)" }}>Status</p>
                 <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)", display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }} />
                   Available for work
                 </p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 18, color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: 20, color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   {[
                     { label: "github.com/charlzx", href: "https://github.com/charlzx" },
