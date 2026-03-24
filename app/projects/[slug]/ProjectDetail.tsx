@@ -183,7 +183,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
           maxWidth: 900,
         }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={p.image} alt={p.name} style={{ width: "100%", display: "block" }} />
+          <img src={p.image} alt={`${p.name} — ${p.tagline}`} style={{ width: "100%", display: "block" }} width={1200} height={750} fetchPriority="high" />
         </div>
 
         <div style={{ maxWidth: 680, display: "flex", flexDirection: "column", gap: 56 }}>

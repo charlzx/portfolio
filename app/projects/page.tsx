@@ -475,7 +475,7 @@ export default function ProjectsPage() {
               >
                 <div className="nbp-photo-img-wrap">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.image} alt={p.name} className="nbp-photo-img" loading="lazy" />
+                  <img src={p.image} alt={`${p.name} — ${p.tagline}`} className="nbp-photo-img" loading="lazy" width={800} height={500} />
                 </div>
                 <div className="nbp-photo-info">
                   <p className="nbp-photo-name">{p.name}</p>
