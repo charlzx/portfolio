@@ -583,7 +583,8 @@ export default function Portfolio() {
             marginBottom: 40,
           }}>
             Frontend developer building beautiful interfaces
-            for the web.{" "}
+            for the web.
+            <br />
             <span style={{ color: "var(--fg)", fontWeight: 600 }}>
               React · Next.js · React Native · TypeScript.
             </span>
