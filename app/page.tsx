@@ -90,7 +90,7 @@ function ContactForm() {
   };
 
   return (
-    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%" }}>
+    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%", paddingTop: 20, paddingBottom: 20 }}>
       <style>{`
         .nb-cf-input {
           font-family: var(--font-hand);
@@ -139,9 +139,9 @@ function ContactForm() {
       `}</style>
 
       {/* Tape — top left */}
-      <div style={{ ...tapeStyle, top: -14, left: 24, transform: "rotate(-42deg)" }} />
+      <div style={{ ...tapeStyle, top: 6, left: 24, transform: "rotate(-42deg)" }} />
       {/* Tape — bottom right */}
-      <div style={{ ...tapeStyle, bottom: -14, right: 24, transform: "rotate(-42deg)" }} />
+      <div style={{ ...tapeStyle, bottom: 6, right: 24, transform: "rotate(-42deg)" }} />
 
       {/* Sticky note card */}
       <form
