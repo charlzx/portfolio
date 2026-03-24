@@ -7,7 +7,8 @@ const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
 
 const SKILLS = [
   { category: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "JavaScript", "Expo", "Tailwind CSS", "Framer Motion"] },
-  { category: "Tools & Platform", items: ["Git / GitHub", "Vite", "Vercel", "Convex"] },
+  { category: "Tools & Platform", items: ["Git / GitHub", "Vite", "Vercel", "npm", "VS Code", "Figma", "Convex"] },
+  { category: "Languages", items: ["JavaScript", "TypeScript", "HTML5", "CSS3"] },
 ];
 
 const SCROLL_ITEMS = ["about", "skills", "contact"];
@@ -764,6 +765,9 @@ export default function Portfolio() {
             <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" className="nb-btn-out">
               GitHub ↗
             </a>
+            <a href="/charles-obuzor-cv.pdf" download className="nb-btn-out">
+              Download CV ↓
+            </a>
           </div>
         </div>
 
@@ -831,7 +835,7 @@ export default function Portfolio() {
               color: "var(--fg2)",
               marginBottom: 24,
             }}>
-              I&apos;m Charlz, a frontend developer focused on building beautiful interfaces for the web. I focus on clean design, fast performance, and practical features. I enjoy breaking down problems and building tools that just work.
+              I&apos;m Charlz — a frontend developer with 4+ years building responsive web apps and cross-platform mobile products. I&apos;ve shipped work across e-commerce, energy, and services — from freelance client projects to structured team delivery alongside product managers, backend engineers, and QA.
             </p>
             <p style={{
               fontFamily: "var(--font-hand)",
@@ -839,11 +843,11 @@ export default function Portfolio() {
               lineHeight: 1.75,
               color: "var(--fg2)",
             }}>
-              When I&apos;m not debugging code or exploring new technologies, I read books, scroll online, test UI layouts, listen to{" "}
+              Outside of work I read, listen to{" "}
               <a href="https://open.spotify.com/user/s76ocb47g23yzpwrf939hyvvw" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}>music</a>
-              {" "}or play{" "}
+              {" "}and play{" "}
               <a href="https://www.chess.com/member/charlz-x" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline", textUnderlineOffset: "3px" }}>chess</a>
-              . I treat frontend development as a craft — something I do to stay sharp and think clearly.
+              . I approach development the same way — deliberately, patiently, always thinking a few moves ahead.
             </p>
           </div>
         </Reveal>
@@ -923,9 +927,30 @@ export default function Portfolio() {
 
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
-        <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>
+        <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(20px, 1.9vw, 22px)", color: "var(--fg3)" }}>
           © {new Date().getFullYear()} Charles Obuzor
         </span>
+
+        <div style={{ display: "flex", gap: 24, flexWrap: "wrap", alignItems: "center" }}>
+          {[
+            { label: "about", href: "#about" },
+            { label: "projects", href: "/projects" },
+            { label: "skills", href: "#skills" },
+            { label: "contact", href: "#contact" },
+          ].map(l => (
+            <a key={l.label} href={l.href} className="nb-footer-link">{l.label}</a>
+          ))}
+        </div>
+
+        <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" className="nb-footer-link">GitHub ↗</a>
+          <a href="https://x.com/charlzObuzor" target="_blank" rel="noreferrer" className="nb-footer-link">X ↗</a>
+          <a
+            href="#about"
+            className="nb-footer-link"
+            onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+          >↑ top</a>
+        </div>
       </footer>
     </div>
   );
