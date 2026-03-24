@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Providers from "./providers";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://charlz.dev'),
@@ -11,22 +7,20 @@ export const metadata: Metadata = {
     default: "Charlz's Portfolio",
     template: '%s | Charlz Portfolio',
   },
-  description: 'Frontend developer and UI engineer specializing in React, Next.js, TypeScript, and Tailwind CSS. Building beautiful, accessible, and performant web applications with modern technologies.',
+  description: 'Frontend and mobile developer. I build products solo — web apps, mobile apps, and developer tooling. React 19, React Native, TypeScript.',
   keywords: [
     'Frontend Developer',
     'React Developer',
-    'Next.js Developer',
+    'React Native',
     'TypeScript',
     'Tailwind CSS',
     'Web Development',
     'Charles Obuzor',
     'Charlz',
     'Portfolio',
-    'UI/UX Design',
+    'Mobile Developer',
     'JavaScript',
-    'Full Stack Developer',
     'Software Engineer',
-    'Web Designer',
   ],
   authors: [{ name: 'Charles Obuzor', url: 'https://charlz.dev' }],
   creator: 'Charles Obuzor',
@@ -45,14 +39,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://charlz.dev',
-    title: 'Charlz - Frontend Developer & UI Engineer',
-    description: 'Frontend developer specializing in React, Next.js, and TypeScript. Building beautiful, accessible web experiences.',
+    title: 'Charlz - Frontend & Mobile Developer',
+    description: 'Frontend and mobile developer building web apps, mobile apps, and developer tooling.',
     siteName: "Charlz's Portfolio",
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Charlz - Frontend Developer & UI Engineer',
-    description: 'Frontend developer specializing in React, Next.js, and TypeScript. Building beautiful web experiences.',
+    title: 'Charlz - Frontend & Mobile Developer',
+    description: 'Frontend and mobile developer building web apps, mobile apps, and developer tooling.',
     creator: '@charlzObuzor',
   },
   robots: {
@@ -69,7 +63,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://charlz.dev',
   },
-  category: 'technology',
 };
 
 export default function RootLayout({
@@ -86,7 +79,7 @@ export default function RootLayout({
     jobTitle: 'Frontend Developer',
     worksFor: {
       '@type': 'Organization',
-      name: 'Freelance',
+      name: 'Emerj LLC',
     },
     sameAs: [
       'https://github.com/charlzx',
@@ -95,28 +88,25 @@ export default function RootLayout({
     ],
     knowsAbout: [
       'React',
-      'Next.js',
+      'React Native',
       'TypeScript',
       'JavaScript',
       'Tailwind CSS',
       'Frontend Development',
-      'UI/UX Design',
-      'Web Development',
+      'Mobile Development',
     ],
   };
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
-        <Providers>
-          {children}
-        </Providers>
+      <body>
+        {children}
       </body>
     </html>
   );

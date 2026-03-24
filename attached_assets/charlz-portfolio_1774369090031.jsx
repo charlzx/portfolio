@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 
 const PROJECTS = [
@@ -98,7 +96,7 @@ const SKILLS = [
 const NAV_ITEMS = ["about", "projects", "skills", "contact"];
 
 function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
@@ -110,10 +108,10 @@ function useInView(threshold = 0.15) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-  return [ref, visible] as const;
+  return [ref, visible];
 }
 
-function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+function Reveal({ children, delay = 0, className = "" }) {
   const [ref, visible] = useInView();
   return (
     <div
@@ -130,7 +128,7 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
-function ThemeToggle({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
+function ThemeToggle({ dark, onToggle }) {
   return (
     <button
       onClick={onToggle}
@@ -161,8 +159,8 @@ function ThemeToggle({ dark, onToggle }: { dark: boolean; onToggle: () => void }
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const cfg: Record<string, { label: string; bg: string; color: string }> = {
+function StatusBadge({ status }) {
+  const cfg = {
     live:     { label: "Live",     bg: "rgba(74,222,128,0.12)", color: "#4ade80" },
     dev:      { label: "In Dev",   bg: "rgba(251,191,36,0.12)",  color: "#fbbf24" },
     archived: { label: "Archived", bg: "rgba(148,163,184,0.12)", color: "#94a3b8" },
@@ -188,7 +186,7 @@ function StatusBadge({ status }: { status: string }) {
 export default function Portfolio() {
   const [dark, setDark] = useState(true);
   const [activeNav, setActiveNav] = useState("about");
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [expandedProject, setExpandedProject] = useState(null);
 
   const theme = dark ? {
     "--bg": "#0c0c0d",
@@ -219,7 +217,7 @@ export default function Portfolio() {
       const sections = NAV_ITEMS.map(id => document.getElementById(id));
       const scrollY = window.scrollY + 120;
       for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && sections[i]!.offsetTop <= scrollY) {
+        if (sections[i] && sections[i].offsetTop <= scrollY) {
           setActiveNav(NAV_ITEMS[i]);
           break;
         }
@@ -229,12 +227,12 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div style={{ ...(theme as React.CSSProperties), fontFamily: "var(--font-sans)", background: "var(--bg)", color: "var(--fg)", minHeight: "100vh", transition: "background 0.3s, color 0.3s" }}>
+    <div style={{ ...theme, fontFamily: "var(--font-sans)", background: "var(--bg)", color: "var(--fg)", minHeight: "100vh", transition: "background 0.3s, color 0.3s" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 
@@ -469,6 +467,7 @@ export default function Portfolio() {
           position: "relative",
         }}
       >
+        {/* Grid decoration */}
         <div style={{
           position: "absolute",
           inset: 0,
@@ -530,6 +529,7 @@ export default function Portfolio() {
           </div>
         </div>
 
+        {/* Scroll indicator */}
         <div style={{
           position: "absolute",
           right: "clamp(20px, 5vw, 80px)",
@@ -566,7 +566,7 @@ export default function Portfolio() {
             color: "var(--fg)",
             marginBottom: 64,
           }}>
-            Things I&apos;ve built.
+            Things I've built.
           </h2>
         </Reveal>
 
@@ -578,6 +578,7 @@ export default function Portfolio() {
                 onClick={() => setExpandedProject(expandedProject === p.id ? null : p.id)}
                 style={{ userSelect: "none" }}
               >
+                {/* Card header */}
                 <div style={{
                   padding: "28px 28px 20px",
                   borderBottom: expandedProject === p.id ? "1px solid var(--border)" : "1px solid transparent",
@@ -613,6 +614,7 @@ export default function Portfolio() {
                   </p>
                 </div>
 
+                {/* Expandable body */}
                 <div
                   className="expanded-body"
                   style={{
@@ -644,6 +646,7 @@ export default function Portfolio() {
                   )}
                 </div>
 
+                {/* Footer toggle indicator */}
                 <div style={{
                   padding: "10px 28px",
                   display: "flex",
@@ -725,6 +728,7 @@ export default function Portfolio() {
           ))}
         </div>
 
+        {/* GitHub stats callout */}
         <Reveal delay={0.2}>
           <div style={{
             marginTop: 64,
@@ -777,7 +781,7 @@ export default function Portfolio() {
               color: "var(--fg)",
               marginBottom: 24,
             }}>
-              Let&apos;s build<br/>
+              Let's build<br/>
               <span style={{ color: "var(--fg3)" }}>something.</span>
             </h2>
           </Reveal>
@@ -837,8 +841,8 @@ export default function Portfolio() {
               target="_blank"
               rel="noreferrer"
               style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--fg3)", textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={e => (e.target as HTMLAnchorElement).style.color = "var(--fg)"}
-              onMouseLeave={e => (e.target as HTMLAnchorElement).style.color = "var(--fg3)"}
+              onMouseEnter={e => e.target.style.color = "var(--fg)"}
+              onMouseLeave={e => e.target.style.color = "var(--fg3)"}
             >
               {l.label}
             </a>
