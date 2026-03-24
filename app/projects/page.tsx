@@ -2,71 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { PROJECTS } from "@/lib/projects";
 
 const CARD_ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
-
-const PROJECTS = [
-  {
-    id: "crwn3",
-    name: "CRWN3",
-    image: "/crwn3.webp",
-    url: "https://crwn3.vercel.app/",
-    github: "https://github.com/charlzx/shop",
-    year: "2024",
-    tagline: "Full-featured e-commerce storefront.",
-    stack: ["React", "Vite", "Tailwind", "Leaflet.js"],
-  },
-  {
-    id: "heirswealth",
-    name: "Heirswealth",
-    image: "/heirswealth.webp",
-    url: "https://heirswealth.com",
-    github: "",
-    year: "2024",
-    tagline: "Solar energy company website.",
-    stack: ["React", "Vite", "Tailwind", "Framer Motion"],
-  },
-  {
-    id: "gta-radio",
-    name: "GTA Radio",
-    image: "/radio.webp",
-    url: "https://gta-live.vercel.app/",
-    github: "https://github.com/charlzx/gta-radio",
-    year: "2024",
-    tagline: "Real-time synchronized GTA radio.",
-    stack: ["React", "Vite", "Tailwind"],
-  },
-  {
-    id: "smart-gym",
-    name: "Smart Gym",
-    image: "/gymx.webp",
-    url: "https://gymx.vercel.app/",
-    github: "https://github.com/charlzx/gym-app",
-    year: "2023",
-    tagline: "Responsive fitness web experience.",
-    stack: ["React", "Vite", "Tailwind", "Recharts"],
-  },
-  {
-    id: "solisys",
-    name: "Solisys",
-    image: "/solisys.webp",
-    url: "https://solisys.vercel.app/",
-    github: "https://github.com/charlzx/solisys",
-    year: "2024",
-    tagline: "Off-grid solar system designer.",
-    stack: ["React", "Tailwind", "Vite"],
-  },
-  {
-    id: "portfolio",
-    name: "This Portfolio",
-    image: "/my-portfolio.webp",
-    url: "https://charlz.dev",
-    github: "https://github.com/charlzx/portfolio",
-    year: "2025",
-    tagline: "Personal portfolio & showcase.",
-    stack: ["React", "Next.js", "Tailwind", "Framer Motion"],
-  },
-];
 
 function useInView() {
   const ref = useRef<HTMLDivElement>(null);
@@ -552,6 +490,7 @@ export default function ProjectsPage() {
                     {p.github && (
                       <a href={p.github} target="_blank" rel="noreferrer" className="nbp-photo-link">github ↗</a>
                     )}
+                    <Link href={`/projects/${p.id}`} className="nbp-photo-link">case study →</Link>
                   </div>
                 </div>
               </div>
