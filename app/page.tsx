@@ -423,7 +423,15 @@ export default function Portfolio() {
           width: 100%;
           aspect-ratio: 16 / 10;
           overflow: visible;
-          border-radius: 2px;
+          filter:
+            drop-shadow(0 2px 4px rgba(0,0,0,0.12))
+            drop-shadow(0 6px 18px rgba(0,0,0,0.16));
+          transition: filter 0.28s ease;
+        }
+        .nb-photo-card:hover .nb-photo-img-wrap {
+          filter:
+            drop-shadow(0 4px 8px rgba(0,0,0,0.18))
+            drop-shadow(0 14px 36px rgba(0,0,0,0.22));
         }
         .nb-photo-img-wrap::before {
           content: '';
@@ -446,20 +454,18 @@ export default function Portfolio() {
           height: 100%;
           object-fit: cover;
           display: block;
-          border-radius: 2px;
-          box-shadow:
-            0 2px 4px rgba(0,0,0,0.10),
-            0 6px 18px rgba(0,0,0,0.14),
-            0 16px 36px rgba(0,0,0,0.10);
-          transition: box-shadow 0.28s ease;
           position: relative;
           z-index: 1;
-        }
-        .nb-photo-card:hover .nb-photo-img {
-          box-shadow:
-            0 4px 8px rgba(0,0,0,0.14),
-            0 12px 32px rgba(0,0,0,0.18),
-            0 28px 56px rgba(0,0,0,0.14);
+          clip-path: polygon(
+            3% 0%, 97% 0%,
+            100% 6%,  96% 13%, 100% 20%, 97% 27%, 100% 34%, 96% 41%,
+            100% 48%, 97% 55%, 100% 62%, 96% 69%, 100% 76%, 97% 83%,
+            100% 90%, 97% 100%,
+            3% 100%,
+            0% 92%,   4% 85%,  0% 78%,  3% 71%,  0% 64%,  4% 57%,
+            0% 50%,   3% 43%,  0% 36%,  4% 29%,  0% 22%,  3% 15%,
+            0% 8%,    3% 0%
+          );
         }
 
         .nb-photo-info {
@@ -541,12 +547,12 @@ export default function Portfolio() {
           font-size: clamp(22px, 2vw, 24px);
           font-weight: 600;
           color: var(--fg2);
-          text-decoration: none;
-          border-bottom: 1px solid var(--border);
-          padding-bottom: 1px;
-          transition: color 0.15s, border-color 0.15s;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          text-decoration-color: var(--border);
+          transition: color 0.15s, text-decoration-color 0.15s;
         }
-        .nb-photo-link:hover { color: var(--fg); border-color: var(--fg3); }
+        .nb-photo-link:hover { color: var(--fg); text-decoration-color: var(--fg3); }
 
         /* ── SKILLS LIST ── */
         .nb-skills-grid {
@@ -643,13 +649,14 @@ export default function Portfolio() {
           background-image: none;
           border: none;
           border-radius: 2px;
-          padding: 36px 28px 28px;
+          padding: 36px 32px 32px;
           box-shadow:
             0 1px 2px rgba(0,0,0,0.07),
             0 4px 10px rgba(0,0,0,0.10),
             0 12px 28px rgba(0,0,0,0.12),
             2px 16px 32px rgba(180,140,0,0.10);
-          max-width: 300px;
+          max-width: 380px;
+          width: 100%;
           justify-self: center;
           transform: rotate(-4.5deg);
           transform-origin: top center;
@@ -856,8 +863,10 @@ export default function Portfolio() {
                       fontFamily: "var(--font-hand)",
                       fontSize: "clamp(20px, 1.9vw, 22px)",
                       color: "#3a3000",
-                      textDecoration: "none",
-                      transition: "color 0.2s",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                      textDecorationColor: "rgba(0,0,0,0.25)",
+                      transition: "color 0.2s, text-decoration-color 0.2s",
                     }}
                       onMouseEnter={e => (e.currentTarget.style.color = "#000")}
                       onMouseLeave={e => (e.currentTarget.style.color = "#3a3000")}
@@ -899,12 +908,6 @@ export default function Portfolio() {
                 </div>
                 <div className="nb-photo-info">
                   <p className="nb-photo-name">{p.name}</p>
-                  <div className="nb-photo-meta">
-                    <span className="nb-photo-year">{p.year}</span>
-                    {p.status === "live" && (
-                      <span className="nb-photo-badge">live ✓</span>
-                    )}
-                  </div>
                   <p className="nb-photo-tagline">{p.tagline}</p>
                   <div className="nb-photo-stack">
                     {p.stack.map(s => (
