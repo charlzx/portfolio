@@ -271,7 +271,7 @@ export default function Portfolio() {
         }
         .nb-nav-link {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           font-weight: 600;
           color: var(--fg3);
           background: none;
@@ -319,7 +319,7 @@ export default function Portfolio() {
         /* ── TOGGLE ── */
         .nb-toggle {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           background: none;
           border: 1.5px solid var(--border);
           border-radius: 4px;
@@ -352,7 +352,7 @@ export default function Portfolio() {
         .nb-mobile-menu.closed { opacity: 0; transform: translateY(-12px); pointer-events: none; }
         .nb-mobile-menu-link {
           font-family: var(--font-hand);
-          font-size: clamp(44px, 12vw, 64px);
+          font-size: clamp(48px, 10vw, 56px);
           font-weight: 700;
           color: var(--fg3);
           background: none;
@@ -376,7 +376,7 @@ export default function Portfolio() {
           top: 18px;
           right: clamp(24px, 6vw, 100px);
           font-family: var(--font-hand);
-          font-size: 28px;
+          font-size: clamp(22px, 2.5vw, 28px);
           background: none;
           border: none;
           cursor: pointer;
@@ -398,7 +398,7 @@ export default function Portfolio() {
         /* ── SECTION LABEL ── */
         .nb-label {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           color: var(--fg3);
           margin-bottom: 20px;
           letter-spacing: 0.02em;
@@ -474,7 +474,7 @@ export default function Portfolio() {
 
         .nb-toc-year {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           color: var(--fg3);
         }
 
@@ -490,7 +490,7 @@ export default function Portfolio() {
 
         .nb-toc-tagline {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           color: var(--fg2);
           margin-top: 6px;
           line-height: 1.4;
@@ -508,7 +508,7 @@ export default function Portfolio() {
 
         .nb-toc-desc {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 26px);
           line-height: 1.7;
           color: var(--fg2);
           max-width: 64ch;
@@ -538,7 +538,7 @@ export default function Portfolio() {
 
         .nb-toc-link {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           font-weight: 600;
           color: var(--fg2);
           text-decoration: none;
@@ -614,7 +614,7 @@ export default function Portfolio() {
 
         .nb-tl-notes {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 26px);
           line-height: 1.7;
           color: var(--fg2);
         }
@@ -630,7 +630,7 @@ export default function Portfolio() {
 
         .nb-skills-cat {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           color: var(--fg3);
           letter-spacing: 0.06em;
           text-transform: uppercase;
@@ -641,7 +641,7 @@ export default function Portfolio() {
 
         .nb-skill-item {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 26px);
           color: var(--fg2);
           padding: 3px 0;
           line-height: 1.4;
@@ -657,7 +657,7 @@ export default function Portfolio() {
           align-items: center;
           gap: 8px;
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           font-weight: 600;
           color: var(--bg);
           background: var(--fg);
@@ -676,7 +676,7 @@ export default function Portfolio() {
           align-items: center;
           gap: 8px;
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           font-weight: 600;
           color: var(--fg);
           background: transparent;
@@ -744,7 +744,7 @@ export default function Portfolio() {
         }
         .nb-footer-link {
           font-family: var(--font-hand);
-          font-size: 22px;
+          font-size: clamp(22px, 2.2vw, 24px);
           color: var(--fg3);
           text-decoration: none;
           transition: color 0.2s;
@@ -779,7 +779,7 @@ export default function Portfolio() {
           ✕
         </button>
         <div style={{ marginBottom: 8 }}>
-          <span style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>charlz.</span>
+          <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>charlz.</span>
         </div>
         {NAV_ITEMS.map(id => (
           <button
@@ -791,10 +791,10 @@ export default function Portfolio() {
           </button>
         ))}
         <div style={{ marginTop: 32, display: "flex", gap: 16 }}>
-          <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)", textDecoration: "none" }}>
+          <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
             github ↗
           </a>
-          <a href="mailto:hello@charlz.dev" style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)", textDecoration: "none" }}>
+          <a href="mailto:hello@charlz.dev" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
             email ↗
           </a>
         </div>
@@ -828,7 +828,7 @@ export default function Portfolio() {
             aria-label="Open menu"
           >
             {menuOpen ? (
-              <span style={{ fontFamily: "var(--font-hand)", fontSize: 26, color: "var(--fg)", lineHeight: 1 }}>✕</span>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.4vw, 26px)", color: "var(--fg)", lineHeight: 1 }}>✕</span>
             ) : (
               <>
                 <span className="nb-hamburger-line" />
@@ -845,7 +845,7 @@ export default function Portfolio() {
         {/* Left: name + tagline + CTA */}
         <div>
           <div className="a1" style={{ marginBottom: 12 }}>
-            <span style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>
+            <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>
               pg. 01 — intro
             </span>
           </div>
@@ -893,7 +893,7 @@ export default function Portfolio() {
           <div className="nb-margin-note">
             <p style={{
               fontFamily: "var(--font-hand)",
-              fontSize: 22,
+              fontSize: "clamp(22px, 2.2vw, 24px)",
               color: "var(--fg3)",
               letterSpacing: "0.04em",
               textTransform: "uppercase",
@@ -906,22 +906,22 @@ export default function Portfolio() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>Role</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)", fontWeight: 600 }}>Frontend Developer</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>Role</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "var(--fg)", fontWeight: 600 }}>Frontend Developer</p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>Based in</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)" }}>Abuja, Nigeria</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>Based in</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "var(--fg)" }}>Abuja, Nigeria</p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>Status</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 24, color: "var(--fg)", display: "flex", alignItems: "center", gap: 8 }}>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>Status</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "var(--fg)", display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }} />
                   Available for work
                 </p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   {[
                     { label: "github.com/charlzx", href: "https://github.com/charlzx" },
@@ -930,7 +930,7 @@ export default function Portfolio() {
                   ].map(l => (
                     <a key={l.href} href={l.href} target="_blank" rel="noreferrer" style={{
                       fontFamily: "var(--font-hand)",
-                      fontSize: 22,
+                      fontSize: "clamp(22px, 2.2vw, 24px)",
                       color: "var(--fg2)",
                       textDecoration: "none",
                       transition: "color 0.2s",
@@ -1136,7 +1136,7 @@ export default function Portfolio() {
 
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
-        <span style={{ fontFamily: "var(--font-hand)", fontSize: 22, color: "var(--fg3)" }}>
+        <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>
           © 2025 Charles Obuzor — charlz.dev
         </span>
         <div style={{ display: "flex", gap: 20 }}>
