@@ -693,8 +693,7 @@ export default function Portfolio() {
               color: "var(--fg)",
               marginBottom: 24,
             }}>
-              Let&apos;s build<br />
-              <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>something.</em>
+              Let&apos;s build <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>something.</em>
             </h2>
           </Reveal>
 
