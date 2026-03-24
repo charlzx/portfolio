@@ -156,10 +156,8 @@ function ContactForm() {
           overflow: "visible",
         }}
       >
-        {/* Tape — top left */}
-        <div style={{ ...tapeStyle, top: 6, left: 20, transform: "rotate(-41deg)" }} />
-        {/* Tape — bottom right */}
-        <div style={{ ...tapeStyle, bottom: 6, right: 20, transform: "rotate(-41deg)" }} />
+        {/* Tape — top center */}
+        <div style={{ ...tapeStyle, top: 6, left: "50%", transform: "translateX(-50%) rotate(-3deg)" }} />
         <input
           className="nb-cf-input"
           type="text"
