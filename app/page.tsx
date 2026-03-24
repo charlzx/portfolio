@@ -709,16 +709,15 @@ export default function Portfolio() {
 
         /* ── MARGIN NOTE (hero right panel) ── */
         .nb-margin-note {
-          background-color: var(--surface);
-          background-image: ${RULED};
-          background-size: 100% 32px;
-          border: 1.5px solid var(--border);
+          background-color: #f5e97a;
+          background-image: none;
+          border: none;
           border-radius: 3px;
           padding: 32px 28px;
-          box-shadow: 3px 5px 20px var(--shadow);
+          box-shadow: 4px 6px 24px rgba(0,0,0,0.18);
           max-width: 320px;
           justify-self: center;
-          transform: rotate(-1deg);
+          transform: rotate(-4deg);
           transform-origin: top center;
         }
         @media (max-width: 860px) { .nb-margin-note { max-width: 100%; justify-self: start; } }
@@ -796,7 +795,7 @@ export default function Portfolio() {
           <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
             github ↗
           </a>
-          <a href="mailto:hello@charlz.dev" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
+          <a href="mailto:charlesobuzor@outlook.com" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
             email ↗
           </a>
         </div>
@@ -908,37 +907,29 @@ export default function Portfolio() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>Role</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "var(--fg)", fontWeight: 600 }}>Frontend Developer</p>
-              </div>
-              <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>Based in</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "var(--fg)" }}>Abuja, Nigeria</p>
-              </div>
-              <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>Status</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "var(--fg)", display: "flex", alignItems: "center", gap: 8 }}>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6a00" }}>Status</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "#1a1600", display: "flex", alignItems: "center", gap: 8 }}>
                   <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }} />
                   Available for work
                 </p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", marginBottom: 8 }}>Find me</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6a00", marginBottom: 8 }}>Find me</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   {[
                     { label: "github.com/charlzx", href: "https://github.com/charlzx" },
-                    { label: "hello@charlz.dev", href: "mailto:hello@charlz.dev" },
+                    { label: "charlesobuzor@outlook.com", href: "mailto:charlesobuzor@outlook.com" },
                     { label: "linkedin ↗", href: "https://linkedin.com/in/charlzObuzor" },
                   ].map(l => (
                     <a key={l.href} href={l.href} target="_blank" rel="noreferrer" style={{
                       fontFamily: "var(--font-hand)",
-                      fontSize: "clamp(22px, 2.2vw, 24px)",
-                      color: "var(--fg2)",
+                      fontSize: "clamp(20px, 1.9vw, 22px)",
+                      color: "#3a3000",
                       textDecoration: "none",
                       transition: "color 0.2s",
                     }}
-                      onMouseEnter={e => (e.currentTarget.style.color = "var(--fg)")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "var(--fg2)")}
+                      onMouseEnter={e => (e.currentTarget.style.color = "#000")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "#3a3000")}
                     >
                       {l.label}
                     </a>
@@ -1122,8 +1113,8 @@ export default function Portfolio() {
 
           <Reveal delay={0.15}>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="mailto:hello@charlz.dev" className="nb-btn">
-                hello@charlz.dev
+              <a href="mailto:charlesobuzor@outlook.com" className="nb-btn">
+                charlesobuzor@outlook.com
               </a>
               <a href="https://linkedin.com/in/charlzObuzor" target="_blank" rel="noreferrer" className="nb-btn-out">
                 LinkedIn ↗
