@@ -157,7 +157,7 @@ function ContactForm() {
         }}
       >
         {/* Tape — top center */}
-        <div style={{ ...tapeStyle, top: 6, left: "50%", transform: "translateX(-50%) rotate(-3deg)" }} />
+        <div style={{ ...tapeStyle, top: -14, left: "50%", transform: "translateX(-50%) rotate(-3deg)" }} />
         <input
           className="nb-cf-input"
           type="text"
