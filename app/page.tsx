@@ -336,7 +336,7 @@ export default function Portfolio() {
         .nb-mobile-menu {
           position: fixed;
           inset: 0;
-          z-index: 45;
+          z-index: 55;
           background-color: var(--bg);
           background-image: ${RULED};
           background-size: 100% 32px;
@@ -561,7 +561,7 @@ export default function Portfolio() {
           top: 8px;
           bottom: 40px;
           width: 2px;
-          background: var(--border);
+          background: var(--fg3);
         }
         /* Dash caps at top and bottom of the timeline line */
         .nb-timeline::before,
@@ -571,7 +571,7 @@ export default function Portfolio() {
           left: 0;
           width: 16px;
           height: 2px;
-          background: var(--border);
+          background: var(--fg3);
         }
         .nb-timeline::before { top: 8px; }
         .nb-timeline::after  { bottom: 40px; }
@@ -718,6 +718,8 @@ export default function Portfolio() {
           box-shadow: 3px 5px 20px var(--shadow);
           max-width: 320px;
           justify-self: center;
+          transform: rotate(-1deg);
+          transform-origin: top center;
         }
         @media (max-width: 860px) { .nb-margin-note { max-width: 100%; justify-self: start; } }
 
