@@ -579,11 +579,11 @@ export default function Portfolio() {
             fontSize: "clamp(22px, 2.4vw, 26px)",
             lineHeight: 1.65,
             color: "var(--fg2)",
-            maxWidth: "42ch",
+            maxWidth: "58ch",
             marginBottom: 40,
           }}>
-            Frontend developer building beautiful interfaces
-            for the web.{" "}
+            Frontend developer building beautiful interfaces for the web.
+            <br />
             <span style={{ color: "var(--fg)", fontWeight: 600 }}>
               React · Next.js · React Native · TypeScript.
             </span>
