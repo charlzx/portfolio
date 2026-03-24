@@ -202,8 +202,8 @@ export default function Portfolio() {
   };
 
   const RULED = `repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, var(--rule) 31px, var(--rule) 32px)`;
-  const H_PAD = "clamp(24px, 6vw, 100px)";
-  const H_PAD_L = "clamp(24px, 8vw, 116px)";
+  const H_PAD = "clamp(20px, 4vw, 72px)";
+  const H_PAD_L = "clamp(20px, 5vw, 80px)";
 
   return (
     <div className="nb-root" style={{ ...(theme as React.CSSProperties) }}>
@@ -231,7 +231,7 @@ export default function Portfolio() {
         /* ── RED MARGIN LINE ── */
         .nb-margin {
           position: fixed;
-          top: 0; bottom: 0; left: 72px;
+          top: 0; bottom: 0; left: 36px;
           width: 1.5px;
           background: var(--margin);
           z-index: 5;
@@ -249,7 +249,7 @@ export default function Portfolio() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 clamp(24px, 6vw, 100px) 0 clamp(24px, 8vw, 116px);
+          padding: 0 clamp(20px, 4vw, 72px) 0 clamp(20px, 5vw, 80px);
           border-bottom: 1px solid var(--border);
           background-color: var(--bg);
           background-image: ${RULED};
@@ -374,7 +374,7 @@ export default function Portfolio() {
         .nb-mobile-menu-close {
           position: absolute;
           top: 18px;
-          right: clamp(24px, 6vw, 100px);
+          right: clamp(20px, 4vw, 72px);
           font-family: var(--font-hand);
           font-size: clamp(22px, 2.5vw, 28px);
           background: none;
@@ -386,7 +386,7 @@ export default function Portfolio() {
 
         /* ── SECTIONS ── */
         .nb-section {
-          padding: 100px clamp(24px, 6vw, 100px) 100px clamp(24px, 8vw, 116px);
+          padding: 100px clamp(20px, 4vw, 72px) 100px clamp(20px, 5vw, 80px);
           border-top: 1px solid var(--border);
         }
         .nb-section-alt {
@@ -697,7 +697,7 @@ export default function Portfolio() {
           grid-template-columns: 58fr 42fr;
           gap: 40px;
           align-items: center;
-          padding: 100px clamp(24px, 6vw, 100px) 80px clamp(24px, 8vw, 116px);
+          padding: 100px clamp(20px, 4vw, 72px) 80px clamp(20px, 5vw, 80px);
         }
         @media (max-width: 860px) {
           .nb-hero {
@@ -709,15 +709,19 @@ export default function Portfolio() {
 
         /* ── MARGIN NOTE (hero right panel) ── */
         .nb-margin-note {
-          background-color: #f5e97a;
+          background-color: #fde84b;
           background-image: none;
           border: none;
-          border-radius: 3px;
+          border-radius: 2px;
           padding: 32px 28px;
-          box-shadow: 4px 6px 24px rgba(0,0,0,0.18);
-          max-width: 320px;
+          box-shadow:
+            0 1px 2px rgba(0,0,0,0.07),
+            0 4px 10px rgba(0,0,0,0.10),
+            0 12px 28px rgba(0,0,0,0.12),
+            2px 16px 32px rgba(180,140,0,0.10);
+          max-width: 300px;
           justify-self: center;
-          transform: rotate(-4deg);
+          transform: rotate(-4.5deg);
           transform-origin: top center;
         }
         @media (max-width: 860px) { .nb-margin-note { max-width: 100%; justify-self: start; } }
@@ -735,7 +739,7 @@ export default function Portfolio() {
 
         /* ── FOOTER ── */
         .nb-footer {
-          padding: 20px clamp(24px, 6vw, 100px) 20px clamp(24px, 8vw, 116px);
+          padding: 20px clamp(20px, 4vw, 72px) 20px clamp(20px, 5vw, 80px);
           border-top: 1px solid var(--border);
           display: flex;
           justify-content: space-between;
@@ -895,11 +899,11 @@ export default function Portfolio() {
             <p style={{
               fontFamily: "var(--font-hand)",
               fontSize: "clamp(22px, 2.2vw, 24px)",
-              color: "var(--fg3)",
+              color: "#7a6600",
               letterSpacing: "0.04em",
               textTransform: "uppercase",
               marginBottom: 20,
-              borderBottom: "1px solid var(--border)",
+              borderBottom: "1px solid rgba(0,0,0,0.12)",
               paddingBottom: 12,
             }}>
               — about me
@@ -907,14 +911,14 @@ export default function Portfolio() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6a00" }}>Status</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "#1a1600", display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }} />
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6600" }}>Status</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "#1a1400", display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e", display: "inline-block", flexShrink: 0 }} />
                   Available for work
                 </p>
               </div>
               <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6a00", marginBottom: 8 }}>Find me</p>
+                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6600", marginBottom: 8 }}>Find me</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   {[
                     { label: "github.com/charlzx", href: "https://github.com/charlzx" },
