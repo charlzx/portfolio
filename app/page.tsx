@@ -1,96 +1,21 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-
-const CARD_ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
-
-const PROJECTS = [
-  {
-    id: "crwn3",
-    name: "CRWN3",
-    image: "/crwn3.webp",
-    url: "https://crwn3.vercel.app/",
-    github: "https://github.com/charlzx/shop",
-    year: "2024",
-    status: "live",
-    tagline: "Full-featured e-commerce storefront.",
-    description:
-      "A full-featured e-commerce site with product listings, a shopping cart, and a checkout process. Built with a focus on performance and user experience.",
-    stack: ["React", "Vite", "Tailwind", "Leaflet.js"],
-  },
-  {
-    id: "heirswealth",
-    name: "Heirswealth",
-    image: "/heirswealth.webp",
-    url: "https://heirswealth.com",
-    github: "",
-    year: "2024",
-    status: "live",
-    tagline: "Solar energy company website.",
-    description:
-      "A full-spectrum solar energy company offering residential, industrial, and community installations, delivering sustainable, cost-efficient power systems to empower clients long-term.",
-    stack: ["React", "Vite", "Tailwind", "Framer Motion"],
-  },
-  {
-    id: "gta-radio",
-    name: "GTA Radio",
-    image: "/radio.webp",
-    url: "https://gta-live.vercel.app/",
-    github: "https://github.com/charlzx/gta-radio",
-    year: "2024",
-    status: "live",
-    tagline: "Real-time synchronized GTA radio.",
-    description:
-      "A modern web application that recreates the authentic Grand Theft Auto radio experience with real-time synchronized playback across all users.",
-    stack: ["React", "Vite", "Tailwind"],
-  },
-  {
-    id: "smart-gym",
-    name: "Smart Gym",
-    image: "/gymx.webp",
-    url: "https://gymx.vercel.app/",
-    github: "https://github.com/charlzx/gym-app",
-    year: "2023",
-    status: "live",
-    tagline: "Responsive fitness web experience.",
-    description:
-      "A responsive fitness website featuring workout program sections, class schedules, and modern UI components for an engaging user experience.",
-    stack: ["React", "Vite", "Tailwind", "Recharts"],
-  },
-  {
-    id: "solisys",
-    name: "Solisys",
-    image: "/solisys.webp",
-    url: "https://solisys.vercel.app/",
-    github: "https://github.com/charlzx/solisys",
-    year: "2024",
-    status: "live",
-    tagline: "Off-grid solar system designer.",
-    description:
-      "A web app that guides users through designing off-grid solar systems — from load estimation to inverter, battery, and panel sizing — with printable, client-ready summaries.",
-    stack: ["React", "Tailwind", "Vite"],
-  },
-  {
-    id: "portfolio",
-    name: "This Portfolio",
-    image: "/my-portfolio.webp",
-    url: "https://charlz.dev",
-    github: "https://github.com/charlzx/portfolio",
-    year: "2025",
-    status: "live",
-    tagline: "Personal portfolio & showcase.",
-    description:
-      "The very site you are on now. A personal portfolio to showcase my frontend development skills, built with modern web technologies and clean design principles.",
-    stack: ["React", "Next.js", "Tailwind", "Framer Motion"],
-  },
-];
+import Link from "next/link";
 
 const SKILLS = [
   { category: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "JavaScript", "Expo", "Tailwind CSS", "Framer Motion"] },
   { category: "Tools & Platform", items: ["Git / GitHub", "Vite", "Vercel", "Convex"] },
 ];
 
-const NAV_ITEMS = ["about", "projects", "skills", "contact"];
+const SCROLL_ITEMS = ["about", "skills", "contact"];
+
+const NAV_LINKS = [
+  { label: "about",    href: null },
+  { label: "projects", href: "/projects" },
+  { label: "skills",   href: null },
+  { label: "contact",  href: null },
+];
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -157,11 +82,11 @@ export default function Portfolio() {
 
   useEffect(() => {
     const onScroll = () => {
-      const sections = NAV_ITEMS.map(id => document.getElementById(id));
+      const sections = SCROLL_ITEMS.map(id => document.getElementById(id));
       const scrollY = window.scrollY + 100;
       for (let i = sections.length - 1; i >= 0; i--) {
         if (sections[i] && sections[i]!.offsetTop <= scrollY) {
-          setActiveNav(NAV_ITEMS[i]);
+          setActiveNav(SCROLL_ITEMS[i]);
           break;
         }
       }
@@ -254,6 +179,7 @@ export default function Portfolio() {
           padding: 0;
           transition: color 0.2s;
           line-height: 1;
+          text-decoration: none;
         }
         .nb-nav-link:hover { color: var(--fg2); }
         .nb-nav-link.active {
@@ -336,6 +262,7 @@ export default function Portfolio() {
           line-height: 1.1;
           transition: color 0.15s;
           text-align: left;
+          text-decoration: none;
         }
         .nb-mobile-menu-link:hover { color: var(--fg); }
         .nb-mobile-menu-link.active {
@@ -389,170 +316,6 @@ export default function Portfolio() {
           margin-bottom: 60px;
         }
 
-        /* ── PHOTO BOARD ── */
-        .nb-photo-board {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 56px 36px;
-          margin-top: 8px;
-        }
-        @media (max-width: 960px) {
-          .nb-photo-board { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 540px) {
-          .nb-photo-board { grid-template-columns: 1fr; gap: 48px 0; }
-        }
-
-        .nb-photo-card {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          transition: transform 0.28s ease, z-index 0s;
-          z-index: 1;
-        }
-        .nb-photo-card:hover {
-          transform: scale(1.05) translateY(-6px) rotate(0deg) !important;
-          z-index: 4;
-        }
-        @media (max-width: 540px) {
-          .nb-photo-card { transform: none !important; }
-        }
-
-        .nb-photo-img-wrap {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 16 / 10;
-          overflow: visible;
-          filter:
-            drop-shadow(0 2px 4px rgba(0,0,0,0.12))
-            drop-shadow(0 6px 18px rgba(0,0,0,0.16));
-          transition: filter 0.28s ease;
-        }
-        .nb-photo-card:hover .nb-photo-img-wrap {
-          filter:
-            drop-shadow(0 4px 8px rgba(0,0,0,0.18))
-            drop-shadow(0 14px 36px rgba(0,0,0,0.22));
-        }
-        .nb-photo-img-wrap::before {
-          content: '';
-          position: absolute;
-          top: -14px;
-          left: 50%;
-          transform: translateX(-50%) rotate(1deg);
-          width: 58px;
-          height: 26px;
-          background: rgba(255,255,240,0.68);
-          border: 1px solid rgba(220,210,150,0.6);
-          border-radius: 2px;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.12);
-          z-index: 3;
-          pointer-events: none;
-        }
-
-        .nb-photo-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          position: relative;
-          z-index: 1;
-          clip-path: polygon(
-            3% 0%, 97% 0%,
-            100% 6%,  96% 13%, 100% 20%, 97% 27%, 100% 34%, 96% 41%,
-            100% 48%, 97% 55%, 100% 62%, 96% 69%, 100% 76%, 97% 83%,
-            100% 90%, 97% 100%,
-            3% 100%,
-            0% 92%,   4% 85%,  0% 78%,  3% 71%,  0% 64%,  4% 57%,
-            0% 50%,   3% 43%,  0% 36%,  4% 29%,  0% 22%,  3% 15%,
-            0% 8%,    3% 0%
-          );
-        }
-
-        .nb-photo-info {
-          padding: 18px 4px 0;
-        }
-
-        .nb-photo-name {
-          font-family: var(--font-head);
-          font-weight: 700;
-          font-size: clamp(18px, 1.8vw, 22px);
-          letter-spacing: -0.02em;
-          color: var(--fg);
-          line-height: 1.15;
-          margin-bottom: 5px;
-        }
-
-        .nb-photo-meta {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-bottom: 5px;
-        }
-
-        .nb-photo-year {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2vw, 24px);
-          color: var(--fg3);
-        }
-
-        .nb-photo-badge {
-          font-family: var(--font-hand);
-          font-size: clamp(18px, 1.8vw, 20px);
-          font-weight: 600;
-          color: #4ade80;
-          background: rgba(74,222,128,0.12);
-          padding: 1px 9px;
-          border-radius: 2px;
-        }
-
-        .nb-photo-tagline {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2vw, 24px);
-          color: var(--fg2);
-          line-height: 1.4;
-          margin-bottom: 10px;
-        }
-
-        .nb-photo-stack {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          margin-bottom: 10px;
-        }
-
-        .nb-photo-tech {
-          font-family: var(--font-hand);
-          font-size: clamp(18px, 1.6vw, 20px);
-          color: var(--fg3);
-          border-bottom: 1px solid var(--border);
-          padding-bottom: 1px;
-          line-height: 1.2;
-        }
-
-        .nb-photo-links {
-          display: flex;
-          gap: 18px;
-          flex-wrap: wrap;
-          opacity: 0;
-          transform: translateY(5px);
-          transition: opacity 0.22s ease, transform 0.22s ease;
-        }
-        .nb-photo-card:hover .nb-photo-links { opacity: 1; transform: translateY(0); }
-        @media (max-width: 540px) {
-          .nb-photo-links { opacity: 1; transform: none; }
-        }
-
-        .nb-photo-link {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2vw, 24px);
-          font-weight: 600;
-          color: var(--fg2);
-          text-decoration: underline;
-          text-underline-offset: 3px;
-          text-decoration-color: var(--border);
-          transition: color 0.15s, text-decoration-color 0.15s;
-        }
-        .nb-photo-link:hover { color: var(--fg); text-decoration-color: var(--fg3); }
 
         /* ── SKILLS LIST ── */
         .nb-skills-grid {
@@ -720,38 +483,47 @@ export default function Portfolio() {
         <div style={{ marginBottom: 8 }}>
           <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>charlz.</span>
         </div>
-        {NAV_ITEMS.map(id => (
-          <button
-            key={id}
-            className={`nb-mobile-menu-link${activeNav === id ? " active" : ""}`}
-            onClick={() => scrollTo(id)}
-          >
-            {id}
-          </button>
-        ))}
-        <div style={{ marginTop: 32, display: "flex", gap: 16 }}>
-          <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
-            github ↗
-          </a>
-          <a href="mailto:charlesobuzor@outlook.com" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)", textDecoration: "none" }}>
-            email ↗
-          </a>
-        </div>
+        {NAV_LINKS.map(({ label, href }) =>
+          href ? (
+            <Link
+              key={label}
+              href={href}
+              className="nb-mobile-menu-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              {label}
+            </Link>
+          ) : (
+            <button
+              key={label}
+              className={`nb-mobile-menu-link${activeNav === label ? " active" : ""}`}
+              onClick={() => scrollTo(label)}
+            >
+              {label}
+            </button>
+          )
+        )}
       </div>
 
       {/* ── NAV ── */}
       <nav className="nb-nav">
         <span className="nb-logo" onClick={() => scrollTo("about")}>charlz.</span>
         <div className="nb-nav-links">
-          {NAV_ITEMS.map(id => (
-            <button
-              key={id}
-              className={`nb-nav-link${activeNav === id ? " active" : ""}`}
-              onClick={() => scrollTo(id)}
-            >
-              {id}
-            </button>
-          ))}
+          {NAV_LINKS.map(({ label, href }) =>
+            href ? (
+              <Link key={label} href={href} className="nb-nav-link">
+                {label}
+              </Link>
+            ) : (
+              <button
+                key={label}
+                className={`nb-nav-link${activeNav === label ? " active" : ""}`}
+                onClick={() => scrollTo(label)}
+              >
+                {label}
+              </button>
+            )
+          )}
         </div>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
           <button
@@ -818,9 +590,9 @@ export default function Portfolio() {
           </p>
 
           <div className="a4" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <button className="nb-btn" onClick={() => scrollTo("projects")}>
+            <Link href="/projects" className="nb-btn">
               View Projects →
-            </button>
+            </Link>
             <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" className="nb-btn-out">
               GitHub ↗
             </a>
@@ -881,62 +653,10 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* ── PROJECTS ── */}
-      <section id="projects" className="nb-section">
-        <Reveal>
-          <p className="nb-label">— 02 / projects</p>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="nb-h2">Things I&apos;ve built.</h2>
-        </Reveal>
-
-        <div className="nb-photo-board">
-          {PROJECTS.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.06}>
-              <div
-                className="nb-photo-card"
-                style={{ transform: `rotate(${CARD_ROTATIONS[i]}deg)` }}
-              >
-                <div className="nb-photo-img-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="nb-photo-img"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="nb-photo-info">
-                  <p className="nb-photo-name">{p.name}</p>
-                  <p className="nb-photo-tagline">{p.tagline}</p>
-                  <div className="nb-photo-stack">
-                    {p.stack.map(s => (
-                      <span key={s} className="nb-photo-tech">{s}</span>
-                    ))}
-                  </div>
-                  <div className="nb-photo-links">
-                    {p.url && (
-                      <a href={p.url} target="_blank" rel="noreferrer" className="nb-photo-link">
-                        live ↗
-                      </a>
-                    )}
-                    {p.github && (
-                      <a href={p.github} target="_blank" rel="noreferrer" className="nb-photo-link">
-                        github ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       {/* ── SKILLS ── */}
       <section id="skills" className="nb-section nb-section-alt">
         <Reveal>
-          <p className="nb-label">— 03 / skills</p>
+          <p className="nb-label">— 02 / skills</p>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="nb-h2">What I work with.</h2>
@@ -959,7 +679,7 @@ export default function Portfolio() {
       {/* ── CONTACT ── */}
       <section id="contact" className="nb-section" style={{ paddingBottom: 120 }}>
         <Reveal>
-          <p className="nb-label">— 04 / contact</p>
+          <p className="nb-label">— 03 / contact</p>
         </Reveal>
 
         <div style={{ maxWidth: 640 }}>
@@ -1010,19 +730,8 @@ export default function Portfolio() {
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
         <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>
-          © 2025 Charles Obuzor — charlz.dev
+          © {new Date().getFullYear()} Charles Obuzor
         </span>
-        <div style={{ display: "flex", gap: 20 }}>
-          {[
-            { label: "github", href: "https://github.com/charlzx" },
-            { label: "linkedin", href: "https://linkedin.com/in/charlzObuzor" },
-            { label: "twitter", href: "https://twitter.com/charlzObuzor" },
-          ].map(l => (
-            <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="nb-footer-link">
-              {l.label}
-            </a>
-          ))}
-        </div>
       </footer>
     </div>
   );
