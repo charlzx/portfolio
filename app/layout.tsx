@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL('https://charlz.dev'),
   title: {
-    default: "Charles Obuzor – Frontend Developer",
+    default: "Charles Obuzor — Frontend Developer",
     template: '%s — charlz.dev',
   },
   description: 'Charles Obuzor is a frontend developer with 4+ years of experience building web and mobile products with React, Next.js, React Native, and TypeScript.',
@@ -39,15 +39,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://charlz.dev',
-    title: 'Charles Obuzor – Frontend Developer',
+    title: 'Charles Obuzor — Frontend Developer',
     description: 'Frontend developer building web and mobile products with React, Next.js, and TypeScript.',
     siteName: 'charlz.dev',
+    images: [
+      {
+        url: 'https://charlz.dev/my-portfolio.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Charles Obuzor — Frontend Developer Portfolio',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Charles Obuzor – Frontend Developer',
+    title: 'Charles Obuzor — Frontend Developer',
     description: 'Frontend developer building web and mobile products with React, Next.js, and TypeScript.',
     creator: '@charlzObuzor',
+    images: ['https://charlz.dev/my-portfolio.webp'],
   },
   robots: {
     index: true,

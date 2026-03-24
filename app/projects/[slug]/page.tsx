@@ -17,26 +17,30 @@ export async function generateMetadata(
   if (!p) return {};
 
   return {
-    title: `${p.name} – Case Study`,
-    description: p.description[0],
+    title: `${p.name} — Case Study`,
+    description: p.metaDescription,
     alternates: {
       canonical: `https://charlz.dev/projects/${p.id}`,
     },
     openGraph: {
+      type: "website",
       title: `${p.name} — ${p.tagline}`,
-      description: p.description[0],
+      description: p.metaDescription,
       url: `https://charlz.dev/projects/${p.id}`,
       images: [
         {
           url: `https://charlz.dev${p.image}`,
-          alt: p.name,
+          width: 1200,
+          height: 630,
+          alt: `${p.name} — ${p.tagline}`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${p.name} — ${p.tagline}`,
-      description: p.description[0],
+      description: p.metaDescription,
+      images: [`https://charlz.dev${p.image}`],
     },
   };
 }
@@ -52,7 +56,7 @@ export default async function Page(
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: p.name,
-    description: p.description[0],
+    description: p.metaDescription,
     url: p.url || `https://charlz.dev/projects/${p.id}`,
     applicationCategory: "WebApplication",
     operatingSystem: "Web",
@@ -62,7 +66,6 @@ export default async function Page(
       url: "https://charlz.dev",
     },
     dateCreated: p.year,
-    programmingLanguage: p.stack,
     ...(p.github ? { codeRepository: p.github } : {}),
   };
 
