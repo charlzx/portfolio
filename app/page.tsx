@@ -19,18 +19,20 @@ const NAV_LINKS = [
   { label: "contact",  href: null },
 ];
 
-function useInView(threshold = 0.1) {
+function useInView() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const show = () => setVisible(true);
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold }
+      ([entry]) => { if (entry.isIntersecting) show(); },
+      { threshold: 0, rootMargin: "0px 0px 60px 0px" }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    const fallback = setTimeout(show, 1000);
+    return () => { observer.disconnect(); clearTimeout(fallback); };
   }, []);
   return [ref, visible] as const;
 }
@@ -266,8 +268,6 @@ export default function Portfolio() {
   return (
     <div className="nb-root" style={{ ...(theme as React.CSSProperties) }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Raleway:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --font-hand: 'Caveat', cursive; --font-head: 'Raleway', sans-serif; }
         html { scroll-behavior: smooth; }
