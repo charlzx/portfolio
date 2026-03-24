@@ -2,10 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 
+const CARD_ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
+
 const PROJECTS = [
   {
     id: "crwn3",
     name: "CRWN3",
+    image: "/crwn3.webp",
     url: "https://crwn3.vercel.app/",
     github: "https://github.com/charlzx/shop",
     year: "2024",
@@ -14,11 +17,11 @@ const PROJECTS = [
     description:
       "A full-featured e-commerce site with product listings, a shopping cart, and a checkout process. Built with a focus on performance and user experience.",
     stack: ["React", "Vite", "Tailwind", "Leaflet.js"],
-    accent: "#4ade80",
   },
   {
     id: "heirswealth",
     name: "Heirswealth",
+    image: "/heirswealth.webp",
     url: "https://heirswealth.com",
     github: "",
     year: "2024",
@@ -27,11 +30,11 @@ const PROJECTS = [
     description:
       "A full-spectrum solar energy company offering residential, industrial, and community installations, delivering sustainable, cost-efficient power systems to empower clients long-term.",
     stack: ["React", "Vite", "Tailwind", "Framer Motion"],
-    accent: "#fbbf24",
   },
   {
     id: "gta-radio",
     name: "GTA Radio",
+    image: "/radio.webp",
     url: "https://gta-live.vercel.app/",
     github: "https://github.com/charlzx/gta-radio",
     year: "2024",
@@ -40,11 +43,11 @@ const PROJECTS = [
     description:
       "A modern web application that recreates the authentic Grand Theft Auto radio experience with real-time synchronized playback across all users.",
     stack: ["React", "Vite", "Tailwind"],
-    accent: "#f87171",
   },
   {
     id: "smart-gym",
     name: "Smart Gym",
+    image: "/gymx.webp",
     url: "https://gymx.vercel.app/",
     github: "https://github.com/charlzx/gym-app",
     year: "2023",
@@ -53,11 +56,11 @@ const PROJECTS = [
     description:
       "A responsive fitness website featuring workout program sections, class schedules, and modern UI components for an engaging user experience.",
     stack: ["React", "Vite", "Tailwind", "Recharts"],
-    accent: "#a78bfa",
   },
   {
     id: "solisys",
     name: "Solisys",
+    image: "/solisys.webp",
     url: "https://solisys.vercel.app/",
     github: "https://github.com/charlzx/solisys",
     year: "2024",
@@ -66,11 +69,11 @@ const PROJECTS = [
     description:
       "A web app that guides users through designing off-grid solar systems — from load estimation to inverter, battery, and panel sizing — with printable, client-ready summaries.",
     stack: ["React", "Tailwind", "Vite"],
-    accent: "#34d399",
   },
   {
     id: "portfolio",
     name: "This Portfolio",
+    image: "/my-portfolio.webp",
     url: "https://charlz.dev",
     github: "https://github.com/charlzx/portfolio",
     year: "2025",
@@ -79,7 +82,6 @@ const PROJECTS = [
     description:
       "The very site you are on now. A personal portfolio to showcase my frontend development skills, built with modern web technologies and clean design principles.",
     stack: ["React", "Next.js", "Tailwind", "Framer Motion"],
-    accent: "#94a3b8",
   },
 ];
 
@@ -88,34 +90,7 @@ const SKILLS = [
   { category: "Tools & Platform", items: ["Git / GitHub", "Vite", "Vercel", "Convex"] },
 ];
 
-const EXPERIENCE = [
-  {
-    role: "Freelance Frontend Developer",
-    org: "Self-Employed",
-    period: "2022 — Present",
-    notes: "Partnered with clients, startups and small businesses to build and scale websites and applications. Specialized in creating responsive, high-performance UIs based on specifications.",
-  },
-  {
-    role: "Frontend Developer",
-    org: "Zuri Team, Inc.",
-    period: "Mar 2021 — Jul 2021",
-    notes: "Worked with teams to build full web applications. Focused on responsive UIs, API integration, and collaboration with GitHub.",
-  },
-  {
-    role: "Frontend Intern",
-    org: "Levelop (StudentBuild Study Group)",
-    period: "Aug 2020 — Dec 2020",
-    notes: "Built test projects and collaborated with peers on React.js features. Gained experience in debugging, code reviews, and teamwork.",
-  },
-  {
-    role: "Student Intern",
-    org: "Emerging Platforms Ltd",
-    period: "Feb 2020 — Sep 2020",
-    notes: "Started learning tech with focus on HTML, CSS, and JavaScript to build simple web projects.",
-  },
-];
-
-const NAV_ITEMS = ["about", "projects", "experience", "contact"];
+const NAV_ITEMS = ["about", "projects", "skills", "contact"];
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -149,7 +124,6 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 export default function Portfolio() {
   const [dark, setDark] = useState(false);
   const [activeNav, setActiveNav] = useState("about");
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const theme = dark ? {
@@ -415,209 +389,148 @@ export default function Portfolio() {
           margin-bottom: 60px;
         }
 
-        /* ── PROJECT ENTRIES (TOC style) ── */
-        .nb-toc-entry {
-          cursor: pointer;
-          border-bottom: 1px dashed var(--border);
-          transition: background 0.15s;
+        /* ── PHOTO BOARD ── */
+        .nb-photo-board {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 56px 36px;
+          margin-top: 8px;
         }
-        .nb-toc-entry:first-child { border-top: 1px dashed var(--border); }
-        .nb-toc-entry:hover { background: rgba(0,0,0,0.015); }
+        @media (max-width: 960px) {
+          .nb-photo-board { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 540px) {
+          .nb-photo-board { grid-template-columns: 1fr; gap: 48px 0; }
+        }
 
-        .nb-toc-header {
+        .nb-photo-card {
+          position: relative;
           display: flex;
-          align-items: baseline;
-          gap: clamp(12px, 2vw, 32px);
-          padding: 24px 0 20px;
+          flex-direction: column;
+          transition: transform 0.28s ease, z-index 0s;
+          z-index: 1;
+        }
+        .nb-photo-card:hover {
+          transform: scale(1.05) translateY(-6px) rotate(0deg) !important;
+          z-index: 4;
+        }
+        @media (max-width: 540px) {
+          .nb-photo-card { transform: none !important; }
         }
 
-        .nb-toc-num {
+        .nb-photo-img-wrap {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 10;
+          overflow: visible;
+          border-radius: 2px;
+        }
+        .nb-photo-img-wrap::before {
+          content: '';
+          position: absolute;
+          top: -14px;
+          left: 50%;
+          transform: translateX(-50%) rotate(1deg);
+          width: 58px;
+          height: 26px;
+          background: rgba(255,255,240,0.68);
+          border: 1px solid rgba(220,210,150,0.6);
+          border-radius: 2px;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+          z-index: 3;
+          pointer-events: none;
+        }
+
+        .nb-photo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          border-radius: 2px;
+          box-shadow:
+            0 2px 4px rgba(0,0,0,0.10),
+            0 6px 18px rgba(0,0,0,0.14),
+            0 16px 36px rgba(0,0,0,0.10);
+          transition: box-shadow 0.28s ease;
+          position: relative;
+          z-index: 1;
+        }
+        .nb-photo-card:hover .nb-photo-img {
+          box-shadow:
+            0 4px 8px rgba(0,0,0,0.14),
+            0 12px 32px rgba(0,0,0,0.18),
+            0 28px 56px rgba(0,0,0,0.14);
+        }
+
+        .nb-photo-info {
+          padding: 18px 4px 0;
+        }
+
+        .nb-photo-name {
           font-family: var(--font-head);
           font-weight: 700;
-          font-size: clamp(52px, 7vw, 96px);
-          line-height: 1;
-          color: var(--fg3);
-          opacity: 0.28;
-          min-width: clamp(60px, 8vw, 104px);
-          flex-shrink: 0;
-          user-select: none;
-        }
-
-        .nb-toc-meta {
-          flex: 1;
-          min-width: 0;
-        }
-
-        .nb-toc-title-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          gap: 12px;
-          flex-wrap: wrap;
-        }
-
-        .nb-toc-name {
-          font-family: var(--font-head);
-          font-weight: 700;
-          font-size: clamp(24px, 3.5vw, 38px);
+          font-size: clamp(18px, 1.8vw, 22px);
           letter-spacing: -0.02em;
           color: var(--fg);
-          line-height: 1.1;
+          line-height: 1.15;
+          margin-bottom: 5px;
         }
 
-        .nb-toc-right {
+        .nb-photo-meta {
           display: flex;
           align-items: center;
-          gap: 12px;
-          flex-shrink: 0;
+          gap: 10px;
+          margin-bottom: 5px;
         }
 
-        .nb-toc-year {
+        .nb-photo-year {
           font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 24px);
+          font-size: clamp(22px, 2vw, 24px);
           color: var(--fg3);
         }
 
-        .nb-toc-badge {
+        .nb-photo-badge {
           font-family: var(--font-hand);
           font-size: clamp(18px, 1.8vw, 20px);
           font-weight: 600;
           color: #4ade80;
           background: rgba(74,222,128,0.12);
-          padding: 1px 10px;
+          padding: 1px 9px;
           border-radius: 2px;
         }
 
-        .nb-toc-tagline {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 24px);
-          color: var(--fg2);
-          margin-top: 6px;
-          line-height: 1.4;
-        }
-
-        /* ── PROJECT EXPAND ── */
-        .nb-toc-expand {
-          overflow: hidden;
-          transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
-        }
-
-        .nb-toc-expand-inner {
-          padding: 4px 0 28px clamp(72px, 9vw, 136px);
-        }
-
-        .nb-toc-desc {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 26px);
-          line-height: 1.7;
-          color: var(--fg2);
-          max-width: 64ch;
-          margin-bottom: 20px;
-        }
-
-        .nb-toc-stack {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 20px;
-        }
-
-        .nb-tech {
+        .nb-photo-tagline {
           font-family: var(--font-hand);
           font-size: clamp(22px, 2vw, 24px);
-          color: var(--fg3);
-          border-bottom: 1px solid var(--border);
-          padding-bottom: 2px;
+          color: var(--fg2);
+          line-height: 1.4;
+          margin-bottom: 10px;
         }
 
-        .nb-toc-links {
+        .nb-photo-links {
           display: flex;
-          gap: 24px;
+          gap: 18px;
           flex-wrap: wrap;
+          opacity: 0;
+          transform: translateY(5px);
+          transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+        .nb-photo-card:hover .nb-photo-links { opacity: 1; transform: translateY(0); }
+        @media (max-width: 540px) {
+          .nb-photo-links { opacity: 1; transform: none; }
         }
 
-        .nb-toc-link {
+        .nb-photo-link {
           font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 24px);
+          font-size: clamp(22px, 2vw, 24px);
           font-weight: 600;
           color: var(--fg2);
           text-decoration: none;
-          transition: color 0.2s;
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 1px;
+          transition: color 0.15s, border-color 0.15s;
         }
-        .nb-toc-link:hover { color: var(--fg); }
-
-        /* ── TIMELINE ── */
-        .nb-timeline {
-          position: relative;
-          padding-left: 44px;
-          max-width: 720px;
-        }
-        .nb-timeline-line {
-          position: absolute;
-          left: 7px;
-          top: 8px;
-          bottom: 40px;
-          width: 2px;
-          background: var(--fg3);
-        }
-        /* Dash caps at top and bottom of the timeline line */
-        .nb-timeline::before,
-        .nb-timeline::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          width: 16px;
-          height: 2px;
-          background: var(--fg3);
-        }
-        .nb-timeline::before { top: 8px; }
-        .nb-timeline::after  { bottom: 40px; }
-
-        .nb-tl-entry {
-          position: relative;
-          padding-bottom: 52px;
-        }
-        .nb-tl-entry:last-child { padding-bottom: 0; }
-
-        .nb-tl-dot {
-          position: absolute;
-          left: -37px;
-          top: 7px;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: var(--margin);
-          border: 2.5px solid var(--bg);
-          box-shadow: 0 0 0 1.5px var(--margin);
-        }
-
-        .nb-tl-role {
-          font-family: var(--font-head);
-          font-weight: 700;
-          font-size: clamp(18px, 2.2vw, 22px);
-          letter-spacing: -0.01em;
-          color: var(--fg);
-          margin-bottom: 4px;
-          line-height: 1.2;
-        }
-
-        .nb-tl-meta {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 24px);
-          color: var(--fg3);
-          margin-bottom: 10px;
-          line-height: 1.3;
-        }
-
-        .nb-tl-notes {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2.2vw, 26px);
-          line-height: 1.7;
-          color: var(--fg2);
-        }
+        .nb-photo-link:hover { color: var(--fg); border-color: var(--fg3); }
 
         /* ── SKILLS LIST ── */
         .nb-skills-grid {
@@ -771,12 +684,6 @@ export default function Portfolio() {
         }
         .nb-footer-link:hover { color: var(--fg); }
 
-        /* ── CHEVRON ── */
-        .nb-chevron {
-          transition: transform 0.3s;
-          flex-shrink: 0;
-        }
-        .nb-chevron.open { transform: rotate(180deg); }
       `}</style>
 
       {/* Red margin line */}
@@ -958,128 +865,69 @@ export default function Portfolio() {
           <h2 className="nb-h2">Things I&apos;ve built.</h2>
         </Reveal>
 
-        <div>
-          {PROJECTS.map((p, i) => {
-            const isOpen = expandedProject === p.id;
-            const num = String(i + 1).padStart(2, "0");
-            return (
-              <Reveal key={p.id} delay={i * 0.04}>
-                <div
-                  className="nb-toc-entry"
-                  onClick={() => setExpandedProject(isOpen ? null : p.id)}
-                >
-                  {/* Header row */}
-                  <div className="nb-toc-header">
-                    {/* Big number */}
-                    <span className="nb-toc-num" aria-hidden>{num}</span>
-
-                    {/* Project meta */}
-                    <div className="nb-toc-meta">
-                      <div className="nb-toc-title-row">
-                        <span className="nb-toc-name">{p.name}</span>
-                        <div className="nb-toc-right">
-                          <span className="nb-toc-year">{p.year}</span>
-                          {p.status === "live" && (
-                            <span className="nb-toc-badge">live ✓</span>
-                          )}
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 18 18"
-                            fill="none"
-                            className={`nb-chevron${isOpen ? " open" : ""}`}
-                            style={{ color: "var(--fg3)" }}
-                          >
-                            <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                      </div>
-                      <p className="nb-toc-tagline">{p.tagline}</p>
-                    </div>
+        <div className="nb-photo-board">
+          {PROJECTS.map((p, i) => (
+            <Reveal key={p.id} delay={i * 0.06}>
+              <div
+                className="nb-photo-card"
+                style={{ transform: `rotate(${CARD_ROTATIONS[i]}deg)` }}
+              >
+                <div className="nb-photo-img-wrap">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="nb-photo-img"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="nb-photo-info">
+                  <p className="nb-photo-name">{p.name}</p>
+                  <div className="nb-photo-meta">
+                    <span className="nb-photo-year">{p.year}</span>
+                    {p.status === "live" && (
+                      <span className="nb-photo-badge">live ✓</span>
+                    )}
                   </div>
-
-                  {/* Expandable notes */}
-                  <div
-                    className="nb-toc-expand"
-                    style={{ maxHeight: isOpen ? 400 : 0, opacity: isOpen ? 1 : 0 }}
-                  >
-                    <div className="nb-toc-expand-inner">
-                      <p className="nb-toc-desc">{p.description}</p>
-                      <div className="nb-toc-stack">
-                        {p.stack.map(s => (
-                          <span key={s} className="nb-tech">{s}</span>
-                        ))}
-                      </div>
-                      <div className="nb-toc-links">
-                        {p.url && (
-                          <a
-                            href={p.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="nb-toc-link"
-                            onClick={e => e.stopPropagation()}
-                          >
-                            live site ↗
-                          </a>
-                        )}
-                        {p.github && (
-                          <a
-                            href={p.github}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="nb-toc-link"
-                            onClick={e => e.stopPropagation()}
-                          >
-                            github ↗
-                          </a>
-                        )}
-                      </div>
-                    </div>
+                  <p className="nb-photo-tagline">{p.tagline}</p>
+                  <div className="nb-photo-links">
+                    {p.url && (
+                      <a href={p.url} target="_blank" rel="noreferrer" className="nb-photo-link">
+                        live ↗
+                      </a>
+                    )}
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noreferrer" className="nb-photo-link">
+                        github ↗
+                      </a>
+                    )}
                   </div>
                 </div>
-              </Reveal>
-            );
-          })}
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* ── EXPERIENCE ── */}
-      <section id="experience" className="nb-section nb-section-alt">
+      {/* ── SKILLS ── */}
+      <section id="skills" className="nb-section nb-section-alt">
         <Reveal>
-          <p className="nb-label">— 03 / experience</p>
+          <p className="nb-label">— 03 / skills</p>
         </Reveal>
         <Reveal delay={0.05}>
-          <h2 className="nb-h2">Where I&apos;ve worked.</h2>
+          <h2 className="nb-h2">What I work with.</h2>
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="nb-timeline">
-            <div className="nb-timeline-line" />
-            {EXPERIENCE.map((e, i) => (
-              <div key={i} className="nb-tl-entry">
-                <div className="nb-tl-dot" />
-                <p className="nb-tl-role">{e.role}</p>
-                <p className="nb-tl-meta">{e.org} · {e.period}</p>
-                <p className="nb-tl-notes">{e.notes}</p>
+          <div className="nb-skills-grid">
+            {SKILLS.map(group => (
+              <div key={group.category}>
+                <p className="nb-skills-cat">{group.category}</p>
+                {group.items.map(item => (
+                  <p key={item} className="nb-skill-item">{item}</p>
+                ))}
               </div>
             ))}
-          </div>
-        </Reveal>
-
-        {/* Skills */}
-        <Reveal delay={0.12}>
-          <div style={{ marginTop: 80 }}>
-            <p className="nb-label" style={{ marginBottom: 32 }}>— skills &amp; tools</p>
-            <div className="nb-skills-grid">
-              {SKILLS.map(group => (
-                <div key={group.category}>
-                  <p className="nb-skills-cat">{group.category}</p>
-                  {group.items.map(item => (
-                    <p key={item} className="nb-skill-item">{item}</p>
-                  ))}
-                </div>
-              ))}
-            </div>
           </div>
         </Reveal>
       </section>
