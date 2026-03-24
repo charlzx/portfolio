@@ -507,6 +507,22 @@ export default function Portfolio() {
           margin-bottom: 10px;
         }
 
+        .nb-photo-stack {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-bottom: 10px;
+        }
+
+        .nb-photo-tech {
+          font-family: var(--font-hand);
+          font-size: clamp(18px, 1.6vw, 20px);
+          color: var(--fg3);
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 1px;
+          line-height: 1.2;
+        }
+
         .nb-photo-links {
           display: flex;
           gap: 18px;
@@ -890,6 +906,11 @@ export default function Portfolio() {
                     )}
                   </div>
                   <p className="nb-photo-tagline">{p.tagline}</p>
+                  <div className="nb-photo-stack">
+                    {p.stack.map(s => (
+                      <span key={s} className="nb-photo-tech">{s}</span>
+                    ))}
+                  </div>
                   <div className="nb-photo-links">
                     {p.url && (
                       <a href={p.url} target="_blank" rel="noreferrer" className="nb-photo-link">
