@@ -80,7 +80,7 @@ function ContactForm() {
 
   const tapeStyle: React.CSSProperties = {
     position: "absolute",
-    width: 64,
+    width: 96,
     height: 28,
     background: "rgba(255,255,240,0.58)",
     border: "1px solid rgba(220,210,150,0.5)",
