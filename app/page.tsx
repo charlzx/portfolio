@@ -214,9 +214,9 @@ export default function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const theme = dark ? {
-    "--bg":       "#17150e",
-    "--bg2":      "#1c1a12",
-    "--surface":  "#211f17",
+    "--bg":       "#111111",
+    "--bg2":      "#1a1a1a",
+    "--surface":  "#222222",
     "--rule":     "rgba(255,255,255,0.045)",
     "--margin":   "rgba(210,70,70,0.32)",
     "--fg":       "#e8dcc8",

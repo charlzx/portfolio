@@ -104,8 +104,8 @@ export default function ProjectsPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const theme = dark ? {
-    "--bg":     "#17150e",
-    "--bg2":    "#1c1a12",
+    "--bg":     "#111111",
+    "--bg2":    "#1a1a1a",
     "--rule":   "rgba(255,255,255,0.045)",
     "--margin": "rgba(210,70,70,0.32)",
     "--fg":     "#e8dcc8",
