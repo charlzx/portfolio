@@ -90,7 +90,7 @@ function ContactForm() {
   };
 
   return (
-    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%", paddingTop: 20, paddingBottom: 20 }}>
+    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%" }}>
       <style>{`
         .nb-cf-input {
           font-family: var(--font-hand);
@@ -138,15 +138,11 @@ function ContactForm() {
         .nb-cf-btn:disabled { opacity: 0.55; cursor: not-allowed; }
       `}</style>
 
-      {/* Tape — top left */}
-      <div style={{ ...tapeStyle, top: 6, left: 24, transform: "rotate(-42deg)" }} />
-      {/* Tape — bottom right */}
-      <div style={{ ...tapeStyle, bottom: 6, right: 24, transform: "rotate(-42deg)" }} />
-
       {/* Sticky note card */}
       <form
         onSubmit={handleSubmit}
         style={{
+          position: "relative",
           background: "#fde84b",
           borderRadius: 2,
           padding: "40px 36px 36px",
@@ -157,8 +153,13 @@ function ContactForm() {
           gap: 22,
           transform: "rotate(-1.2deg)",
           transformOrigin: "center center",
+          overflow: "visible",
         }}
       >
+        {/* Tape — top left */}
+        <div style={{ ...tapeStyle, top: -14, left: 20, transform: "rotate(-41deg)" }} />
+        {/* Tape — bottom right */}
+        <div style={{ ...tapeStyle, bottom: -14, right: 20, transform: "rotate(-41deg)" }} />
         <input
           className="nb-cf-input"
           type="text"
