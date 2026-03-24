@@ -938,7 +938,7 @@ export default function Portfolio() {
                   {
                     handle: "@charlzObuzor",
                     desc: "Follow me on X",
-                    href: "https://twitter.com/charlzObuzor",
+                    href: "https://x.com/charlzObuzor",
                   },
                   {
                     handle: "charlesobuzor@outlook.com",
