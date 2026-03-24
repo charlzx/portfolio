@@ -423,13 +423,6 @@ export default function ProjectsPage() {
           margin-bottom: 10px;
         }
 
-        .nbp-photo-stack {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          margin-bottom: 10px;
-        }
-
         .nbp-photo-tech {
           font-family: var(--font-hand);
           font-size: clamp(18px, 1.6vw, 20px);
@@ -549,11 +542,9 @@ export default function ProjectsPage() {
                 <div className="nbp-photo-info">
                   <p className="nbp-photo-name">{p.name}</p>
                   <p className="nbp-photo-tagline">{p.tagline}</p>
-                  <div className="nbp-photo-stack">
-                    {p.stack.map(s => (
-                      <span key={s} className="nbp-photo-tech">{s}</span>
-                    ))}
-                  </div>
+                  <p className="nbp-photo-tech" style={{ marginBottom: 10 }}>
+                    {p.stack.join(", ")}
+                  </p>
                   <div className="nbp-photo-links">
                     {p.url && (
                       <a href={p.url} target="_blank" rel="noreferrer" className="nbp-photo-link">live ↗</a>
