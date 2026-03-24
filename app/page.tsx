@@ -709,11 +709,12 @@ export default function Portfolio() {
 
         /* ── MARGIN NOTE (hero right panel) ── */
         .nb-margin-note {
+          position: relative;
           background-color: #fde84b;
           background-image: none;
           border: none;
           border-radius: 2px;
-          padding: 32px 28px;
+          padding: 36px 28px 28px;
           box-shadow:
             0 1px 2px rgba(0,0,0,0.07),
             0 4px 10px rgba(0,0,0,0.10),
@@ -723,6 +724,20 @@ export default function Portfolio() {
           justify-self: center;
           transform: rotate(-4.5deg);
           transform-origin: top center;
+        }
+        /* Tape strip across the top */
+        .nb-margin-note::before {
+          content: '';
+          position: absolute;
+          top: -13px;
+          left: 50%;
+          transform: translateX(-50%) rotate(1.5deg);
+          width: 56px;
+          height: 26px;
+          background: rgba(255,255,240,0.62);
+          border: 1px solid rgba(220,210,150,0.55);
+          border-radius: 2px;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.10);
         }
         @media (max-width: 860px) { .nb-margin-note { max-width: 100%; justify-self: start; } }
 
@@ -769,17 +784,6 @@ export default function Portfolio() {
 
       {/* Mobile menu overlay */}
       <div className={`nb-mobile-menu ${menuOpen ? "open" : "closed"}`}>
-        {/* Red margin line inside overlay */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: 72,
-          width: 1.5,
-          background: "var(--margin)",
-          opacity: 0.55,
-          pointerEvents: "none",
-        }} />
         <button className="nb-mobile-menu-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
           ✕
         </button>
@@ -865,7 +869,7 @@ export default function Portfolio() {
             marginBottom: 28,
           }}>
             Charles<br />
-            <em style={{ color: "var(--fg3)", fontStyle: "italic" }}>Obuzor.</em>
+            <span style={{ color: "var(--fg3)" }}>Obuzor.</span>
           </h1>
 
           <p className="a3" style={{
