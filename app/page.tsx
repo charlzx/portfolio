@@ -155,7 +155,7 @@ const EXPERIENCE = [
   },
   {
     role: "Frontend Intern",
-    org: "Levelop (StudentBuild)",
+    org: "Levelop (StudentBuild Study Group)",
     period: "Aug 2020 — Dec 2020",
     notes: "Built test projects and collaborated with peers on React.js features. Gained experience in debugging, code reviews, and teamwork.",
   },
@@ -877,7 +877,7 @@ export default function Portfolio() {
               marginBottom: 40,
             }}>
               Open to freelance work, collaborations, and full-time engineering roles.
-              Remote-first. Abuja-based.
+              Remote-first.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
