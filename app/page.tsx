@@ -759,15 +759,21 @@ export default function Portfolio() {
           </p>
 
           <div className="a4" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link href="/projects" className="nb-btn">
-              View Projects →
-            </Link>
-            <a href="https://github.com/charlzx" target="_blank" rel="noreferrer" className="nb-btn-out">
-              GitHub ↗
-            </a>
-            <a href="/charles-obuzor-cv.pdf" download className="nb-btn-out">
-              Download CV ↓
-            </a>
+            {[
+              { label: "View Projects", href: "/projects", download: false, isLink: true },
+              { label: "GitHub", href: "https://github.com/charlzx", download: false, isLink: false },
+              { label: "Download CV", href: "/charles-obuzor-cv.pdf", download: true, isLink: false },
+            ].map(btn => (
+              btn.isLink
+                ? <Link key={btn.label} href={btn.href} className="nb-btn-out" style={{ minWidth: 160, justifyContent: "center" }}>
+                    {btn.label} ↗
+                  </Link>
+                : <a key={btn.label} href={btn.href} target={btn.download ? undefined : "_blank"} rel="noreferrer"
+                    download={btn.download || undefined} className="nb-btn-out"
+                    style={{ minWidth: 160, justifyContent: "center" }}>
+                    {btn.label} ↗
+                  </a>
+            ))}
           </div>
         </div>
 
