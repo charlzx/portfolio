@@ -769,43 +769,49 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Right: margin note sticky panel */}
+        {/* Right: links sticky note */}
         <div className="a5">
-          <div className="nb-margin-note">
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6600", marginBottom: 4 }}>Status</p>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.5vw, 26px)", color: "#1a1400", display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e", display: "inline-block", flexShrink: 0 }} />
-                  Available for work
-                </p>
-              </div>
-              <div>
-                <p style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "#7a6600", marginBottom: 8 }}>Find me</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                  {[
-                    { label: "github.com/charlzx", href: "https://github.com/charlzx" },
-                    { label: "charlesobuzor@outlook.com", href: "mailto:charlesobuzor@outlook.com" },
-                    { label: "linkedin ↗", href: "https://linkedin.com/in/charlzObuzor" },
-                  ].map(l => (
-                    <a key={l.href} href={l.href} target="_blank" rel="noreferrer" style={{
-                      fontFamily: "var(--font-hand)",
-                      fontSize: "clamp(20px, 1.9vw, 22px)",
-                      color: "#3a3000",
-                      textDecoration: "underline",
-                      textUnderlineOffset: "3px",
-                      textDecorationColor: "rgba(0,0,0,0.25)",
-                      transition: "color 0.2s",
-                    }}
-                      onMouseEnter={e => (e.currentTarget.style.color = "#000")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "#3a3000")}
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div className="nb-margin-note" style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            {[
+              {
+                handle: "@charlzx",
+                desc: "Check out my projects and contributions",
+                href: "https://github.com/charlzx",
+              },
+              {
+                handle: "@charlzObuzor",
+                desc: "Follow me on X",
+                href: "https://x.com/charlzObuzor",
+              },
+              {
+                handle: "charlesobuzor@outlook.com",
+                desc: "Send me an email",
+                href: "mailto:charlesobuzor@outlook.com",
+              },
+            ].map(item => (
+              <a
+                key={item.href}
+                href={item.href}
+                target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noreferrer"
+                style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}
+              >
+                <span style={{
+                  fontFamily: "var(--font-hand)",
+                  fontSize: "clamp(22px, 2.2vw, 24px)",
+                  fontWeight: 700,
+                  color: "#1a1400",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "3px",
+                  textDecorationColor: "rgba(0,0,0,0.3)",
+                }}>{item.handle}</span>
+                <span style={{
+                  fontFamily: "var(--font-hand)",
+                  fontSize: "clamp(18px, 1.8vw, 20px)",
+                  color: "#7a6600",
+                }}>{item.desc}</span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -913,82 +919,7 @@ export default function Portfolio() {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <div style={{ display: "flex", gap: 40, flexWrap: "wrap", alignItems: "flex-start" }}>
-            <ContactForm />
-            {/* Links post-it */}
-            <div style={{ position: "relative", display: "inline-block", maxWidth: 320, width: "100%", flexShrink: 0 }}>
-              {/* Tape — top left */}
-              <div style={{
-                position: "absolute", top: -14, left: 20,
-                width: 64, height: 28,
-                background: "rgba(255,255,240,0.58)",
-                border: "1px solid rgba(220,210,150,0.5)",
-                borderRadius: 2, boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-                transform: "rotate(-42deg)", zIndex: 10,
-              }} />
-              {/* Tape — bottom right */}
-              <div style={{
-                position: "absolute", bottom: -14, right: 20,
-                width: 64, height: 28,
-                background: "rgba(255,255,240,0.58)",
-                border: "1px solid rgba(220,210,150,0.5)",
-                borderRadius: 2, boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-                transform: "rotate(-42deg)", zIndex: 10,
-              }} />
-              <div style={{
-                background: "#fde84b",
-                borderRadius: 2,
-                padding: "36px 32px 32px",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.07), 0 4px 10px rgba(0,0,0,0.10), 0 12px 28px rgba(0,0,0,0.12)",
-                transform: "rotate(1.8deg)",
-                transformOrigin: "center center",
-                display: "flex",
-                flexDirection: "column",
-                gap: 22,
-              }}>
-                {[
-                  {
-                    handle: "@charlzx",
-                    desc: "Check out my projects and contributions",
-                    href: "https://github.com/charlzx",
-                  },
-                  {
-                    handle: "@charlzObuzor",
-                    desc: "Follow me on X",
-                    href: "https://x.com/charlzObuzor",
-                  },
-                  {
-                    handle: "charlesobuzor@outlook.com",
-                    desc: "Send me an email",
-                    href: "mailto:charlesobuzor@outlook.com",
-                  },
-                ].map(item => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    target={item.href.startsWith("mailto") ? undefined : "_blank"}
-                    rel="noreferrer"
-                    style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}
-                  >
-                    <span style={{
-                      fontFamily: "var(--font-hand)",
-                      fontSize: "clamp(22px, 2.2vw, 24px)",
-                      fontWeight: 700,
-                      color: "#1a1400",
-                      textDecoration: "underline",
-                      textUnderlineOffset: "3px",
-                      textDecorationColor: "rgba(0,0,0,0.3)",
-                    }}>{item.handle}</span>
-                    <span style={{
-                      fontFamily: "var(--font-hand)",
-                      fontSize: "clamp(18px, 1.8vw, 20px)",
-                      color: "#7a6600",
-                    }}>{item.desc}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+          <ContactForm />
         </Reveal>
       </section>
 
