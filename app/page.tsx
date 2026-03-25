@@ -270,12 +270,17 @@ export default function Portfolio() {
   useEffect(() => {
     const onScroll = () => {
       const scrollY = window.scrollY;
-      const sections = SCROLL_ITEMS.map(id => document.getElementById(id));
-      const scrollYNav = scrollY + 100;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && sections[i]!.offsetTop <= scrollYNav) {
-          setActiveNav(SCROLL_ITEMS[i]);
-          break;
+      const atBottom = scrollY + window.innerHeight >= document.body.scrollHeight - 80;
+      if (atBottom) {
+        setActiveNav(SCROLL_ITEMS[SCROLL_ITEMS.length - 1]);
+      } else {
+        const sections = SCROLL_ITEMS.map(id => document.getElementById(id));
+        const scrollYNav = scrollY + 100;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          if (sections[i] && sections[i]!.offsetTop <= scrollYNav) {
+            setActiveNav(SCROLL_ITEMS[i]);
+            break;
+          }
         }
       }
       const max = document.body.scrollHeight - window.innerHeight;
