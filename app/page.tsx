@@ -134,6 +134,8 @@ function ContactForm() {
         }
         .nb-cf-textarea::placeholder { color: #8a7a30; }
         .nb-cf-textarea:focus { border-bottom-color: rgba(0,0,0,0.45); }
+        .nb-cf-textarea { scrollbar-width: none; }
+        .nb-cf-textarea::-webkit-scrollbar { display: none; }
         .nb-cf-btn {
           font-family: var(--font-hand);
           font-size: clamp(22px, 2.2vw, 24px);
@@ -299,7 +301,8 @@ export default function Portfolio() {
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --font-hand: 'Caveat', cursive; --font-head: 'Raleway', sans-serif; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
+        html { scroll-behavior: smooth; overflow-x: hidden; scrollbar-width: none; }
+        html::-webkit-scrollbar { display: none; }
         body { overflow-x: hidden; }
         ::selection { background: rgba(100,149,237,0.25); }
 
