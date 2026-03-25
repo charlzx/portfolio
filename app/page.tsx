@@ -226,7 +226,6 @@ export default function Portfolio() {
   const [dark, setDark] = useState(true);
   const [activeNav, setActiveNav] = useState("about");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("nb-theme");
@@ -963,23 +962,14 @@ export default function Portfolio() {
               <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(18px, 1.8vw, 20px)", color: "#7a6600" }}>Follow me on X</span>
             </a>
 
-            {/* Email — click to copy */}
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={() => {
-                navigator.clipboard.writeText("charlesobuzor@outlook.com");
-                setEmailCopied(true);
-                setTimeout(() => setEmailCopied(false), 2000);
-              }}
-              onKeyDown={e => { if (e.key === "Enter" || e.key === " ") e.currentTarget.click(); }}
-              style={{ display: "flex", flexDirection: "column", gap: 2, cursor: "pointer" }}
+            {/* Email — mailto link */}
+            <a
+              href="mailto:charlesobuzor@outlook.com"
+              style={{ display: "flex", flexDirection: "column", gap: 2, textDecoration: "none" }}
             >
               <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", fontWeight: 700, color: "#1a1400", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(0,0,0,0.3)" }}>charlesobuzor@outlook.com</span>
-              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(18px, 1.8vw, 20px)", color: emailCopied ? "#166534" : "#7a6600", transition: "color 0.2s" }}>
-                {emailCopied ? "Copied! ✓" : "Click to copy email"}
-              </span>
-            </div>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(18px, 1.8vw, 20px)", color: "#7a6600" }}>Send me a mail</span>
+            </a>
           </div>
         </div>
       </section>
