@@ -207,93 +207,6 @@ function ContactForm() {
   );
 }
 
-function PaperBall({ src, homeXRatio, homeYRatio, size, rotate, factor = 0.05 }: {
-  src: string;
-  homeXRatio: number;
-  homeYRatio: number;
-  size: number;
-  rotate: number;
-  factor?: number;
-}) {
-  const imgRef = useRef<HTMLImageElement>(null);
-  const posRef = useRef({ x: 0, y: 0 });
-  const targetRef = useRef({ x: 0, y: 0 });
-  const homeRef = useRef({ x: 0, y: 0 });
-  const rafRef = useRef<number>(0);
-  const rotateRef = useRef(rotate);
-  const prevTargetRef = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const homeX = window.innerWidth * homeXRatio;
-    const homeY = window.innerHeight * homeYRatio;
-    homeRef.current = { x: homeX, y: homeY };
-    posRef.current = { x: homeX, y: homeY };
-    targetRef.current = { x: homeX, y: homeY };
-    prevTargetRef.current = { x: homeX, y: homeY };
-
-    if (imgRef.current) {
-      imgRef.current.style.left = homeX + "px";
-      imgRef.current.style.top = homeY + "px";
-    }
-
-    const onMouseMove = (e: MouseEvent) => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      targetRef.current = {
-        x: homeRef.current.x + (e.clientX - cx) * factor,
-        y: homeRef.current.y + (e.clientY - cy) * factor,
-      };
-    };
-
-    const animate = () => {
-      const dx = targetRef.current.x - posRef.current.x;
-      const dy = targetRef.current.y - posRef.current.y;
-      posRef.current.x += dx * 0.07;
-      posRef.current.y += dy * 0.07;
-
-      const speed = Math.sqrt(dx * dx + dy * dy);
-      if (speed > 0.3) {
-        rotateRef.current += speed * 0.18 * (dx > 0 ? 1 : -1);
-      }
-
-      if (imgRef.current) {
-        imgRef.current.style.left = posRef.current.x + "px";
-        imgRef.current.style.top = posRef.current.y + "px";
-        imgRef.current.style.transform = `rotate(${rotateRef.current}deg)`;
-      }
-
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    rafRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [homeXRatio, homeYRatio, factor]);
-
-  return (
-    <img
-      ref={imgRef}
-      src={src}
-      alt=""
-      aria-hidden="true"
-      draggable={false}
-      style={{
-        position: "fixed",
-        width: size,
-        transform: `rotate(${rotate}deg)`,
-        zIndex: 25,
-        pointerEvents: "none",
-        userSelect: "none",
-        filter:
-          "drop-shadow(0px 8px 16px rgba(0,0,0,0.55)) drop-shadow(0px 3px 6px rgba(0,0,0,0.40)) drop-shadow(2px 14px 28px rgba(0,0,0,0.30))",
-      }}
-    />
-  );
-}
 
 export default function Portfolio() {
   const [dark, setDark] = useState(true);
@@ -673,20 +586,6 @@ export default function Portfolio() {
           .nb-skill-notes { flex-direction: column; align-items: flex-start; gap: 48px; }
           .nb-skill-note { max-width: 100%; width: 90%; }
         }
-
-        /* ── PAPER BALL DECORATIONS ── */
-        .nb-paper-ball {
-          position: absolute;
-          pointer-events: none;
-          user-select: none;
-          z-index: 20;
-          will-change: transform;
-          filter:
-            drop-shadow(0px 8px 16px rgba(0,0,0,0.55))
-            drop-shadow(0px 3px 6px rgba(0,0,0,0.40))
-            drop-shadow(2px 14px 28px rgba(0,0,0,0.30));
-        }
-        @media (max-width: 700px) { .nb-paper-ball { display: none !important; } }
 
         /* ── BUTTONS ── */
         .nb-btn {
@@ -1088,10 +987,6 @@ export default function Portfolio() {
         </Reveal>
       </section>
 
-      {/* ── PARALLAX PAPER BALLS ── */}
-      <PaperBall src="/crumpled/ball-grey.webp"  homeXRatio={0.08} homeYRatio={0.55} size={110} rotate={22}  factor={0.04} />
-      <PaperBall src="/crumpled/ball-white.webp" homeXRatio={0.82} homeYRatio={0.30} size={100} rotate={-18} factor={0.07} />
-      <PaperBall src="/crumpled/ball-kraft.webp" homeXRatio={0.74} homeYRatio={0.62} size={120} rotate={-14} factor={0.055} />
 
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
