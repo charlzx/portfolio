@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
-import { MoonIcon, SunIcon } from "../../icons";
 
 export default function ProjectDetail({ project: p }: { project: Project }) {
   const [dark, setDark] = useState(false);
@@ -138,7 +137,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         <Link href="/" className="npd-logo">charlz.</Link>
         <Link href="/projects" className="npd-back">← projects</Link>
         <button className="npd-toggle" onClick={() => setDark(d => !d)} aria-label="Toggle dark mode">
-          {dark ? <SunIcon /> : <MoonIcon />}
+          {dark ? "☀︎" : "☽"}
         </button>
       </nav>
 
