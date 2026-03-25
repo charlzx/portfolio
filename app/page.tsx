@@ -283,6 +283,11 @@ export default function Portfolio() {
         body { overflow-x: hidden; }
         ::selection { background: rgba(100,149,237,0.25); }
 
+        @keyframes pageFadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
         /* ── NOTEBOOK ROOT ── */
         .nb-root {
           background-color: var(--bg);
@@ -293,6 +298,7 @@ export default function Portfolio() {
           min-height: 100vh;
           transition: background-color 0.35s, color 0.3s;
           position: relative;
+          animation: pageFadeIn 0.35s ease both;
         }
 
         /* ── RED MARGIN LINE ── */
@@ -385,9 +391,13 @@ export default function Portfolio() {
           width: 24px;
           height: 2px;
           background: var(--fg);
-          transition: opacity 0.2s, transform 0.2s;
           border-radius: 2px;
+          transform-origin: center;
+          transition: transform 0.3s ease, opacity 0.25s ease;
         }
+        .nb-hamburger.open .nb-hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nb-hamburger.open .nb-hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0.3); }
+        .nb-hamburger.open .nb-hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         @media (max-width: 768px) {
           .nb-nav-links { display: none; }
           .nb-hamburger { display: flex; }
@@ -722,19 +732,13 @@ export default function Portfolio() {
             {dark ? "☀︎" : "☽"}
           </button>
           <button
-            className="nb-hamburger"
+            className={`nb-hamburger${menuOpen ? " open" : ""}`}
             onClick={() => setMenuOpen(o => !o)}
             aria-label="Open menu"
           >
-            {menuOpen ? (
-              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.4vw, 26px)", color: "var(--fg)", lineHeight: 1 }}>✕</span>
-            ) : (
-              <>
-                <span className="nb-hamburger-line" />
-                <span className="nb-hamburger-line" />
-                <span className="nb-hamburger-line" />
-              </>
-            )}
+            <span className="nb-hamburger-line" />
+            <span className="nb-hamburger-line" />
+            <span className="nb-hamburger-line" />
           </button>
         </div>
       </nav>

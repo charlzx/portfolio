@@ -91,9 +91,15 @@ export default function ProjectsPage() {
         body { overflow-x: hidden; }
         ::selection { background: rgba(100,149,237,0.25); }
 
+        @keyframes pageFadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
         .nbp-root {
           background-color: var(--bg);
           background-image: ${RULED};
+          animation: pageFadeIn 0.35s ease both;
           background-size: 100% 32px;
           color: var(--fg);
           font-family: var(--font-hand);
@@ -189,7 +195,12 @@ export default function ProjectsPage() {
           height: 2px;
           background: var(--fg);
           border-radius: 2px;
+          transform-origin: center;
+          transition: transform 0.3s ease, opacity 0.25s ease;
         }
+        .nbp-hamburger.open .nbp-hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nbp-hamburger.open .nbp-hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0.3); }
+        .nbp-hamburger.open .nbp-hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         @media (max-width: 768px) {
           .nbp-nav-links { display: none; }
           .nbp-hamburger { display: flex; }
@@ -460,16 +471,10 @@ export default function ProjectsPage() {
           <button className="nbp-toggle" onClick={() => setDark(d => !d)} aria-label="Toggle theme">
             {dark ? "☀︎" : "☽"}
           </button>
-          <button className="nbp-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Open menu">
-            {menuOpen ? (
-              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.4vw, 26px)", color: "var(--fg)", lineHeight: 1 }}>✕</span>
-            ) : (
-              <>
-                <span className="nbp-hamburger-line" />
-                <span className="nbp-hamburger-line" />
-                <span className="nbp-hamburger-line" />
-              </>
-            )}
+          <button className={`nbp-hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(o => !o)} aria-label="Open menu">
+            <span className="nbp-hamburger-line" />
+            <span className="nbp-hamburger-line" />
+            <span className="nbp-hamburger-line" />
           </button>
         </div>
       </nav>

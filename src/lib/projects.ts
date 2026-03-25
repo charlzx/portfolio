@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/charlzx/portfolio",
     year: "2025",
     tagline: "Personal portfolio & showcase.",
-    stack: ["React", "Next.js", "Tailwind", "Framer Motion"],
+    stack: ["Next.js", "TypeScript", "CSS"],
     role: "Solo — design & development",
     metaDescription: "Personal portfolio built with Next.js and a handwriting aesthetic — Caveat font, ruled lines, and a Moleskine-inspired dark mode.",
     description: [

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
+import { PROJECTS } from "@/lib/projects";
 
 export default function ProjectDetail({ project: p }: { project: Project }) {
   const [dark, setDark] = useState(false);
@@ -37,8 +38,12 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
 
   const RULED = `repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, var(--rule) 31px, var(--rule) 32px)`;
 
+  const idx  = PROJECTS.findIndex(pr => pr.id === p.id);
+  const prev = idx > 0 ? PROJECTS[idx - 1] : null;
+  const next = idx < PROJECTS.length - 1 ? PROJECTS[idx + 1] : null;
+
   return (
-    <div style={{ ...(theme as React.CSSProperties), minHeight: "100vh", backgroundColor: "var(--bg)", color: "var(--fg)" }}>
+    <div style={{ ...(theme as React.CSSProperties), minHeight: "100vh", backgroundColor: "var(--bg)", color: "var(--fg)", animation: "pageFadeIn 0.35s ease both" }}>
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --font-hand: 'Caveat', cursive; --font-head: 'Raleway', sans-serif; }
@@ -142,11 +147,38 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
         .npd-link:hover { border-color: var(--fg); }
 
         .npd-footer {
-          padding: 20px clamp(20px, 5vw, 80px);
+          padding: 32px clamp(20px, 5vw, 80px);
           border-top: 1px solid var(--border);
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
           align-items: center;
+          gap: 16px;
+        }
+        .npd-footer-nav-link {
+          font-family: var(--font-hand);
+          font-size: clamp(20px, 1.9vw, 22px);
+          color: var(--fg3);
+          text-decoration: none;
+          transition: color 0.2s;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .npd-footer-nav-link:hover { color: var(--fg); }
+        .npd-footer-nav-label {
+          font-size: clamp(13px, 1.2vw, 14px);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--fg3);
+          font-family: var(--font-hand);
+        }
+        @keyframes pageFadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 600px) {
+          .npd-footer { grid-template-columns: 1fr 1fr; }
+          .npd-footer-copy { display: none; }
         }
       `}</style>
 
@@ -285,18 +317,28 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
       </main>
 
       <footer className="npd-footer">
-        <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(20px, 1.9vw, 22px)", color: "var(--fg3)" }}>
+        {prev ? (
+          <Link href={`/projects/${prev.id}`} className="npd-footer-nav-link" style={{ textAlign: "left" }}>
+            <span className="npd-footer-nav-label">← previous</span>
+            <span>{prev.name}</span>
+          </Link>
+        ) : (
+          <Link href="/projects" className="npd-footer-nav-link" style={{ textAlign: "left" }}>
+            <span className="npd-footer-nav-label">← back</span>
+            <span>all projects</span>
+          </Link>
+        )}
+        <span className="npd-footer-copy" style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(16px, 1.5vw, 18px)", color: "var(--fg3)", textAlign: "center", whiteSpace: "nowrap" }}>
           © {new Date().getFullYear()} Charles Obuzor
         </span>
-        <Link href="/projects" style={{
-          fontFamily: "var(--font-hand)",
-          fontSize: "clamp(20px, 1.9vw, 22px)",
-          color: "var(--fg3)",
-          textDecoration: "none",
-          transition: "color 0.2s",
-        }}>
-          ← all projects
-        </Link>
+        {next ? (
+          <Link href={`/projects/${next.id}`} className="npd-footer-nav-link" style={{ textAlign: "right" }}>
+            <span className="npd-footer-nav-label">next →</span>
+            <span>{next.name}</span>
+          </Link>
+        ) : (
+          <span />
+        )}
       </footer>
     </div>
   );
