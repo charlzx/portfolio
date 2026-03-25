@@ -454,10 +454,11 @@ export default function Portfolio() {
           background-size: 100% 32px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: flex-start;
-          padding: 80px 10vw;
-          gap: 12px;
+          padding: 72px 10vw 40px;
+          gap: 8px;
+          overflow-y: auto;
           transition: opacity 0.25s, transform 0.25s;
         }
         .nb-mobile-menu.open { opacity: 1; transform: translateY(0); pointer-events: all; }
