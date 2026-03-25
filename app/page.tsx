@@ -301,8 +301,7 @@ export default function Portfolio() {
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --font-hand: 'Caveat', cursive; --font-head: 'Raleway', sans-serif; }
-        html { scroll-behavior: smooth; overflow-x: hidden; scrollbar-width: none; }
-        html::-webkit-scrollbar { display: none; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
         body { overflow-x: hidden; }
         ::selection { background: rgba(100,149,237,0.25); }
 
