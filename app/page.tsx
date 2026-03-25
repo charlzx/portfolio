@@ -808,7 +808,10 @@ export default function Portfolio() {
 
         /* ── DOODLE SVGs ── */
         .nb-doodle { pointer-events: none; }
-        @media (max-width: 700px) { .nb-doodle-margin { display: none; } }
+        @media (max-width: 700px) {
+          .nb-doodle-margin { display: none; }
+          .nb-doodle-hero   { display: none; }
+        }
 
       `}</style>
 
@@ -854,7 +857,7 @@ export default function Portfolio() {
           charlz.
           <span className="nb-badge">
             <span className="nb-badge-dot" />
-            available
+            Available for work
           </span>
         </span>
         <div className="nb-nav-links">
@@ -918,7 +921,7 @@ export default function Portfolio() {
           </h1>
 
           {/* Wavy underline doodle */}
-          <svg aria-hidden="true" className="nb-doodle" viewBox="0 0 340 12"
+          <svg aria-hidden="true" className="nb-doodle nb-doodle-hero" viewBox="0 0 340 12"
             style={{ display: "block", width: "min(340px, 90%)", height: 12, marginBottom: 20, opacity: 0.38 }}>
             <path d="M0,8 Q21,2 42,8 Q63,14 84,8 Q105,2 126,8 Q147,14 168,8 Q189,2 210,8 Q231,14 252,8 Q273,2 294,8 Q315,14 336,8"
               stroke="var(--fg3)" strokeWidth="2" fill="none" strokeLinecap="round" />
@@ -958,7 +961,7 @@ export default function Portfolio() {
           </div>
 
           {/* Curly arrow doodle pointing to first button */}
-          <svg aria-hidden="true" className="nb-doodle" viewBox="0 0 72 44"
+          <svg aria-hidden="true" className="nb-doodle nb-doodle-hero" viewBox="0 0 72 44"
             style={{ display: "block", width: 60, height: "auto", marginTop: 6, opacity: 0.3 }}>
             <path d="M8,38 Q12,10 58,8" stroke="var(--fg3)" strokeWidth="1.8" fill="none" strokeLinecap="round" />
             <path d="M50,3 L58,8 L52,15" stroke="var(--fg3)" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
