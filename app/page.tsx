@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 
 const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
@@ -204,6 +204,76 @@ function ContactForm() {
         </div>
       </form>
     </div>
+  );
+}
+
+function DraggableBall({ src, initXRatio, initYRatio, size, rotate }: {
+  src: string;
+  initXRatio: number;
+  initYRatio: number;
+  size: number;
+  rotate: number;
+}) {
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef<{ mx: number; my: number; px: number; py: number } | null>(null);
+
+  useEffect(() => {
+    setPos({
+      x: window.innerWidth * initXRatio,
+      y: window.innerHeight * initYRatio,
+    });
+  }, [initXRatio, initYRatio]);
+
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!pos) return;
+    setDragging(true);
+    dragStart.current = { mx: e.clientX, my: e.clientY, px: pos.x, py: pos.y };
+  }, [pos]);
+
+  useEffect(() => {
+    if (!dragging) return;
+    const onMove = (e: MouseEvent) => {
+      if (!dragStart.current) return;
+      setPos({
+        x: dragStart.current.px + (e.clientX - dragStart.current.mx),
+        y: dragStart.current.py + (e.clientY - dragStart.current.my),
+      });
+    };
+    const onUp = () => { setDragging(false); dragStart.current = null; };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+  }, [dragging]);
+
+  if (!pos) return null;
+
+  return (
+    <img
+      src={src}
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+      onMouseDown={onMouseDown}
+      style={{
+        position: "fixed",
+        left: pos.x,
+        top: pos.y,
+        width: size,
+        transform: `rotate(${rotate}deg)`,
+        cursor: dragging ? "grabbing" : "grab",
+        zIndex: dragging ? 9999 : 25,
+        pointerEvents: "auto",
+        userSelect: "none",
+        filter:
+          "drop-shadow(0px 8px 16px rgba(0,0,0,0.55)) drop-shadow(0px 3px 6px rgba(0,0,0,0.40)) drop-shadow(2px 14px 28px rgba(0,0,0,0.30))",
+        touchAction: "none",
+      }}
+    />
   );
 }
 
@@ -860,14 +930,6 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Paper ball — hero */}
-        <img
-          src="/crumpled/ball-grey.webp"
-          alt=""
-          aria-hidden="true"
-          className="nb-paper-ball"
-          style={{ width: 200, bottom: 30, left: "clamp(60px,12vw,160px)", transform: "rotate(22deg)", opacity: 0.92 }}
-        />
 
         {/* Right: links sticky note */}
         <div className="a5">
@@ -949,14 +1011,6 @@ export default function Portfolio() {
             </p>
           </div>
         </Reveal>
-        {/* Paper ball — about */}
-        <img
-          src="/crumpled/ball-white.webp"
-          alt=""
-          aria-hidden="true"
-          className="nb-paper-ball"
-          style={{ width: 165, top: 60, right: 0, transform: "rotate(-18deg)", opacity: 0.90 }}
-        />
       </section>
 
       {/* ── SKILLS ── */}
@@ -982,14 +1036,6 @@ export default function Portfolio() {
             ))}
           </div>
         </Reveal>
-        {/* Paper ball — skills */}
-        <img
-          src="/crumpled/ball-lined.webp"
-          alt=""
-          aria-hidden="true"
-          className="nb-paper-ball"
-          style={{ width: 185, bottom: 30, right: 30, transform: "rotate(10deg)", opacity: 0.93 }}
-        />
       </section>
 
       {/* ── CONTACT ── */}
@@ -1022,15 +1068,12 @@ export default function Portfolio() {
         <Reveal delay={0.12}>
           <ContactForm />
         </Reveal>
-        {/* Paper ball — contact */}
-        <img
-          src="/crumpled/ball-kraft.webp"
-          alt=""
-          aria-hidden="true"
-          className="nb-paper-ball"
-          style={{ width: 210, bottom: 50, right: "clamp(20px,6vw,80px)", transform: "rotate(-14deg)", opacity: 0.91 }}
-        />
       </section>
+
+      {/* ── DRAGGABLE PAPER BALLS ── */}
+      <DraggableBall src="/crumpled/ball-grey.webp"  initXRatio={0.08} initYRatio={0.55} size={110} rotate={22}  />
+      <DraggableBall src="/crumpled/ball-white.webp" initXRatio={0.82} initYRatio={0.30} size={100} rotate={-18} />
+      <DraggableBall src="/crumpled/ball-kraft.webp" initXRatio={0.74} initYRatio={0.62} size={120} rotate={-14} />
 
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
