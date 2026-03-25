@@ -6,13 +6,12 @@ import type { Project } from "@/lib/projects";
 import { PROJECTS } from "@/lib/projects";
 
 export default function ProjectDetail({ project: p }: { project: Project }) {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem("nb-theme");
-    if (saved === "dark") setDark(true);
-    else if (saved === "light") setDark(false);
-    else setDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    if (saved === "light") setDark(false);
+    else if (saved !== "dark") setDark(true);
   }, []);
   useEffect(() => {
     localStorage.setItem("nb-theme", dark ? "dark" : "light");

@@ -38,13 +38,12 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function ProjectsPage() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem("nb-theme");
-    if (saved === "dark") setDark(true);
-    else if (saved === "light") setDark(false);
-    else setDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    if (saved === "light") setDark(false);
+    else if (saved !== "dark") setDark(true);
   }, []);
   useEffect(() => {
     localStorage.setItem("nb-theme", dark ? "dark" : "light");

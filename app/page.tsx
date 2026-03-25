@@ -209,14 +209,13 @@ function ContactForm() {
 }
 
 export default function Portfolio() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [activeNav, setActiveNav] = useState("about");
 
   useEffect(() => {
     const saved = localStorage.getItem("nb-theme");
-    if (saved === "dark") setDark(true);
-    else if (saved === "light") setDark(false);
-    else setDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    if (saved === "light") setDark(false);
+    else if (saved !== "dark") setDark(true);
   }, []);
   useEffect(() => {
     localStorage.setItem("nb-theme", dark ? "dark" : "light");
