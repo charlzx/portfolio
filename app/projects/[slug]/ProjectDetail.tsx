@@ -194,16 +194,6 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
       <div className="npd-margin-line" />
 
       <main className="npd-main">
-        <p style={{
-          fontFamily: "var(--font-hand)",
-          fontSize: "clamp(18px, 1.8vw, 20px)",
-          color: "var(--fg3)",
-          marginBottom: 16,
-          letterSpacing: "0.04em",
-        }}>
-          — {p.year} / {p.role}
-        </p>
-
         <h1 style={{
           fontFamily: "var(--font-head)",
           fontWeight: 700,
