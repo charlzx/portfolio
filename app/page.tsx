@@ -909,7 +909,7 @@ export default function Portfolio() {
               color: "var(--fg2)",
               marginBottom: 24,
             }}>
-              I&apos;m Charlz — a frontend developer with 4+ years building responsive web apps and cross-platform mobile products. I&apos;ve shipped work across e-commerce, energy, and services — from freelance client projects to structured team delivery alongside product managers, backend engineers, and QA.
+              I&apos;m Charlz — a frontend developer building responsive web apps and cross-platform mobile products. I turn ideas into functional, well-built products.
             </p>
             <p style={{
               fontFamily: "var(--font-hand)",
