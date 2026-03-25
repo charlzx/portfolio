@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
 
 export default function ProjectDetail({ project: p }: { project: Project }) {
   const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("nb-theme");
+    if (saved === "dark") setDark(true);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("nb-theme", dark ? "dark" : "light");
+  }, [dark]);
 
   const theme = dark ? {
     "--bg":     "#111111",
@@ -47,8 +55,17 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
           padding: 0 clamp(20px, 5vw, 80px);
           height: 56px;
           background: var(--bg);
-          border-bottom: 1px solid var(--border);
         }
+        .npd-nav::after {
+          content: '';
+          position: absolute;
+          top: 0; bottom: 0; left: 36px;
+          width: 1.5px;
+          background: var(--margin);
+          pointer-events: none;
+          transition: background 0.35s;
+        }
+        @media (max-width: 700px) { .npd-nav::after { display: none; } }
 
         .npd-logo {
           font-family: var(--font-head);

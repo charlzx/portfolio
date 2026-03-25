@@ -211,6 +211,14 @@ function ContactForm() {
 export default function Portfolio() {
   const [dark, setDark] = useState(false);
   const [activeNav, setActiveNav] = useState("about");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("nb-theme");
+    if (saved === "dark") setDark(true);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("nb-theme", dark ? "dark" : "light");
+  }, [dark]);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const theme = dark ? {
