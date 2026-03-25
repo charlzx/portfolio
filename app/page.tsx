@@ -309,12 +309,21 @@ export default function Portfolio() {
           align-items: center;
           justify-content: space-between;
           padding: 0 clamp(20px, 4vw, 72px) 0 clamp(20px, 5vw, 80px);
-          border-bottom: 1px solid var(--border);
           background-color: var(--bg);
           background-image: ${RULED};
           background-size: 100% 32px;
           transition: background-color 0.35s;
         }
+        .nb-nav::after {
+          content: '';
+          position: absolute;
+          top: 0; bottom: 0; left: 36px;
+          width: 1.5px;
+          background: var(--margin);
+          pointer-events: none;
+          transition: background 0.35s;
+        }
+        @media (max-width: 700px) { .nb-nav::after { display: none; } }
         .nb-logo {
           font-family: var(--font-head);
           font-weight: 700;
