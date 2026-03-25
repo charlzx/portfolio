@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "./icons";
 
 const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
 
@@ -701,22 +702,14 @@ export default function Portfolio() {
             onClick={() => setDark(d => !d)}
             aria-label="Toggle theme"
           >
-            {dark ? "☀︎" : "☽"}
+            {dark ? <SunIcon /> : <MoonIcon />}
           </button>
           <button
             className="nb-hamburger"
             onClick={() => setMenuOpen(o => !o)}
             aria-label="Open menu"
           >
-            {menuOpen ? (
-              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.4vw, 26px)", color: "var(--fg)", lineHeight: 1 }}>✕</span>
-            ) : (
-              <>
-                <span className="nb-hamburger-line" />
-                <span className="nb-hamburger-line" />
-                <span className="nb-hamburger-line" />
-              </>
-            )}
+            {menuOpen ? <CloseIcon /> : <HamburgerIcon />}
           </button>
         </div>
       </nav>

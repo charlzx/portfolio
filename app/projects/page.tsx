@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "../icons";
 
 const CARD_ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
 
@@ -441,18 +442,10 @@ export default function ProjectsPage() {
         </div>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
           <button className="nbp-toggle" onClick={() => setDark(d => !d)} aria-label="Toggle theme">
-            {dark ? "☀︎" : "☽"}
+            {dark ? <SunIcon /> : <MoonIcon />}
           </button>
           <button className="nbp-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Open menu">
-            {menuOpen ? (
-              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.4vw, 26px)", color: "var(--fg)", lineHeight: 1 }}>✕</span>
-            ) : (
-              <>
-                <span className="nbp-hamburger-line" />
-                <span className="nbp-hamburger-line" />
-                <span className="nbp-hamburger-line" />
-              </>
-            )}
+            {menuOpen ? <CloseIcon /> : <HamburgerIcon />}
           </button>
         </div>
       </nav>
