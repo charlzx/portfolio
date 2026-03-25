@@ -90,7 +90,7 @@ function ContactForm() {
   };
 
   return (
-    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%" }}>
+    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%", transformOrigin: "top center", animation: "postItWave 5.5s ease-in-out infinite" }}>
       <style>{`
         .nb-cf-input {
           font-family: var(--font-hand);
@@ -517,8 +517,8 @@ export default function Portfolio() {
           background: #fde84b;
           border-radius: 2px;
           padding: 40px 28px 32px;
-          min-width: 220px;
-          max-width: 280px;
+          min-width: 260px;
+          max-width: 340px;
           box-shadow:
             0 1px 2px rgba(0,0,0,0.07),
             0 4px 10px rgba(0,0,0,0.10),
