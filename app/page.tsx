@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
@@ -207,71 +207,89 @@ function ContactForm() {
   );
 }
 
-function DraggableBall({ src, initXRatio, initYRatio, size, rotate }: {
+function PaperBall({ src, homeXRatio, homeYRatio, size, rotate, factor = 0.05 }: {
   src: string;
-  initXRatio: number;
-  initYRatio: number;
+  homeXRatio: number;
+  homeYRatio: number;
   size: number;
   rotate: number;
+  factor?: number;
 }) {
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
-  const [dragging, setDragging] = useState(false);
-  const dragStart = useRef<{ mx: number; my: number; px: number; py: number } | null>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const posRef = useRef({ x: 0, y: 0 });
+  const targetRef = useRef({ x: 0, y: 0 });
+  const homeRef = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number>(0);
+  const rotateRef = useRef(rotate);
+  const prevTargetRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    setPos({
-      x: window.innerWidth * initXRatio,
-      y: window.innerHeight * initYRatio,
-    });
-  }, [initXRatio, initYRatio]);
+    const homeX = window.innerWidth * homeXRatio;
+    const homeY = window.innerHeight * homeYRatio;
+    homeRef.current = { x: homeX, y: homeY };
+    posRef.current = { x: homeX, y: homeY };
+    targetRef.current = { x: homeX, y: homeY };
+    prevTargetRef.current = { x: homeX, y: homeY };
 
-  const onMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!pos) return;
-    setDragging(true);
-    dragStart.current = { mx: e.clientX, my: e.clientY, px: pos.x, py: pos.y };
-  }, [pos]);
+    if (imgRef.current) {
+      imgRef.current.style.left = homeX + "px";
+      imgRef.current.style.top = homeY + "px";
+    }
 
-  useEffect(() => {
-    if (!dragging) return;
-    const onMove = (e: MouseEvent) => {
-      if (!dragStart.current) return;
-      setPos({
-        x: dragStart.current.px + (e.clientX - dragStart.current.mx),
-        y: dragStart.current.py + (e.clientY - dragStart.current.my),
-      });
+    const onMouseMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      targetRef.current = {
+        x: homeRef.current.x + (e.clientX - cx) * factor,
+        y: homeRef.current.y + (e.clientY - cy) * factor,
+      };
     };
-    const onUp = () => { setDragging(false); dragStart.current = null; };
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
+
+    const animate = () => {
+      const dx = targetRef.current.x - posRef.current.x;
+      const dy = targetRef.current.y - posRef.current.y;
+      posRef.current.x += dx * 0.07;
+      posRef.current.y += dy * 0.07;
+
+      const speed = Math.sqrt(dx * dx + dy * dy);
+      if (speed > 0.3) {
+        rotateRef.current += speed * 0.18 * (dx > 0 ? 1 : -1);
+      }
+
+      if (imgRef.current) {
+        imgRef.current.style.left = posRef.current.x + "px";
+        imgRef.current.style.top = posRef.current.y + "px";
+        imgRef.current.style.transform = `rotate(${rotateRef.current}deg)`;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    rafRef.current = requestAnimationFrame(animate);
+
     return () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(rafRef.current);
     };
-  }, [dragging]);
-
-  if (!pos) return null;
+  }, [homeXRatio, homeYRatio, factor]);
 
   return (
     <img
+      ref={imgRef}
       src={src}
       alt=""
       aria-hidden="true"
       draggable={false}
-      onMouseDown={onMouseDown}
       style={{
         position: "fixed",
-        left: pos.x,
-        top: pos.y,
         width: size,
         transform: `rotate(${rotate}deg)`,
-        cursor: dragging ? "grabbing" : "grab",
-        zIndex: dragging ? 9999 : 25,
-        pointerEvents: "auto",
+        zIndex: 25,
+        pointerEvents: "none",
         userSelect: "none",
         filter:
           "drop-shadow(0px 8px 16px rgba(0,0,0,0.55)) drop-shadow(0px 3px 6px rgba(0,0,0,0.40)) drop-shadow(2px 14px 28px rgba(0,0,0,0.30))",
-        touchAction: "none",
       }}
     />
   );
@@ -1070,10 +1088,10 @@ export default function Portfolio() {
         </Reveal>
       </section>
 
-      {/* ── DRAGGABLE PAPER BALLS ── */}
-      <DraggableBall src="/crumpled/ball-grey.webp"  initXRatio={0.08} initYRatio={0.55} size={110} rotate={22}  />
-      <DraggableBall src="/crumpled/ball-white.webp" initXRatio={0.82} initYRatio={0.30} size={100} rotate={-18} />
-      <DraggableBall src="/crumpled/ball-kraft.webp" initXRatio={0.74} initYRatio={0.62} size={120} rotate={-14} />
+      {/* ── PARALLAX PAPER BALLS ── */}
+      <PaperBall src="/crumpled/ball-grey.webp"  homeXRatio={0.08} homeYRatio={0.55} size={110} rotate={22}  factor={0.04} />
+      <PaperBall src="/crumpled/ball-white.webp" homeXRatio={0.82} homeYRatio={0.30} size={100} rotate={-18} factor={0.07} />
+      <PaperBall src="/crumpled/ball-kraft.webp" homeXRatio={0.74} homeYRatio={0.62} size={120} rotate={-14} factor={0.055} />
 
       {/* ── FOOTER ── */}
       <footer className="nb-footer">
