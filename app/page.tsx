@@ -90,7 +90,7 @@ function ContactForm() {
   };
 
   return (
-    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%", transformOrigin: "top center", animation: "postItWave 9s ease-in-out infinite" }}>
+    <div style={{ position: "relative", display: "inline-block", maxWidth: 400, width: "100%", transformOrigin: "top center", animation: "postItWave 9s ease-in-out infinite" }}>
       <style>{`
         .nb-cf-input {
           font-family: var(--font-hand);
