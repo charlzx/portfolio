@@ -586,6 +586,16 @@ export default function Portfolio() {
           .nb-skill-note { max-width: 100%; width: 90%; }
         }
 
+        /* ── PAPER BALL DECORATIONS ── */
+        .nb-paper-ball {
+          position: absolute;
+          pointer-events: none;
+          user-select: none;
+          z-index: 0;
+          will-change: transform;
+        }
+        @media (max-width: 700px) { .nb-paper-ball { display: none !important; } }
+
         /* ── BUTTONS ── */
         .nb-btn {
           display: inline-flex;
@@ -790,7 +800,7 @@ export default function Portfolio() {
       </nav>
 
       {/* ── HERO ── */}
-      <section id="about" className="nb-hero">
+      <section id="about" className="nb-hero" style={{ position: "relative" }}>
         {/* Left: name + tagline + CTA */}
         <div>
           <div className="a1" style={{ marginBottom: 12 }}>
@@ -845,6 +855,15 @@ export default function Portfolio() {
           </div>
         </div>
 
+        {/* Paper ball — hero */}
+        <img
+          src="/crumpled/ball-grey.webp"
+          alt=""
+          aria-hidden="true"
+          className="nb-paper-ball"
+          style={{ width: 180, bottom: 40, left: "clamp(60px,12vw,160px)", transform: "rotate(22deg)", opacity: 0.2, mixBlendMode: "screen" }}
+        />
+
         {/* Right: links sticky note */}
         <div className="a5">
           <div className="nb-margin-note" style={{ display: "flex", flexDirection: "column", gap: 22 }}>
@@ -893,7 +912,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section className="nb-section">
+      <section className="nb-section" style={{ position: "relative" }}>
         <Reveal>
           <p className="nb-label">— 01 / about</p>
         </Reveal>
@@ -925,10 +944,18 @@ export default function Portfolio() {
             </p>
           </div>
         </Reveal>
+        {/* Paper ball — about */}
+        <img
+          src="/crumpled/ball-white.webp"
+          alt=""
+          aria-hidden="true"
+          className="nb-paper-ball"
+          style={{ width: 150, top: 50, right: 0, transform: "rotate(-18deg)", opacity: 0.18, mixBlendMode: "screen" }}
+        />
       </section>
 
       {/* ── SKILLS ── */}
-      <section id="skills" className="nb-section nb-section-alt">
+      <section id="skills" className="nb-section nb-section-alt" style={{ position: "relative" }}>
         <Reveal>
           <p className="nb-label">— 02 / skills</p>
         </Reveal>
@@ -950,10 +977,18 @@ export default function Portfolio() {
             ))}
           </div>
         </Reveal>
+        {/* Paper ball — skills */}
+        <img
+          src="/crumpled/ball-lined.webp"
+          alt=""
+          aria-hidden="true"
+          className="nb-paper-ball"
+          style={{ width: 170, bottom: 30, right: 30, transform: "rotate(10deg)", opacity: 0.32 }}
+        />
       </section>
 
       {/* ── CONTACT ── */}
-      <section id="contact" className="nb-section" style={{ paddingBottom: 120 }}>
+      <section id="contact" className="nb-section" style={{ paddingBottom: 120, position: "relative" }}>
         <Reveal>
           <p className="nb-label">— 03 / contact</p>
         </Reveal>
@@ -982,6 +1017,14 @@ export default function Portfolio() {
         <Reveal delay={0.12}>
           <ContactForm />
         </Reveal>
+        {/* Paper ball — contact */}
+        <img
+          src="/crumpled/ball-kraft.webp"
+          alt=""
+          aria-hidden="true"
+          className="nb-paper-ball"
+          style={{ width: 190, bottom: 50, right: "clamp(20px,6vw,80px)", transform: "rotate(-14deg)", opacity: 0.22, mixBlendMode: "screen" }}
+        />
       </section>
 
       {/* ── FOOTER ── */}
