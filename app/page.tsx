@@ -591,8 +591,12 @@ export default function Portfolio() {
           position: absolute;
           pointer-events: none;
           user-select: none;
-          z-index: 0;
+          z-index: 20;
           will-change: transform;
+          filter:
+            drop-shadow(0px 8px 16px rgba(0,0,0,0.55))
+            drop-shadow(0px 3px 6px rgba(0,0,0,0.40))
+            drop-shadow(2px 14px 28px rgba(0,0,0,0.30));
         }
         @media (max-width: 700px) { .nb-paper-ball { display: none !important; } }
 
@@ -861,7 +865,7 @@ export default function Portfolio() {
           alt=""
           aria-hidden="true"
           className="nb-paper-ball"
-          style={{ width: 180, bottom: 40, left: "clamp(60px,12vw,160px)", transform: "rotate(22deg)", opacity: 0.2, mixBlendMode: "screen" }}
+          style={{ width: 200, bottom: 30, left: "clamp(60px,12vw,160px)", transform: "rotate(22deg)", opacity: 0.92 }}
         />
 
         {/* Right: links sticky note */}
@@ -950,7 +954,7 @@ export default function Portfolio() {
           alt=""
           aria-hidden="true"
           className="nb-paper-ball"
-          style={{ width: 150, top: 50, right: 0, transform: "rotate(-18deg)", opacity: 0.18, mixBlendMode: "screen" }}
+          style={{ width: 165, top: 60, right: 0, transform: "rotate(-18deg)", opacity: 0.90 }}
         />
       </section>
 
@@ -983,7 +987,7 @@ export default function Portfolio() {
           alt=""
           aria-hidden="true"
           className="nb-paper-ball"
-          style={{ width: 170, bottom: 30, right: 30, transform: "rotate(10deg)", opacity: 0.32 }}
+          style={{ width: 185, bottom: 30, right: 30, transform: "rotate(10deg)", opacity: 0.93 }}
         />
       </section>
 
@@ -1023,7 +1027,7 @@ export default function Portfolio() {
           alt=""
           aria-hidden="true"
           className="nb-paper-ball"
-          style={{ width: 190, bottom: 50, right: "clamp(20px,6vw,80px)", transform: "rotate(-14deg)", opacity: 0.22, mixBlendMode: "screen" }}
+          style={{ width: 210, bottom: 50, right: "clamp(20px,6vw,80px)", transform: "rotate(-14deg)", opacity: 0.91 }}
         />
       </section>
 
