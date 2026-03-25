@@ -50,6 +50,18 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
+const TORN_POINTS = Array.from({ length: 81 }, (_, i) => `${i * 18},${i % 2 === 0 ? 3 : 12}`).join(" ");
+
+function TornEdge() {
+  return (
+    <div aria-hidden="true" style={{ width: "100%", lineHeight: 0, display: "block", pointerEvents: "none", overflow: "hidden" }}>
+      <svg viewBox="0 0 1440 15" preserveAspectRatio="none" style={{ width: "100%", height: 15, display: "block" }}>
+        <polyline points={TORN_POINTS} stroke="var(--border)" strokeWidth="1.5" fill="none" strokeLinejoin="miter" />
+      </svg>
+    </div>
+  );
+}
+
 function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -211,6 +223,9 @@ function ContactForm() {
 export default function Portfolio() {
   const [dark, setDark] = useState(true);
   const [activeNav, setActiveNav] = useState("about");
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("nb-theme");
@@ -253,14 +268,18 @@ export default function Portfolio() {
 
   useEffect(() => {
     const onScroll = () => {
+      const scrollY = window.scrollY;
       const sections = SCROLL_ITEMS.map(id => document.getElementById(id));
-      const scrollY = window.scrollY + 100;
+      const scrollYNav = scrollY + 100;
       for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && sections[i]!.offsetTop <= scrollY) {
+        if (sections[i] && sections[i]!.offsetTop <= scrollYNav) {
           setActiveNav(SCROLL_ITEMS[i]);
           break;
         }
       }
+      const max = document.body.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? scrollY / max : 0);
+      setShowScrollTop(scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -715,7 +734,86 @@ export default function Portfolio() {
         }
         .nb-footer-link:hover { color: var(--fg); }
 
+        /* ── READING PROGRESS BAR ── */
+        .nb-progress {
+          position: fixed;
+          top: 0; left: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #e8a020, #e8d040);
+          z-index: 100;
+          pointer-events: none;
+          border-radius: 0 2px 2px 0;
+        }
+
+        /* ── AVAILABLE BADGE ── */
+        .nb-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          font-family: var(--font-hand);
+          font-size: 13px;
+          color: var(--fg3);
+          margin-left: 10px;
+          vertical-align: middle;
+        }
+        .nb-badge-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #22c55e;
+          position: relative;
+          flex-shrink: 0;
+          display: inline-block;
+        }
+        .nb-badge-dot::after {
+          content: '';
+          position: absolute;
+          inset: -3px;
+          border-radius: 50%;
+          border: 1.5px solid #22c55e;
+          animation: nbPulse 2s ease-out infinite;
+        }
+        @keyframes nbPulse {
+          0%   { opacity: 0.9; transform: scale(1); }
+          70%  { opacity: 0;   transform: scale(2.4); }
+          100% { opacity: 0;   transform: scale(2.4); }
+        }
+        @media (max-width: 600px) { .nb-badge { display: none; } }
+
+        /* ── SCROLL TO TOP TAB ── */
+        .nb-scroll-top {
+          position: fixed;
+          bottom: 0; right: 44px;
+          width: 44px;
+          padding: 10px 0;
+          background: var(--fg);
+          color: var(--bg);
+          border: none;
+          border-radius: 8px 8px 0 0;
+          font-family: var(--font-hand);
+          font-size: 20px;
+          line-height: 1;
+          cursor: pointer;
+          z-index: 40;
+          box-shadow: 0 -2px 14px var(--shadow);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .nb-scroll-top:hover { opacity: 0.82; }
+        .nb-scroll-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .nb-scroll-top.hidden  { opacity: 0; pointer-events: none; transform: translateY(100%); }
+
+        /* ── REMOVE SECTION BORDER ── */
+        .nb-section { border-top: none; }
+        .nb-footer   { border-top: none; }
+
+        /* ── DOODLE SVGs ── */
+        .nb-doodle { pointer-events: none; }
+        @media (max-width: 700px) { .nb-doodle-margin { display: none; } }
+
       `}</style>
+
+      {/* Reading progress bar */}
+      <div className="nb-progress" style={{ width: `${scrollProgress * 100}%` }} />
 
       {/* Red margin line */}
       <div className="nb-margin" />
@@ -752,7 +850,13 @@ export default function Portfolio() {
 
       {/* ── NAV ── */}
       <nav className="nb-nav">
-        <span className="nb-logo" onClick={() => scrollTo("about")}>charlz.</span>
+        <span className="nb-logo" onClick={() => scrollTo("about")} style={{ display: "inline-flex", alignItems: "center" }}>
+          charlz.
+          <span className="nb-badge">
+            <span className="nb-badge-dot" />
+            available
+          </span>
+        </span>
         <div className="nb-nav-links">
           {NAV_LINKS.map(({ label, href }) =>
             href ? (
@@ -808,10 +912,17 @@ export default function Portfolio() {
             letterSpacing: "-0.038em",
             lineHeight: 1.0,
             color: "var(--fg)",
-            marginBottom: 28,
+            marginBottom: 8,
           }}>
             Charles <span style={{ color: "var(--fg3)" }}>Obuzor.</span>
           </h1>
+
+          {/* Wavy underline doodle */}
+          <svg aria-hidden="true" className="nb-doodle" viewBox="0 0 340 12"
+            style={{ display: "block", width: "min(340px, 90%)", height: 12, marginBottom: 20, opacity: 0.38 }}>
+            <path d="M0,8 Q21,2 42,8 Q63,14 84,8 Q105,2 126,8 Q147,14 168,8 Q189,2 210,8 Q231,14 252,8 Q273,2 294,8 Q315,14 336,8"
+              stroke="var(--fg3)" strokeWidth="2" fill="none" strokeLinecap="round" />
+          </svg>
 
           <p className="a3" style={{
             fontFamily: "var(--font-hand)",
@@ -845,58 +956,77 @@ export default function Portfolio() {
                   </a>
             ))}
           </div>
+
+          {/* Curly arrow doodle pointing to first button */}
+          <svg aria-hidden="true" className="nb-doodle" viewBox="0 0 72 44"
+            style={{ display: "block", width: 60, height: "auto", marginTop: 6, opacity: 0.3 }}>
+            <path d="M8,38 Q12,10 58,8" stroke="var(--fg3)" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+            <path d="M50,3 L58,8 L52,15" stroke="var(--fg3)" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
 
 
         {/* Right: links sticky note */}
         <div className="a5">
           <div className="nb-margin-note" style={{ display: "flex", flexDirection: "column", gap: 22 }}>
-            {[
-              {
-                handle: "@charlzx",
-                desc: "Check out my projects and contributions",
-                href: "https://github.com/charlzx",
-              },
-              {
-                handle: "@charlzObuzor",
-                desc: "Follow me on X",
-                href: "https://x.com/charlzObuzor",
-              },
-              {
-                handle: "charlesobuzor@outlook.com",
-                desc: "Send me an email",
-                href: "mailto:charlesobuzor@outlook.com",
-              },
-            ].map(item => (
-              <a
-                key={item.href}
-                href={item.href}
-                target={item.href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noreferrer"
-                style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}
-              >
-                <span style={{
-                  fontFamily: "var(--font-hand)",
-                  fontSize: "clamp(22px, 2.2vw, 24px)",
-                  fontWeight: 700,
-                  color: "#1a1400",
-                  textDecoration: "underline",
-                  textUnderlineOffset: "3px",
-                  textDecorationColor: "rgba(0,0,0,0.3)",
-                }}>{item.handle}</span>
-                <span style={{
-                  fontFamily: "var(--font-hand)",
-                  fontSize: "clamp(18px, 1.8vw, 20px)",
-                  color: "#7a6600",
-                }}>{item.desc}</span>
-              </a>
-            ))}
+            {/* Sticker */}
+            <span aria-hidden="true" style={{
+              position: "absolute",
+              top: -14, right: 14,
+              fontSize: 26,
+              transform: "rotate(15deg)",
+              filter: "drop-shadow(2px 3px 5px rgba(0,0,0,0.22))",
+              pointerEvents: "none",
+              zIndex: 2,
+              lineHeight: 1,
+            }}>🚀</span>
+
+            {/* GitHub */}
+            <a href="https://github.com/charlzx" target="_blank" rel="noreferrer"
+              style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", fontWeight: 700, color: "#1a1400", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(0,0,0,0.3)" }}>@charlzx</span>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(18px, 1.8vw, 20px)", color: "#7a6600" }}>Check out my projects and contributions</span>
+            </a>
+
+            {/* X / Twitter */}
+            <a href="https://x.com/charlzObuzor" target="_blank" rel="noreferrer"
+              style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", fontWeight: 700, color: "#1a1400", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(0,0,0,0.3)" }}>@charlzObuzor</span>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(18px, 1.8vw, 20px)", color: "#7a6600" }}>Follow me on X</span>
+            </a>
+
+            {/* Email — click to copy */}
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                navigator.clipboard.writeText("charlesobuzor@outlook.com");
+                setEmailCopied(true);
+                setTimeout(() => setEmailCopied(false), 2000);
+              }}
+              onKeyDown={e => { if (e.key === "Enter" || e.key === " ") e.currentTarget.click(); }}
+              style={{ display: "flex", flexDirection: "column", gap: 2, cursor: "pointer" }}
+            >
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", fontWeight: 700, color: "#1a1400", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(0,0,0,0.3)" }}>charlesobuzor@outlook.com</span>
+              <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(18px, 1.8vw, 20px)", color: emailCopied ? "#166534" : "#7a6600", transition: "color 0.2s" }}>
+                {emailCopied ? "Copied! ✓" : "Click to copy email"}
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── ABOUT ── */}
+      <TornEdge />
       <section className="nb-section" style={{ position: "relative" }}>
+        {/* Margin scribble doodles */}
+        <svg aria-hidden="true" className="nb-doodle nb-doodle-margin" viewBox="0 0 24 54"
+          style={{ position: "absolute", left: 44, top: 80, width: 22, height: "auto", opacity: 0.28 }}>
+          <polygon points="12,2 14.5,9 22,9 16,13.5 18.5,21 12,16.5 5.5,21 8,13.5 2,9 9.5,9"
+            stroke="var(--fg3)" strokeWidth="1.2" fill="none" strokeLinejoin="round" />
+          <circle cx="12" cy="40" r="6" stroke="var(--fg3)" strokeWidth="1.2" fill="none" />
+        </svg>
+
         <Reveal>
           <p className="nb-label">— 01 / about</p>
         </Reveal>
@@ -931,6 +1061,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── SKILLS ── */}
+      <TornEdge />
       <section id="skills" className="nb-section nb-section-alt" style={{ position: "relative" }}>
         <Reveal>
           <p className="nb-label">— 02 / skills</p>
@@ -956,6 +1087,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── CONTACT ── */}
+      <TornEdge />
       <section id="contact" className="nb-section" style={{ paddingBottom: 120, position: "relative" }}>
         <Reveal>
           <p className="nb-label">— 03 / contact</p>
@@ -987,8 +1119,17 @@ export default function Portfolio() {
         </Reveal>
       </section>
 
+      {/* Floating scroll-to-top tab */}
+      <button
+        className={`nb-scroll-top ${showScrollTop ? "visible" : "hidden"}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+      >
+        ↑
+      </button>
 
       {/* ── FOOTER ── */}
+      <TornEdge />
       <footer className="nb-footer">
         <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(20px, 1.9vw, 22px)", color: "var(--fg3)" }}>
           © {new Date().getFullYear()} Charles Obuzor
