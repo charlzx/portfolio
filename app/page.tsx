@@ -905,7 +905,6 @@ export default function Portfolio() {
             lineHeight: 1.02,
             color: "var(--fg)",
             marginBottom: 16,
-            whiteSpace: "nowrap",
           }}>
             Let&apos;s build <span style={{ color: "var(--fg3)" }}>something.</span>
           </h2>
