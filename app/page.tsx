@@ -620,9 +620,16 @@ export default function Portfolio() {
           max-width: 380px;
           width: 100%;
           justify-self: center;
-          transform: rotate(-4.5deg);
           transform-origin: top center;
+          animation: postItWave 5s ease-in-out infinite;
         }
+        @keyframes postItWave {
+          0%   { transform: rotate(-4.5deg); }
+          25%  { transform: rotate(-2deg); }
+          75%  { transform: rotate(-7deg); }
+          100% { transform: rotate(-4.5deg); }
+        }
+        @media (prefers-reduced-motion: reduce) { .nb-margin-note { animation: none; transform: rotate(-4.5deg); } }
         /* Tape strip across the top */
         .nb-margin-note::before {
           content: '';
