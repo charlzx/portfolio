@@ -885,12 +885,6 @@ export default function Portfolio() {
       <section id="about" className="nb-hero" style={{ position: "relative" }}>
         {/* Left: name + tagline + CTA */}
         <div>
-          <div className="a1" style={{ marginBottom: 12 }}>
-            <span style={{ fontFamily: "var(--font-hand)", fontSize: "clamp(22px, 2.2vw, 24px)", color: "var(--fg3)" }}>
-              pg. 01 — intro
-            </span>
-          </div>
-
           <h1 className="a2" style={{
             fontFamily: "var(--font-head)",
             fontWeight: 700,
