@@ -505,46 +505,86 @@ export default function Portfolio() {
         }
 
 
-        /* ── SKILLS PILLS ── */
-        .nb-skills-groups {
-          display: flex;
-          flex-direction: column;
-          gap: 40px;
-          max-width: 720px;
-        }
-
-        .nb-skills-cat {
-          font-family: var(--font-hand);
-          font-size: clamp(18px, 1.8vw, 21px);
-          font-weight: 600;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          color: var(--fg3);
-          margin-bottom: 16px;
-        }
-
-        .nb-pills-row {
+        /* ── SKILL NOTES ── */
+        .nb-skill-notes {
           display: flex;
           flex-wrap: wrap;
-          gap: 10px 12px;
+          gap: 56px 48px;
+          align-items: flex-start;
+          padding-top: 24px;
         }
-
-        .nb-pill {
-          font-family: var(--font-hand);
-          font-size: clamp(22px, 2vw, 25px);
-          color: var(--fg2);
-          padding: 6px 18px;
-          border-radius: 999px;
-          border: 1.8px solid var(--border);
-          background: transparent;
-          line-height: 1.3;
-          transition: border-color 0.2s, color 0.2s;
-          cursor: default;
+        .nb-skill-note {
           position: relative;
+          background: #fde84b;
+          border-radius: 2px;
+          padding: 40px 28px 32px;
+          min-width: 220px;
+          max-width: 280px;
+          box-shadow:
+            0 1px 2px rgba(0,0,0,0.07),
+            0 4px 10px rgba(0,0,0,0.10),
+            0 12px 28px rgba(0,0,0,0.13),
+            2px 16px 32px rgba(180,140,0,0.10);
+          transform-origin: top center;
         }
-        .nb-pill:hover {
-          border-color: var(--fg3);
-          color: var(--fg);
+        .nb-skill-note::before {
+          content: '';
+          position: absolute;
+          top: -12px; left: 50%;
+          transform: translateX(-50%) rotate(-1deg);
+          width: 48px; height: 22px;
+          background: rgba(255,255,240,0.62);
+          border: 1px solid rgba(220,210,150,0.55);
+          border-radius: 2px;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+        }
+        .nb-skill-note:nth-child(1) { animation: skillWave1 5s ease-in-out infinite; }
+        .nb-skill-note:nth-child(2) { animation: skillWave2 6.2s ease-in-out infinite; }
+        .nb-skill-note:nth-child(3) { animation: skillWave3 4.8s ease-in-out infinite; }
+        @keyframes skillWave1 {
+          0%  { transform: rotate(-3deg); }
+          30% { transform: rotate(-0.5deg); }
+          70% { transform: rotate(-5.5deg); }
+          100%{ transform: rotate(-3deg); }
+        }
+        @keyframes skillWave2 {
+          0%  { transform: rotate(2deg); }
+          30% { transform: rotate(4.5deg); }
+          70% { transform: rotate(-0.5deg); }
+          100%{ transform: rotate(2deg); }
+        }
+        @keyframes skillWave3 {
+          0%  { transform: rotate(-1.5deg); }
+          30% { transform: rotate(1deg); }
+          70% { transform: rotate(-4deg); }
+          100%{ transform: rotate(-1.5deg); }
+        }
+        .nb-skill-note-cat {
+          font-family: var(--font-hand);
+          font-size: clamp(14px, 1.3vw, 15px);
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: rgba(0,0,0,0.4);
+          margin-bottom: 20px;
+        }
+        .nb-skill-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px 8px;
+        }
+        .nb-skill-tag {
+          font-family: var(--font-hand);
+          font-size: clamp(20px, 1.9vw, 23px);
+          color: #1a1200;
+          background: rgba(0,0,0,0.09);
+          border-radius: 3px;
+          padding: 3px 12px;
+          line-height: 1.4;
+        }
+        @media (max-width: 680px) {
+          .nb-skill-notes { flex-direction: column; align-items: flex-start; gap: 48px; }
+          .nb-skill-note { max-width: 100%; width: 90%; }
         }
 
         /* ── BUTTONS ── */
@@ -898,19 +938,13 @@ export default function Portfolio() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="nb-skills-groups">
-            {SKILLS.map((group, gi) => (
-              <div key={group.category}>
-                <p className="nb-skills-cat">{group.category}</p>
-                <div className="nb-pills-row">
-                  {group.items.map((item, ii) => (
-                    <span
-                      key={item}
-                      className="nb-pill"
-                      style={{ animationDelay: `${(gi * group.items.length + ii) * 0.04}s` }}
-                    >
-                      {item}
-                    </span>
+          <div className="nb-skill-notes">
+            {SKILLS.map((group) => (
+              <div key={group.category} className="nb-skill-note">
+                <p className="nb-skill-note-cat">{group.category}</p>
+                <div className="nb-skill-tags">
+                  {group.items.map(item => (
+                    <span key={item} className="nb-skill-tag">{item}</span>
                   ))}
                 </div>
               </div>
