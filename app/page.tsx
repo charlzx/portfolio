@@ -12,6 +12,27 @@ const SKILLS = [
 
 const SCROLL_ITEMS = ["about", "skills", "contact"];
 
+const EXPERIENCE = [
+  {
+    period: "2023 — now",
+    role: "Frontend Engineer",
+    org: "Remote / Freelance",
+    desc: "Building web and mobile products for clients across fintech and SaaS. Shipping fast, maintainable frontends with React, Next.js, and React Native.",
+  },
+  {
+    period: "2022 — 2023",
+    role: "Software Engineer",
+    org: "Softcom Ltd.",
+    desc: "Developed and maintained internal dashboards and customer-facing web apps. Led migration of a legacy jQuery codebase to React.",
+  },
+  {
+    period: "2021 — 2022",
+    role: "Junior Frontend Developer",
+    org: "Venture Garden Group",
+    desc: "Built UI components and responsive layouts for a fleet-management platform. Worked in an agile team alongside backend engineers and product designers.",
+  },
+];
+
 const NAV_LINKS = [
   { label: "about",    href: null },
   { label: "projects", href: "/projects" },
@@ -734,6 +755,42 @@ export default function Portfolio() {
         }
         .nb-footer-link:hover { color: var(--fg); }
 
+        /* ── EXPERIENCE TIMELINE ── */
+        .nb-timeline-entry {
+          display: grid;
+          grid-template-columns: 88px 1fr;
+          column-gap: 32px;
+        }
+        .nb-timeline-entry + .nb-timeline-entry { margin-top: 52px; }
+        .nb-timeline-period {
+          text-align: right;
+          padding-top: 5px;
+          font-family: var(--font-hand);
+          font-size: clamp(14px, 1.4vw, 15px);
+          color: var(--fg3);
+          line-height: 1.45;
+        }
+        .nb-timeline-content {
+          position: relative;
+          padding-left: 20px;
+        }
+        .nb-timeline-dot {
+          position: absolute;
+          left: -21px; top: 7px;
+          width: 10px; height: 10px;
+          border-radius: 50%;
+          border: 1.5px solid var(--margin);
+          background: var(--bg);
+          transition: background 0.35s;
+        }
+        @media (max-width: 600px) {
+          .nb-timeline-spine  { display: none; }
+          .nb-timeline-entry  { grid-template-columns: 1fr; gap: 0; }
+          .nb-timeline-period { text-align: left; padding-top: 0; margin-bottom: 6px; }
+          .nb-timeline-content { padding-left: 14px; border-left: 1.5px solid var(--margin); }
+          .nb-timeline-dot    { display: none; }
+        }
+
         /* ── READING PROGRESS BAR ── */
         .nb-progress {
           position: fixed;
@@ -1045,11 +1102,68 @@ export default function Portfolio() {
         </Reveal>
       </section>
 
+      {/* ── EXPERIENCE ── */}
+      <TornEdge />
+      <section className="nb-section" style={{ position: "relative" }}>
+        <Reveal>
+          <p className="nb-label">— 02 / experience</p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <h2 className="nb-h2">Where I&apos;ve worked.</h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          {/* Timeline spine + entries */}
+          <div style={{ position: "relative" }}>
+            {/* Vertical spine line */}
+            <div aria-hidden="true" className="nb-timeline-spine" style={{
+              position: "absolute",
+              left: 104,
+              top: 8,
+              bottom: 52,
+              width: 1.5,
+              background: "var(--margin)",
+              borderRadius: 2,
+            }} />
+
+            {EXPERIENCE.map((exp) => (
+              <div key={exp.role} className="nb-timeline-entry">
+                <div className="nb-timeline-period">{exp.period}</div>
+                <div className="nb-timeline-content">
+                  <div className="nb-timeline-dot" />
+                  <p style={{
+                    fontFamily: "var(--font-head)",
+                    fontWeight: 700,
+                    fontSize: "clamp(20px, 2vw, 24px)",
+                    color: "var(--fg)",
+                    marginBottom: 3,
+                    lineHeight: 1.2,
+                  }}>{exp.role}</p>
+                  <p style={{
+                    fontFamily: "var(--font-hand)",
+                    fontSize: "clamp(17px, 1.7vw, 19px)",
+                    color: "var(--fg3)",
+                    marginBottom: 10,
+                    fontWeight: 600,
+                  }}>{exp.org}</p>
+                  <p style={{
+                    fontFamily: "var(--font-hand)",
+                    fontSize: "clamp(20px, 2vw, 22px)",
+                    color: "var(--fg2)",
+                    lineHeight: 1.65,
+                    maxWidth: "56ch",
+                  }}>{exp.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
       {/* ── SKILLS ── */}
       <TornEdge />
       <section id="skills" className="nb-section nb-section-alt" style={{ position: "relative" }}>
         <Reveal>
-          <p className="nb-label">— 02 / skills</p>
+          <p className="nb-label">— 03 / skills</p>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="nb-h2">What I work with.</h2>
@@ -1075,7 +1189,7 @@ export default function Portfolio() {
       <TornEdge />
       <section id="contact" className="nb-section" style={{ paddingBottom: 120, position: "relative" }}>
         <Reveal>
-          <p className="nb-label">— 03 / contact</p>
+          <p className="nb-label">— 04 / contact</p>
         </Reveal>
 
         <Reveal delay={0.05}>
