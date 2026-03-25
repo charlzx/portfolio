@@ -275,7 +275,7 @@ export default function Portfolio() {
   const H_PAD_L = "clamp(20px, 5vw, 80px)";
 
   return (
-    <div className="nb-root" style={{ ...(theme as React.CSSProperties) }}>
+    <div className="nb-root" style={{ ...(theme as React.CSSProperties) }} suppressHydrationWarning>
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --font-hand: 'Caveat', cursive; --font-head: 'Raleway', sans-serif; }
@@ -788,6 +788,7 @@ export default function Portfolio() {
             className="nb-toggle"
             onClick={() => setDark(d => !d)}
             aria-label="Toggle theme"
+            suppressHydrationWarning
           >
             {dark ? "☀︎" : "☽"}
           </button>
