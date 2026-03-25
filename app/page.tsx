@@ -90,7 +90,7 @@ function ContactForm() {
   };
 
   return (
-    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%", transformOrigin: "top center", animation: "postItWave 5.5s ease-in-out infinite" }}>
+    <div style={{ position: "relative", display: "inline-block", maxWidth: 560, width: "100%", transformOrigin: "top center", animation: "postItWave 9s ease-in-out infinite" }}>
       <style>{`
         .nb-cf-input {
           font-family: var(--font-hand);
@@ -959,15 +959,7 @@ export default function Portfolio() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <h2 style={{
-            fontFamily: "var(--font-head)",
-            fontWeight: 700,
-            fontSize: "clamp(40px, 6vw, 80px)",
-            letterSpacing: "-0.038em",
-            lineHeight: 1.02,
-            color: "var(--fg)",
-            marginBottom: 16,
-          }}>
+          <h2 className="nb-h2">
             Let&apos;s build <span style={{ color: "var(--fg3)" }}>something.</span>
           </h2>
         </Reveal>
