@@ -304,8 +304,8 @@ export default function Portfolio() {
         ::selection { background: rgba(100,149,237,0.25); }
 
         @keyframes pageFadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
 
         /* ── NOTEBOOK ROOT ── */
