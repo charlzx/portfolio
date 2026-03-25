@@ -6,9 +6,8 @@ import Link from "next/link";
 const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
 
 const SKILLS = [
-  { category: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "JavaScript", "Expo", "Tailwind CSS", "Framer Motion"] },
+  { category: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Expo", "Tailwind CSS", "Framer Motion"] },
   { category: "Tools & Platform", items: ["Git / GitHub", "Vite", "Vercel", "npm", "VS Code", "Figma", "Convex"] },
-  { category: "Languages", items: ["JavaScript", "TypeScript", "HTML5", "CSS3"] },
 ];
 
 const SCROLL_ITEMS = ["about", "skills", "contact"];
