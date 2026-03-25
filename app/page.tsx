@@ -780,7 +780,7 @@ export default function Portfolio() {
             maxWidth: "52ch",
             marginBottom: 40,
           }}>
-            I build stuffs
+            I build stuff.
             <br />
             <span style={{ color: "var(--fg)", fontWeight: 600 }}>
               React · Next.js · React Native · TypeScript.
