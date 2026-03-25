@@ -625,11 +625,10 @@ export default function Portfolio() {
         }
         @keyframes postItWave {
           0%   { transform: rotate(-4.5deg); }
-          25%  { transform: rotate(-2deg); }
-          75%  { transform: rotate(-7deg); }
+          25%  { transform: rotate(0deg); }
+          75%  { transform: rotate(-9deg); }
           100% { transform: rotate(-4.5deg); }
         }
-        @media (prefers-reduced-motion: reduce) { .nb-margin-note { animation: none; transform: rotate(-4.5deg); } }
         /* Tape strip across the top */
         .nb-margin-note::before {
           content: '';
