@@ -263,8 +263,13 @@ export default function Portfolio() {
   };
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    const val = menuOpen ? "hidden" : "";
+    document.body.style.overflow = val;
+    document.documentElement.style.overflow = val;
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, [menuOpen]);
 
   useEffect(() => {
