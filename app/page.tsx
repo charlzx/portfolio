@@ -271,7 +271,7 @@ export default function Portfolio() {
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --font-hand: 'Caveat', cursive; --font-head: 'Raleway', sans-serif; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
         body { overflow-x: hidden; }
         ::selection { background: rgba(100,149,237,0.25); }
 
@@ -570,8 +570,9 @@ export default function Portfolio() {
         @media (max-width: 860px) {
           .nb-hero {
             grid-template-columns: 1fr;
+            min-height: auto;
             padding-top: 90px;
-            padding-bottom: 60px;
+            padding-bottom: 48px;
           }
         }
 
