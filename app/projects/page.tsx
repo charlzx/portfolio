@@ -53,21 +53,21 @@ export default function ProjectsPage() {
   const theme = dark ? {
     "--bg":     "#111111",
     "--bg2":    "#1a1a1a",
-    "--rule":   "rgba(255,255,255,0.045)",
+    "--rule":   "rgba(120,170,220,0.07)",
     "--margin": "rgba(210,70,70,0.32)",
-    "--fg":     "#e8dcc8",
-    "--fg2":    "#a89878",
-    "--fg3":    "#6a5a48",
-    "--border": "rgba(232,220,200,0.12)",
+    "--fg":     "#c2d9f0",
+    "--fg2":    "#80afd4",
+    "--fg3":    "#4a7a9e",
+    "--border": "rgba(194,217,240,0.12)",
   } : {
     "--bg":     "#f4f4f0",
     "--bg2":    "#ebebE7",
     "--rule":   "rgba(100,149,237,0.17)",
     "--margin": "rgba(210,50,50,0.4)",
-    "--fg":     "#1a1208",
-    "--fg2":    "#3d2e1a",
-    "--fg3":    "#9a8870",
-    "--border": "rgba(26,18,8,0.13)",
+    "--fg":     "#1a3a72",
+    "--fg2":    "#2d5ea8",
+    "--fg3":    "#7aa8cc",
+    "--border": "rgba(26,58,114,0.13)",
   };
 
   useEffect(() => {
