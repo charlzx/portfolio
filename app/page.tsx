@@ -806,6 +806,11 @@ export default function Portfolio() {
         .nb-section { border-top: none; }
         .nb-footer   { border-top: none; }
 
+        /* ── CONTACT GRID ── */
+        @media (max-width: 860px) {
+          .nb-contact-grid { grid-template-columns: 1fr !important; }
+        }
+
         /* ── DOODLE SVGs ── */
         .nb-doodle { pointer-events: none; }
         @media (max-width: 700px) {
@@ -1074,34 +1079,41 @@ export default function Portfolio() {
       {/* ── CONTACT ── */}
       <TornEdge />
       <section id="contact" className="nb-section" style={{ paddingBottom: 120, position: "relative" }}>
-        <Reveal>
-          <p className="nb-label">— 03 / contact</p>
-        </Reveal>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "48px 64px",
+          alignItems: "start",
+        }} className="nb-contact-grid">
+          {/* Left: label + heading + copy */}
+          <div>
+            <Reveal>
+              <p className="nb-label">— 03 / contact</p>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="nb-h2">
+                Let&apos;s build <span style={{ color: "var(--fg3)" }}>something.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <p style={{
+                fontFamily: "var(--font-hand)",
+                fontSize: "clamp(22px, 2.4vw, 26px)",
+                lineHeight: 1.7,
+                color: "var(--fg2)",
+              }}>
+                If you want to collaborate or talk shop, you can contact me.
+                <br /><br />
+                I&apos;m always interested in hearing about new projects, opportunities, or just connecting with fellow developers.
+              </p>
+            </Reveal>
+          </div>
 
-        <Reveal delay={0.05}>
-          <h2 className="nb-h2">
-            Let&apos;s build <span style={{ color: "var(--fg3)" }}>something.</span>
-          </h2>
-        </Reveal>
-
-        <Reveal delay={0.08}>
-          <p style={{
-            fontFamily: "var(--font-hand)",
-            fontSize: "clamp(22px, 2.4vw, 26px)",
-            lineHeight: 1.7,
-            color: "var(--fg2)",
-            marginBottom: 48,
-            maxWidth: 560,
-          }}>
-            If you want to collaborate or talk shop, you can contact me.
-            <br /><br />
-            I&apos;m always interested in hearing about new projects, opportunities, or just connecting with fellow developers.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.12}>
-          <ContactForm />
-        </Reveal>
+          {/* Right: post-it form */}
+          <Reveal delay={0.12}>
+            <ContactForm />
+          </Reveal>
+        </div>
       </section>
 
       {/* Floating scroll-to-top tab */}
