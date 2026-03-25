@@ -608,7 +608,7 @@ export default function Portfolio() {
           border-radius: 2px;
           box-shadow: 0 1px 4px rgba(0,0,0,0.10);
         }
-        @media (max-width: 860px) { .nb-margin-note { max-width: 100%; justify-self: start; } }
+        @media (max-width: 860px) { .nb-margin-note { max-width: 380px; width: 90%; justify-self: center; margin: 0 auto; } }
 
         /* ── HERO ANIMATIONS ── */
         @keyframes nbFadeUp {
