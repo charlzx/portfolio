@@ -226,7 +226,6 @@ export default function Portfolio() {
   const [dark, setDark] = useState(true);
   const [activeNav, setActiveNav] = useState("about");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
@@ -281,7 +280,6 @@ export default function Portfolio() {
       }
       const max = document.body.scrollHeight - window.innerHeight;
       setScrollProgress(max > 0 ? scrollY / max : 0);
-      setShowScrollTop(scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -782,28 +780,6 @@ export default function Portfolio() {
         }
         @media (max-width: 600px) { .nb-badge { display: none; } }
 
-        /* ── SCROLL TO TOP TAB ── */
-        .nb-scroll-top {
-          position: fixed;
-          bottom: 0; right: 44px;
-          width: 44px;
-          padding: 10px 0;
-          background: var(--fg);
-          color: var(--bg);
-          border: none;
-          border-radius: 8px 8px 0 0;
-          font-family: var(--font-hand);
-          font-size: 20px;
-          line-height: 1;
-          cursor: pointer;
-          z-index: 40;
-          box-shadow: 0 -2px 14px var(--shadow);
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .nb-scroll-top:hover { opacity: 0.82; }
-        .nb-scroll-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        .nb-scroll-top.hidden  { opacity: 0; pointer-events: none; transform: translateY(100%); }
-
         /* ── REMOVE SECTION BORDER ── */
         .nb-section { border-top: none; }
         .nb-footer   { border-top: none; }
@@ -1117,15 +1093,6 @@ export default function Portfolio() {
           </Reveal>
         </div>
       </section>
-
-      {/* Floating scroll-to-top tab */}
-      <button
-        className={`nb-scroll-top ${showScrollTop ? "visible" : "hidden"}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        aria-label="Scroll to top"
-      >
-        ↑
-      </button>
 
       {/* ── FOOTER ── */}
       <TornEdge />
