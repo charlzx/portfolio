@@ -853,13 +853,7 @@ export default function Portfolio() {
 
       {/* ── NAV ── */}
       <nav className="nb-nav">
-        <span className="nb-logo" onClick={() => scrollTo("about")} style={{ display: "inline-flex", alignItems: "center" }}>
-          charlz.
-          <span className="nb-badge">
-            <span className="nb-badge-dot" />
-            Available for work
-          </span>
-        </span>
+        <span className="nb-logo" onClick={() => scrollTo("about")}>charlz.</span>
         <div className="nb-nav-links">
           {NAV_LINKS.map(({ label, href }) =>
             href ? (
@@ -972,18 +966,6 @@ export default function Portfolio() {
         {/* Right: links sticky note */}
         <div className="a5">
           <div className="nb-margin-note" style={{ display: "flex", flexDirection: "column", gap: 22 }}>
-            {/* Sticker */}
-            <span aria-hidden="true" style={{
-              position: "absolute",
-              top: -14, right: 14,
-              fontSize: 26,
-              transform: "rotate(15deg)",
-              filter: "drop-shadow(2px 3px 5px rgba(0,0,0,0.22))",
-              pointerEvents: "none",
-              zIndex: 2,
-              lineHeight: 1,
-            }}>🚀</span>
-
             {/* GitHub */}
             <a href="https://github.com/charlzx" target="_blank" rel="noreferrer"
               style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 2 }}>
