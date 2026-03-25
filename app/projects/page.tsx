@@ -43,6 +43,8 @@ export default function ProjectsPage() {
   useEffect(() => {
     const saved = localStorage.getItem("nb-theme");
     if (saved === "dark") setDark(true);
+    else if (saved === "light") setDark(false);
+    else setDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
   }, []);
   useEffect(() => {
     localStorage.setItem("nb-theme", dark ? "dark" : "light");
