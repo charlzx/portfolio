@@ -497,8 +497,7 @@ export default function ProjectsPage() {
                 style={{ transform: `rotate(${CARD_ROTATIONS[i]}deg)` }}
               >
                 <div className="nbp-photo-img-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.image} alt={`${p.name} — ${p.tagline}`} className="nbp-photo-img" loading="lazy" width={800} height={500} />
+                                    <img src={p.image} alt={`${p.name} — ${p.tagline}`} className="nbp-photo-img" loading="lazy" width={800} height={500} />
                 </div>
                 <div className="nbp-photo-info">
                   <p className="nbp-photo-name">{p.name}</p>

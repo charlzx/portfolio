@@ -222,8 +222,7 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
           boxShadow: "0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10)",
           maxWidth: 900,
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={p.image} alt={`${p.name} — ${p.tagline}`} style={{ width: "100%", height: "auto", display: "block" }} width={1200} height={750} fetchPriority="high" />
+                    <img src={p.image} alt={`${p.name} — ${p.tagline}`} style={{ width: "100%", height: "auto", display: "block" }} width={1200} height={750} fetchPriority="high" />
         </div>
 
         <div style={{ maxWidth: 680, display: "flex", flexDirection: "column", gap: 56 }}>
