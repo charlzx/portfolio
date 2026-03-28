@@ -594,7 +594,9 @@ export default function Terminal() {
       // Only skip if Enter is pressed while processing AND not immediately after submitting
       if (e.key === 'Enter' && isProcessing && !justSubmittedRef.current) {
         e.preventDefault();
-        skipAllTyping();
+        setHistory(h => h.map(entry => ({ ...entry, isTyping: false })));
+        setIsProcessing(false);
+        inputRef.current?.focus();
       }
     };
     
@@ -616,7 +618,7 @@ export default function Terminal() {
     document.head.appendChild(style);
   }, [settings.theme]);
 
-  const focusInput = () => inputRef.current?.focus();
+  const focusInput = useCallback(() => inputRef.current?.focus(), []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -634,7 +636,9 @@ export default function Terminal() {
       e.preventDefault();
       // If currently typing, skip the animation
       if (isProcessing) {
-        skipAllTyping();
+        setHistory(h => h.map(entry => ({ ...entry, isTyping: false })));
+        setIsProcessing(false);
+        inputRef.current?.focus();
         return;
       }
       // If input is empty, do nothing
@@ -695,11 +699,11 @@ export default function Terminal() {
     focusInput();
   };
 
-  const skipAllTyping = () => {
+  const skipAllTyping = useCallback(() => {
     setHistory(h => h.map(entry => ({ ...entry, isTyping: false })));
     setIsProcessing(false);
     focusInput();
-  };
+  }, [focusInput]);
 
   const themeClasses = themes[settings.theme] || themes.dark;
   const fontClass = fontStyles[settings.font] || 'font-mono';
