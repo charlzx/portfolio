@@ -487,7 +487,7 @@ export default function ProjectsPage() {
             <Reveal key={p.id} delay={i * 0.06}>
               <div
                 className="nbp-photo-card"
-                style={{ transform: `rotate(${CARD_ROTATIONS[i]}deg)` }}
+                style={{ transform: `rotate(${CARD_ROTATIONS[i % CARD_ROTATIONS.length]}deg)` }}
               >
                 <div className="nbp-photo-img-wrap">
                     <Image

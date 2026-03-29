@@ -4,6 +4,7 @@ export type Project = {
   image: string;
   url: string;
   github: string;
+  publishedAt: string;
   year: string;
   tagline: string;
   stack: string[];
@@ -13,13 +14,14 @@ export type Project = {
   metaDescription: string;
 };
 
-export const PROJECTS: Project[] = [
+const PROJECTS_DATA: Project[] = [
   {
     id: "crwn3",
     name: "CRWN3",
     image: "/crwn3.webp",
     url: "https://crwn3.vercel.app/",
     github: "https://github.com/charlzx/shop",
+    publishedAt: "2024-06-01",
     year: "2024",
     tagline: "Full-featured e-commerce storefront.",
     stack: ["React", "Vite", "Tailwind", "Leaflet.js"],
@@ -42,6 +44,7 @@ export const PROJECTS: Project[] = [
     image: "/heirswealth.webp",
     url: "https://heirswealth.com",
     github: "",
+    publishedAt: "2024-11-01",
     year: "2024",
     tagline: "Solar energy company website.",
     stack: ["React", "Vite", "Tailwind", "Framer Motion"],
@@ -63,6 +66,7 @@ export const PROJECTS: Project[] = [
     image: "/radio.webp",
     url: "https://gta-live.vercel.app/",
     github: "https://github.com/charlzx/gta-radio",
+    publishedAt: "2024-09-01",
     year: "2024",
     tagline: "Real-time synchronized GTA radio.",
     stack: ["React", "Vite", "Tailwind"],
@@ -85,6 +89,7 @@ export const PROJECTS: Project[] = [
     image: "/gymx.webp",
     url: "https://gymx.vercel.app/",
     github: "https://github.com/charlzx/gym-app",
+    publishedAt: "2023-07-01",
     year: "2023",
     tagline: "Responsive fitness web experience.",
     stack: ["React", "Vite", "Tailwind", "Recharts"],
@@ -106,6 +111,7 @@ export const PROJECTS: Project[] = [
     image: "/solisys.webp",
     url: "https://solisys.vercel.app/",
     github: "https://github.com/charlzx/solisys",
+    publishedAt: "2024-10-01",
     year: "2024",
     tagline: "Off-grid solar system designer.",
     stack: ["React", "Tailwind", "Vite"],
@@ -127,6 +133,7 @@ export const PROJECTS: Project[] = [
     image: "/my-portfolio.webp",
     url: "https://charlz.dev",
     github: "https://github.com/charlzx/portfolio",
+    publishedAt: "2025-03-01",
     year: "2025",
     tagline: "Personal portfolio & showcase.",
     stack: ["Next.js", "TypeScript", "CSS"],
@@ -144,3 +151,7 @@ export const PROJECTS: Project[] = [
     ],
   },
 ];
+
+export const PROJECTS: Project[] = [...PROJECTS_DATA].sort(
+  (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt),
+);
