@@ -1,103 +1,81 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import Skills from "@/data/skills";
 
 const SkillsSection = () => {
-  // Dynamically extract unique categories from skills data
-  const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(Skills.map(skill => skill.category))];
-    const categoryList = uniqueCategories.map(cat => ({
-      id: cat,
-      label: cat.charAt(0).toUpperCase() + cat.slice(1)
-    }));
-    
-    // Only add "All" if there are multiple categories
-    if (categoryList.length > 1) {
-      return [{ id: "all", label: "All" }, ...categoryList];
-    }
-    return categoryList;
+  const groupedSkills = useMemo(() => {
+    const categoryOrder = ["frontend", "backend", "tools"];
+    const grouped = Skills.reduce<Record<string, typeof Skills>>((accumulator, skill) => {
+      if (!accumulator[skill.category]) {
+        accumulator[skill.category] = [];
+      }
+
+      accumulator[skill.category].push(skill);
+      return accumulator;
+    }, {});
+
+    return Object.keys(grouped)
+      .sort((first, second) => {
+        const firstIndex = categoryOrder.indexOf(first);
+        const secondIndex = categoryOrder.indexOf(second);
+        return (firstIndex === -1 ? 99 : firstIndex) - (secondIndex === -1 ? 99 : secondIndex);
+      })
+      .map((category) => ({
+        id: category,
+        label: category.charAt(0).toUpperCase() + category.slice(1),
+        items: grouped[category],
+      }));
   }, []);
 
-  const [activeCategory, setActiveCategory] = useState(categories[0]?.id || "all");
-
-  const filteredSkills = activeCategory === "all" 
-    ? Skills 
-    : Skills.filter(skill => skill.category === activeCategory);
-
-  const showTabs = categories.length > 1;
-
   return (
-    <section id="skills" className="px-4 md:px-12 lg:px-24 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
+      <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <div className="text-muted-foreground text-sm mb-6 text-center">
-            <span className="text-primary">charlz@portfolio</span>
-            <span>:</span>
-            <span className="text-blue-400">~</span>
-            <span>$ cat technologies.json</span>
-          </div>
-
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-            Technologies and Tools
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Tools</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
+            Core technologies and systems I work with.
           </h2>
-
-          {/* Category Tabs - Only show if multiple categories and on desktop */}
-          {showTabs && (
-            <div className="hidden md:flex justify-center gap-4 mb-12">
-              {categories.map((category) => (
-                <motion.button
-                  key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`px-6 py-3 rounded-md text-xs font-semibold transition-colors ${
-                    activeCategory === category.id
-                      ? 'bg-primary text-primary-foreground'
-                      : 'border border-primary text-primary hover:bg-primary/10'
-                  }`}
-                  data-cursorvariant="hover"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  [{category.label}]
-                </motion.button>
-              ))}
-            </div>
-          )}
         </AnimatedSection>
 
-        <motion.div 
-          key={activeCategory}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {filteredSkills.map((skill, index) => {
-            const IconComponent = skill.icon;
-            return (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="bg-card border-l-4 border-l-primary border-y border-r border-border hover:bg-card/50 p-3 md:p-4 transition-all duration-300 group"
-                data-cursorvariant="hover"
-              >
-                <div className="flex items-center gap-2 md:gap-3">
-                  <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                    {IconComponent && <IconComponent />}
-                  </div>
-                  <div className="text-foreground font-semibold text-sm break-words min-w-0">
-                    {skill.name}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+        <div className="mt-8 border-t border-border">
+          {groupedSkills.map((group, groupIndex) => (
+            <motion.div
+              key={group.id}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.25, delay: groupIndex * 0.04 }}
+              className="grid border-b border-border py-5 md:grid-cols-[140px_minmax(0,1fr)] md:gap-6"
+            >
+              <p className="mb-3 text-[10px] uppercase tracking-[0.14em] text-muted-foreground md:mb-0">
+                {group.label}
+              </p>
+
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {group.items.map((skill) => {
+                  const IconComponent = skill.icon;
+                  return (
+                    <div
+                      key={skill.name}
+                      className="flex items-center gap-2.5 border-b border-border/70 py-2 sm:border-b-0"
+                      data-cursorvariant="hover"
+                    >
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center text-foreground/90">
+                        {IconComponent && <IconComponent />}
+                      </div>
+                      <p className="text-[11px] font-medium tracking-[0.01em] text-foreground">
+                        {skill.name}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

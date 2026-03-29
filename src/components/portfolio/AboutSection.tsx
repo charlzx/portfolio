@@ -5,64 +5,53 @@ import About from "@/data/about";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="px-4 md:px-12 lg:px-24 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
+      <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <div className="text-muted-foreground text-sm mb-6">
-            <span className="text-primary">charlz@portfolio</span>
-            <span>:</span>
-            <span className="text-blue-400">~</span>
-            <span>$ cat about.txt</span>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">About</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
+            I build interfaces that feel intentional and usable.
+          </h2>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.05}>
+          <div className="mt-8 grid gap-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+            <div className="space-y-4 border border-border bg-card p-5 md:p-6">
+              {About.paragraphs.map((text, index) => (
+                <p key={index} className="text-[12px] leading-6 text-muted-foreground">
+                  {index === 0 && text.includes("Charlz") ? (
+                    <>
+                      I&apos;m <span className="font-medium text-foreground">Charlz</span>
+                      {text.slice(11)}
+                    </>
+                  ) : (
+                    text
+                  )}
+                </p>
+              ))}
+            </div>
+
+            <div className="border border-border bg-card p-5 md:p-6">
+              <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Interests</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {About.interests.map((interest) => (
+                  <span
+                    key={interest}
+                    className="rounded-sm border border-border bg-secondary px-2.5 py-1 text-[10px] uppercase tracking-[0.08em] text-foreground"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-8 border-t border-border pt-4">
+                <p className="text-[11px] leading-6 text-muted-foreground">
+                  Available for freelance product work, redesigns, and frontend implementation.
+                </p>
+              </div>
+            </div>
           </div>
         </AnimatedSection>
       </div>
-
-      <AnimatedSection delay={0.1}>
-        <div className="terminal-window bg-card border-y border-border">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-secondary/50">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-            </div>
-            <span className="ml-2 text-xs text-muted-foreground font-mono">about.txt</span>
-          </div>
-          <div className="px-6 md:px-12 lg:px-24 py-6">
-            <div className="max-w-6xl mx-auto">
-              <div className="space-y-4 text-foreground/90">
-                {About.paragraphs.map((text, index) => (
-                  <p key={index}>
-                    {index === 0 && text.includes("Charlz") ? (
-                      <>
-                        I'm <span className="text-primary font-semibold">Charlz</span>
-                        {text.slice(11)}
-                      </>
-                    ) : (
-                      text
-                    )}
-                  </p>
-                ))}
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-border">
-                <p className="text-muted-foreground text-sm mb-2">
-                  <span className="text-primary">&gt;</span> interests.list()
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {About.interests.map((interest) => (
-                    <span 
-                      key={interest}
-                      className="px-2 py-1 bg-secondary text-secondary-foreground text-xs"
-                    >
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
     </section>
   );
 };

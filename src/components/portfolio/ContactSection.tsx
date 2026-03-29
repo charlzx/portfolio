@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import TerminalWindow from "./TerminalWindow";
 import AnimatedSection from "./AnimatedSection";
 import { Github, Mail, Send } from "lucide-react";
 import XLogo from "@/components/icons/XLogo";
@@ -45,101 +44,91 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="px-4 md:px-12 lg:px-24 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto">
+    <section id="contact" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
+      <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <div className="text-muted-foreground text-sm mb-6">
-            <span className="text-primary">charlz@portfolio</span>
-            <span>:</span>
-            <span className="text-blue-400">~</span>
-            <span>$ ./contact.sh</span>
-          </div>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Contact</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
+            Have a project in mind? Let&apos;s talk.
+          </h2>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column - Contact Info */}
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <AnimatedSection delay={0.1}>
-            <div className="space-y-6 flex flex-col justify-center h-full">
+            <div className="flex h-full flex-col gap-6 border border-border bg-card p-5 md:p-6">
               <div>
-                <p className="text-foreground mb-4">
-                  <span className="text-primary">&gt;</span> If you want to collaborate or talk shop, you can contact me.
-                </p>
-                
-                <p className="text-muted-foreground text-sm">
-                  I'm always interested in hearing about new projects, opportunities, 
-                  or just connecting with fellow developers.
+                <p className="text-[12px] leading-6 text-muted-foreground">
+                  I&apos;m available for redesigns, frontend builds, and product UI work. Send a quick brief and I&apos;ll get back within two days.
                 </p>
               </div>
 
-              <div className="space-y-3">
-                <motion.a 
+              <div className="space-y-2">
+                <motion.a
                   href="https://github.com/charlzx"
                   target="_blank"
                   rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors group"
-                  whileHover={{ x: 5 }}
+                  className="group flex items-center gap-3 border border-border bg-secondary p-3 transition-colors hover:bg-background"
+                  whileHover={{ x: 3 }}
                 >
-                  <Github className="text-primary" size={20} />
+                  <Github className="text-foreground" size={16} />
                   <div>
-                    <p className="text-foreground font-medium group-hover:text-primary transition-colors">
+                    <p className="text-[11px] font-medium text-foreground transition-colors group-hover:underline">
                       @charlzx
                     </p>
-                    <p className="text-muted-foreground text-xs">
-                      Check out my projects and contributions
+                    <p className="text-[10px] text-muted-foreground">
+                      Code and product work
                     </p>
                   </div>
                 </motion.a>
 
-                <motion.a 
+                <motion.a
                   href="https://x.com/charlzObuzor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 bg-secondary hover:bg-secondary/80 transition-colors group"
-                  whileHover={{ x: 5 }}
+                  className="group flex items-center gap-3 border border-border bg-secondary p-3 transition-colors hover:bg-background"
+                  whileHover={{ x: 3 }}
                 >
-                  <XLogo size={20} className="text-primary" />
+                  <XLogo size={16} className="text-foreground" />
                   <div>
-                    <p className="text-foreground font-medium group-hover:text-primary transition-colors">
+                    <p className="text-[11px] font-medium text-foreground transition-colors group-hover:underline">
                       @charlzObuzor
                     </p>
-                    <p className="text-muted-foreground text-xs">
-                      Follow me on X
+                    <p className="text-[10px] text-muted-foreground">
+                      Updates and thoughts
                     </p>
                   </div>
                 </motion.a>
 
-                <motion.a 
+                <motion.a
                   href="mailto:charlesobuzor@outlook.com"
-                  className="flex items-center gap-3 p-3 bg-secondary hover:bg-secondary/80 transition-colors group"
-                  whileHover={{ x: 5 }}
+                  className="group flex items-center gap-3 border border-border bg-secondary p-3 transition-colors hover:bg-background"
+                  whileHover={{ x: 3 }}
                 >
-                  <Mail className="text-primary" size={20} />
+                  <Mail className="text-foreground" size={16} />
                   <div>
-                    <p className="text-foreground font-medium group-hover:text-primary transition-colors">
+                    <p className="text-[11px] font-medium text-foreground transition-colors group-hover:underline">
                       charlesobuzor@outlook.com
                     </p>
-                    <p className="text-muted-foreground text-xs">
-                      Send me an email
+                    <p className="text-[10px] text-muted-foreground">
+                      Email contact
                     </p>
                   </div>
                 </motion.a>
               </div>
 
-              <div className="pt-4 border-t border-border">
-                <p className="text-muted-foreground text-xs">
-                  <span className="text-primary">&gt;</span> Response time: Usually within 24-48 hours
+              <div className="border-t border-border pt-4">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                  Response time: 24-48 hours
                 </p>
               </div>
             </div>
           </AnimatedSection>
 
-          {/* Right Column - Contact Form */}
           <AnimatedSection delay={0.2}>
-            <TerminalWindow title="send-message.sh">
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 border border-border bg-card p-5 md:p-6">
                 <div>
-                  <label htmlFor="name" className="text-muted-foreground text-xs mb-2 block">
-                    <span className="text-primary">&gt;</span> Name
+                  <label htmlFor="name" className="mb-1.5 block text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                    Name
                   </label>
                   <input
                     id="name"
@@ -148,15 +137,15 @@ const ContactSection = () => {
                     placeholder="Your Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded-md focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                    className="w-full border border-border bg-secondary px-3 py-2 text-[12px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                     required
                     data-cursorvariant="hover"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="text-muted-foreground text-xs mb-2 block">
-                    <span className="text-primary">&gt;</span> Email
+                  <label htmlFor="email" className="mb-1.5 block text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                    Email
                   </label>
                   <input
                     id="email"
@@ -165,15 +154,15 @@ const ContactSection = () => {
                     placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded-md focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                    className="w-full border border-border bg-secondary px-3 py-2 text-[12px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                     required
                     data-cursorvariant="hover"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="text-muted-foreground text-xs mb-2 block">
-                    <span className="text-primary">&gt;</span> Message
+                  <label htmlFor="message" className="mb-1.5 block text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                    Message
                   </label>
                   <textarea
                     id="message"
@@ -182,7 +171,7 @@ const ContactSection = () => {
                     placeholder="Your message..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border rounded-md focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground resize-none"
+                    className="w-full resize-none border border-border bg-secondary px-3 py-2 text-[12px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
                     required
                     data-cursorvariant="hover"
                   />
@@ -191,25 +180,24 @@ const ContactSection = () => {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-primary text-background font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                   data-cursorvariant="hover"
                 >
-                  <Send size={16} />
+                  <Send size={13} />
                   {status === 'sending' ? 'Sending...' : 'Send Message'}
                 </button>
 
                 {status === 'success' && (
-                  <p className="text-green-500 text-sm">
-                    <span className="text-primary">&gt;</span> Message sent successfully!
+                  <p className="text-[11px] text-foreground">
+                    Message sent successfully.
                   </p>
                 )}
                 {status === 'error' && (
-                  <p className="text-red-500 text-sm">
-                    <span className="text-primary">&gt;</span> Error sending message. Please try again.
+                  <p className="text-[11px] text-foreground">
+                    There was an error sending your message. Try again.
                   </p>
                 )}
               </form>
-            </TerminalWindow>
           </AnimatedSection>
         </div>
       </div>

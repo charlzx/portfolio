@@ -6,58 +6,36 @@ import Experience from "@/data/experience";
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="px-4 md:px-12 lg:px-24 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto">
+    <section id="experience" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
+      <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <div className="text-muted-foreground text-sm mb-6">
-            <span className="text-primary">charlz@portfolio</span>
-            <span>:</span>
-            <span className="text-blue-400">~</span>
-            <span>$ git log --oneline experience</span>
-          </div>
-
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">
-            Experience
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Experience</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
+            Roles across freelance and product teams.
           </h2>
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-2">
             {Experience.map((exp, index) => (
-              <motion.div 
+              <motion.article
                 key={index}
-                className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300"
-                initial={{ opacity: 0, y: 20 }}
+                className="border border-border bg-card p-4 transition-colors hover:bg-secondary"
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-50px" }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -2 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: index * 0.03, duration: 0.26 }}
               >
-                {/* Period badge - shows on top for mobile */}
-                <div className="mb-3 md:hidden">
-                  <span className="inline-block text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">
+                <div className="mb-2 flex items-start justify-between gap-2">
+                  <h3 className="text-sm font-semibold leading-tight text-foreground">{exp.role}</h3>
+                  <span className="text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
                     {exp.period}
                   </span>
                 </div>
 
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <h3 className="text-foreground font-semibold leading-tight">
-                    {exp.role}
-                  </h3>
-                  {/* Period on the right for desktop */}
-                  <span className="hidden md:block text-xs font-mono text-primary whitespace-nowrap">
-                    {exp.period}
-                  </span>
-                </div>
-                
-                <p className="text-muted-foreground text-sm font-mono mb-3">
-                  <span className="text-primary">@</span> {exp.org}
-                </p>
-                
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {exp.notes}
-                </p>
-              </motion.div>
+                <p className="mb-3 text-[11px] uppercase tracking-[0.08em] text-foreground/80">{exp.org}</p>
+                <p className="text-[11px] leading-5 text-muted-foreground">{exp.notes}</p>
+              </motion.article>
             ))}
           </div>
         </AnimatedSection>

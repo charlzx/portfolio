@@ -1,8 +1,6 @@
 "use client";
 
-import { Terminal, ArrowUp } from "lucide-react";
-import Link from "next/link";
-import SettingsMenu from "./SettingsMenu";
+import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Footer = () => {
@@ -30,43 +28,26 @@ const Footer = () => {
 
   return (
     <>
-      {/* Floating scroll to top button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed right-4 md:right-8 bottom-8 z-50 p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          className="fixed bottom-6 right-4 z-50 rounded-md border border-border bg-card p-2.5 text-foreground transition-colors hover:bg-secondary md:right-8"
           data-cursorvariant="hover"
           aria-label="Scroll to top"
         >
-          <ArrowUp size={20} />
+          <ArrowUp size={15} />
         </button>
       )}
 
-      <footer className="px-4 md:px-12 lg:px-24 py-8 border-t border-border">
-        <div className="max-w-6xl mx-auto">
-          {/* Footer content */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-muted-foreground text-sm text-center md:text-left order-2 md:order-1">
-              <span className="text-primary">&gt;</span> © {currentYear} Charlz. All rights reserved.
+      <footer className="border-t border-border px-4 py-8 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="order-2 text-[10px] uppercase tracking-[0.12em] text-muted-foreground md:order-1">
+              © {currentYear} Charles Obuzor
             </div>
-            
-            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 text-muted-foreground text-xs order-1 md:order-2">
-              <span><span className="text-primary">status:</span> online</span>
-              <span className="hidden sm:inline">|</span>
-              <span className="hidden sm:inline"><span className="text-primary">uptime:</span> 99.9%</span>
-              <span className="hidden sm:inline">|</span>
-              <Link
-                href="/terminal"
-                data-cursorvariant="hover"
-                className="text-muted-foreground hover:text-primary transition-colors p-2"
-                title="Terminal"
-              >
-                <Terminal size={14} />
-              </Link>
-              <span>|</span>
-              <div className="p-2">
-                <SettingsMenu iconOnly />
-              </div>
+
+            <div className="order-1 flex items-center gap-4 md:order-2">
+              <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground">Designing and building on the web</span>
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import Image from "next/image";
 import Projects from "@/data/projects";
 
 const ProjectsSection = () => {
-  // Dynamically extract unique categories from projects data
   const categories = useMemo(() => {
     const uniqueCategories = [...new Set(Projects.map(project => project.category))];
     return uniqueCategories.map(cat => ({
@@ -23,130 +22,131 @@ const ProjectsSection = () => {
   const showTabs = categories.length > 1;
 
   return (
-    <section id="projects" className="px-4 md:px-12 lg:px-24 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
+      <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <div className="text-muted-foreground text-sm mb-6 text-center">
-            <span className="text-primary">charlz@portfolio</span>
-            <span>:</span>
-            <span className="text-blue-400">~</span>
-            <span>$ ls -la projects/</span>
-          </div>
-
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-            My Projects
-          </h2>
-
-          {/* Tabs - Only show if multiple categories */}
-          {showTabs && (
-            <div className="flex justify-center gap-4 mb-12">
-              {categories.map((category) => (
-                <motion.button
-                  key={category.id}
-                  onClick={() => setActiveTab(category.id)}
-                  className={`px-6 py-3 rounded-md text-xs font-semibold transition-colors ${
-                    activeTab === category.id
-                      ? 'bg-primary text-primary-foreground'
-                      : 'border border-primary text-primary hover:bg-primary/10'
-                  }`}
-                  data-cursorvariant="hover"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  [{category.id}]
-                </motion.button>
-              ))}
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Selected Work</p>
+              <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
+                Product-focused projects in production.
+              </h2>
             </div>
-          )}
+
+            {showTabs && (
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    onClick={() => setActiveTab(category.id)}
+                    className={`rounded-md border px-3 py-1.5 text-[10px] uppercase tracking-[0.1em] transition-colors ${
+                      activeTab === category.id
+                        ? "border-foreground bg-foreground text-background"
+                        : "border-border bg-card text-muted-foreground hover:text-foreground"
+                    }`}
+                    data-cursorvariant="hover"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    {category.label}
+                  </motion.button>
+                ))}
+              </div>
+            )}
+          </div>
         </AnimatedSection>
 
-        {/* Projects Grid */}
-        <motion.div 
+        <motion.div
           key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          transition={{ duration: 0.24 }}
+          className="mt-8 border-t border-border"
         >
           {filteredProjects.map((project, index) => (
-            <motion.div
+            <motion.article
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-50px" }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-              className="bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-300 overflow-hidden"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.34, ease: "easeOut", delay: index * 0.03 }}
+              className="grid border-b border-border py-5 md:grid-cols-[120px_minmax(0,1fr)] md:gap-6"
               data-cursorvariant="hover"
             >
-              {/* Project Image */}
-              {project.imageUrl && (
-                <a 
-                  href={project.liveUrl || project.githubUrl || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block border-b border-border"
-                >
-                  <Image
-                    src={project.imageUrl}
-                    alt={`${project.title} preview`}
-                    className="w-full aspect-video object-cover"
-                    width={500}
-                    height={300}
-                  />
-                </a>
-              )}
-
-              {/* Content */}
-              <div className="p-6 space-y-4">
-                <h3 className="text-foreground font-bold text-lg">
-                  {project.title}
-                </h3>
-                
-                <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                  {project.description}
+              <div className="mb-3 md:mb-0">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                  {String(index + 1).padStart(2, "0")}
                 </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <span 
-                      key={tech}
-                      className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-4 pt-2">
-                  {project.githubUrl && (
-                    <a 
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-muted-foreground hover:text-primary text-sm transition-colors"
-                      data-cursorvariant="hover"
-                    >
-                      <Github size={16} />
-                      <span>GitHub</span>
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a 
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-muted-foreground hover:text-primary text-sm transition-colors"
-                      data-cursorvariant="hover"
-                    >
-                      <ExternalLink size={16} />
-                      <span>Live</span>
-                    </a>
-                  )}
-                </div>
               </div>
-            </motion.div>
+
+              <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_200px] md:items-start">
+                <div className="space-y-3">
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-semibold tracking-[-0.01em] text-foreground">{project.title}</h3>
+                    <p className="text-[11px] leading-5 text-muted-foreground">{project.description}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-x-3 gap-y-1">
+                    {project.technologies.slice(0, 6).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[10px] uppercase tracking-[0.08em] text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-4 pt-1">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+                        data-cursorvariant="hover"
+                      >
+                        <Github size={13} />
+                        <span>GitHub</span>
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+                        data-cursorvariant="hover"
+                      >
+                        <ExternalLink size={13} />
+                        <span>Live</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {project.imageUrl ? (
+                  <a
+                    href={project.liveUrl || project.githubUrl || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block overflow-hidden border border-border"
+                  >
+                    <Image
+                      src={project.imageUrl}
+                      alt={`${project.title} preview`}
+                      className="aspect-[4/3] w-full object-cover grayscale transition-transform duration-300 group-hover:scale-[1.03]"
+                      width={320}
+                      height={240}
+                    />
+                  </a>
+                ) : (
+                  <div className="border border-border px-4 py-10 text-center text-[10px] uppercase tracking-[0.1em] text-muted-foreground">
+                    Preview unavailable
+                  </div>
+                )}
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

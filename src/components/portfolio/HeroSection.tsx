@@ -1,141 +1,72 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const HeroSection = () => {
-  const [displayText, setDisplayText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-  const fullText = "I turn ideas into interactive, responsive websites.";
   const { scrollTo } = useSmoothScroll();
-
-  useEffect(() => {
-    let index = 0;
-    const timer = setInterval(() => {
-      if (index < fullText.length) {
-        setDisplayText(fullText.slice(0, index + 1));
-        index++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 50);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    const cursorTimer = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 500);
-    return () => clearInterval(cursorTimer);
-  }, []);
 
   const handleNavigate = (sectionId: string) => {
     scrollTo(sectionId);
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-4 md:px-12 lg:px-24 py-16 md:py-20 relative">
-      <motion.div 
-        className="max-w-6xl mx-auto w-full"
-        initial={{ opacity: 0, y: 30 }}
+    <section className="px-4 pb-20 pt-24 md:px-12 md:pb-28 md:pt-28 lg:px-24">
+      <motion.div
+        className="mx-auto w-full max-w-6xl"
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.35 }}
       >
-        <motion.div 
-          className="text-muted-foreground text-sm mb-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <span className="text-primary">charlz@portfolio</span>
-          <span>:</span>
-          <span className="text-blue-400">~</span>
-          <span>$ whoami</span>
-        </motion.div>
-        
-        <motion.h1 
-          className="text-xl md:text-2xl font-bold mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          Hello<motion.span 
-            className="inline-block origin-[70%_70%]"
-            animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
-            transition={{ 
-              duration: 2.5, 
-              repeat: Infinity, 
-              repeatDelay: 1,
-              ease: "easeInOut"
-            }}
-            aria-label="waving hand"
-          >👋🏾</motion.span>, I'm Charlz
-        </motion.h1>
-        
-        <motion.h2 
-          className="text-2xl md:text-4xl lg:text-5xl text-foreground font-bold mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          {displayText}
-          <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} text-primary`} aria-hidden="true">▋</span>
-        </motion.h2>
-        
-        <motion.div 
-          className="text-muted-foreground text-sm space-y-1"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <p><span className="text-primary">&gt;</span> Frontend Developer</p>
-          <p><span className="text-primary">&gt;</span> React • Next.js • TypeScript</p>
-          <p><span className="text-primary">&gt;</span> Building beautiful interfaces for the web</p>
-        </motion.div>
+        <div className="space-y-6">
+          <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            Frontend Developer · Nigeria
+          </p>
 
-        <motion.div 
-          className="mt-12 flex flex-wrap gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <motion.button 
-            onClick={() => handleNavigate("projects")}
-            data-cursorvariant="hover"
-            className="px-6 py-3 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            [view_projects]
-          </motion.button>
-          <motion.button 
-            onClick={() => handleNavigate("contact")}
-            data-cursorvariant="hover"
-            className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            [contact_me]
-          </motion.button>
-        </motion.div>
-      </motion.div>
+          <h1 className="max-w-[14ch] text-2xl font-semibold leading-[1.05] tracking-[-0.02em] text-foreground md:text-4xl">
+            Building clean digital products with strong interaction detail.
+          </h1>
 
-      <motion.div 
-        className="mt-16 md:mt-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
-        <div className="flex justify-center md:absolute md:bottom-8 md:left-1/2 md:-translate-x-1/2">
-          <motion.span
-            className="text-muted-foreground text-sm"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="text-primary">&gt;</span> scroll_down
-          </motion.span>
+          <p className="max-w-[56ch] text-[12px] leading-6 text-muted-foreground">
+            I design and ship modern web experiences focused on clarity, performance,
+            and product feel. My stack is React, Next.js, TypeScript, and practical UI systems.
+          </p>
+
+          <div className="grid gap-3 pt-1 md:grid-cols-3">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Focus</p>
+              <p className="mt-1.5 text-[12px] leading-5 text-foreground">Product UI Engineering</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Stack</p>
+              <p className="mt-1.5 text-[12px] leading-5 text-foreground">React · Next.js · TypeScript</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Availability</p>
+              <p className="mt-1.5 text-[12px] leading-5 text-foreground">Open for select freelance work</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2.5 pt-2">
+            <motion.button
+              onClick={() => handleNavigate("projects")}
+              data-cursorvariant="hover"
+              className="bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-primary-foreground transition-opacity hover:opacity-90"
+              whileHover={{ y: -1 }}
+              whileTap={{ y: 0 }}
+            >
+              View Projects
+            </motion.button>
+            <motion.button
+              onClick={() => handleNavigate("contact")}
+              data-cursorvariant="hover"
+              className="border border-border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-foreground transition-colors hover:bg-secondary"
+              whileHover={{ y: -1 }}
+              whileTap={{ y: 0 }}
+            >
+              Contact
+            </motion.button>
+          </div>
         </div>
       </motion.div>
     </section>
