@@ -2,28 +2,37 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-export type ThemeColor = "amber" | "monochrome" | "navy" | "sunset" | "forest" | "lavender" | "peach";
+export type ThemeColor = "navy" | "sunset";
+export type ThemeMode = "light" | "dark";
 
 interface ThemeContextType {
   theme: ThemeColor;
+  mode: ThemeMode;
   setTheme: (theme: ThemeColor) => void;
+  setMode: (mode: ThemeMode) => void;
+  toggleMode: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const themeColors: Record<ThemeColor, { primary: string; accent: string; name: string; isLight?: boolean }> = {
-  amber: { primary: "45 100% 50%", accent: "45 100% 50%", name: "Amber" },
-  monochrome: { primary: "0 0% 95%", accent: "0 0% 85%", name: "Monochrome" },
   navy: { primary: "220 90% 35%", accent: "220 90% 30%", name: "Navy", isLight: true },
   sunset: { primary: "15 100% 60%", accent: "15 100% 55%", name: "Sunset" },
-  forest: { primary: "130 100% 55%", accent: "130 100% 50%", name: "Forest" },
-  lavender: { primary: "270 100% 75%", accent: "270 100% 70%", name: "Lavender" },
-  peach: { primary: "25 90% 45%", accent: "25 90% 40%", name: "Peach", isLight: true },
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<ThemeColor>("monochrome");
+  const [theme, setTheme] = useState<ThemeColor>("navy");
   const [mounted, setMounted] = useState(false);
+
+  const mode: ThemeMode = themeColors[theme].isLight ? "light" : "dark";
+
+  const setMode = (nextMode: ThemeMode) => {
+    setTheme(nextMode === "light" ? "navy" : "sunset");
+  };
+
+  const toggleMode = () => {
+    setMode(mode === "light" ? "dark" : "light");
+  };
 
   // Handle hydration
   useEffect(() => {
@@ -46,7 +55,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (!colors) return;
     
     // Remove all theme classes
-    root.classList.remove("light", "dark", "navy", "sunset", "forest", "lavender", "peach");
+    root.classList.remove("light", "dark", "navy", "sunset");
     
     // Add appropriate theme class
     if (colors.isLight) {
@@ -67,7 +76,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [theme, mounted]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, mode, setTheme, setMode, toggleMode }}>
       {children}
     </ThemeContext.Provider>
   );

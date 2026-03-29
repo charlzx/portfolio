@@ -2,7 +2,7 @@
 
 import { Terminal, ArrowUp } from "lucide-react";
 import Link from "next/link";
-import ThemeSelector from "./ThemeSelector";
+import SettingsMenu from "./SettingsMenu";
 import { useEffect, useState } from "react";
 
 const Footer = () => {
@@ -65,7 +65,7 @@ const Footer = () => {
               </Link>
               <span>|</span>
               <div className="p-2">
-                <ThemeSelector iconOnly />
+                <SettingsMenu iconOnly />
               </div>
             </div>
           </div>
