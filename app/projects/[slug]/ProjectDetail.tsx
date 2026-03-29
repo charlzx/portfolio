@@ -1,21 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Project } from "@/lib/projects";
 import { PROJECTS } from "@/lib/projects";
+import { useGlobalDarkMode } from "@/hooks/useGlobalDarkMode";
 
 export default function ProjectDetail({ project: p }: { project: Project }) {
-  const [dark, setDark] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("nb-theme");
-    if (saved === "light") setDark(false);
-    else if (saved !== "dark") setDark(true);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("nb-theme", dark ? "dark" : "light");
-  }, [dark]);
+  const { dark, setDark } = useGlobalDarkMode(true);
 
   const theme = dark ? {
     "--bg":     "#111111",
@@ -222,14 +214,22 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
           boxShadow: "0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10)",
           maxWidth: 900,
         }}>
-                    <img src={p.image} alt={`${p.name} — ${p.tagline}`} style={{ width: "100%", height: "auto", display: "block" }} width={1200} height={750} fetchPriority="high" />
+          <Image
+            src={p.image}
+            alt={`${p.name} — ${p.tagline}`}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            width={1200}
+            height={750}
+            priority
+            sizes="(max-width: 900px) 100vw, 900px"
+          />
         </div>
 
         <div style={{ maxWidth: 680, display: "flex", flexDirection: "column", gap: 56 }}>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            {p.description.map((para, i) => (
-              <p key={i} style={{
+            {p.description.map((para) => (
+              <p key={para} style={{
                 fontFamily: "var(--font-hand)",
                 fontSize: "clamp(22px, 2.4vw, 26px)",
                 lineHeight: 1.75,
@@ -254,8 +254,8 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
                 Highlights
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {p.highlights.map((h, i) => (
-                  <p key={i} style={{
+                {p.highlights.map((h) => (
+                  <p key={h} style={{
                     fontFamily: "var(--font-hand)",
                     fontSize: "clamp(22px, 2.2vw, 25px)",
                     color: "var(--fg2)",

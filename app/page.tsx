@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useGlobalDarkMode } from "@/hooks/useGlobalDarkMode";
 
 const FORMSPREE_URL = "https://formspree.io/f/mandvdpe";
 
@@ -65,6 +66,7 @@ function TornEdge() {
 function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const isValidEmail = (value: string) => /[^\s@]+@[^\s@]+\.[^\s@]+/.test(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -72,12 +74,23 @@ function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    };
+
+    if (!payload.name || !payload.message || !isValidEmail(payload.email) || payload.message.length < 10) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("sending");
     try {
       const res = await fetch(FORMSPREE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         setStatus("success");
@@ -223,18 +236,9 @@ function ContactForm() {
 
 
 export default function Portfolio() {
-  const [dark, setDark] = useState(true);
+  const { dark, setDark } = useGlobalDarkMode(true);
   const [activeNav, setActiveNav] = useState("about");
   const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("nb-theme");
-    if (saved === "light") setDark(false);
-    else if (saved !== "dark") setDark(true);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("nb-theme", dark ? "dark" : "light");
-  }, [dark]);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const theme = dark ? {

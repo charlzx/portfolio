@@ -1,12 +1,18 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type Dispatch, type ReactNode, type SetStateAction } from "react";
 
 export type ThemeColor = "amber" | "monochrome" | "navy" | "sunset" | "forest" | "lavender" | "peach";
+type ThemeMode = "dark" | "light";
+
+const THEME_COLOR_KEY = "portfolio-theme";
+const THEME_MODE_KEY = "portfolio-theme-mode";
 
 interface ThemeContextType {
   theme: ThemeColor;
   setTheme: (theme: ThemeColor) => void;
+  darkMode: ThemeMode;
+  setDarkMode: Dispatch<SetStateAction<ThemeMode>>;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -23,22 +29,27 @@ const themeColors: Record<ThemeColor, { primary: string; accent: string; name: s
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<ThemeColor>("monochrome");
+  const [darkMode, setDarkMode] = useState<ThemeMode>("dark");
   const [mounted, setMounted] = useState(false);
 
   // Handle hydration
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("portfolio-theme") as ThemeColor;
+    const saved = localStorage.getItem(THEME_COLOR_KEY) as ThemeColor;
+    const savedMode = localStorage.getItem(THEME_MODE_KEY) as ThemeMode | null;
     // Validate saved theme exists in current theme options
     if (saved && themeColors[saved]) {
       setTheme(saved);
+    }
+    if (savedMode === "light" || savedMode === "dark") {
+      setDarkMode(savedMode);
     }
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
     
-    localStorage.setItem("portfolio-theme", theme);
+    localStorage.setItem(THEME_COLOR_KEY, theme);
     const root = document.documentElement;
     const colors = themeColors[theme];
     
@@ -66,8 +77,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     root.style.setProperty("--border", `${colors.primary.split(" ")[0]} 30% 20%`);
   }, [theme, mounted]);
 
+  useEffect(() => {
+    if (!mounted) return;
+    localStorage.setItem(THEME_MODE_KEY, darkMode);
+  }, [darkMode, mounted]);
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, darkMode, setDarkMode }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { PROJECTS } from "@/lib/projects";
+import { useGlobalDarkMode } from "@/hooks/useGlobalDarkMode";
 
 const CARD_ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
 
@@ -38,16 +40,7 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function ProjectsPage() {
-  const [dark, setDark] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("nb-theme");
-    if (saved === "light") setDark(false);
-    else if (saved !== "dark") setDark(true);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("nb-theme", dark ? "dark" : "light");
-  }, [dark]);
+  const { dark, setDark } = useGlobalDarkMode(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const theme = dark ? {
@@ -497,7 +490,14 @@ export default function ProjectsPage() {
                 style={{ transform: `rotate(${CARD_ROTATIONS[i]}deg)` }}
               >
                 <div className="nbp-photo-img-wrap">
-                                    <img src={p.image} alt={`${p.name} — ${p.tagline}`} className="nbp-photo-img" loading="lazy" width={800} height={500} />
+                    <Image
+                      src={p.image}
+                      alt={`${p.name} — ${p.tagline}`}
+                      className="nbp-photo-img"
+                      width={800}
+                      height={500}
+                      sizes="(max-width: 540px) 100vw, (max-width: 960px) 50vw, 33vw"
+                    />
                 </div>
                 <div className="nbp-photo-info">
                   <p className="nbp-photo-name">{p.name}</p>

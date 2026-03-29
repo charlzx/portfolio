@@ -1,26 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { Github, ExternalLink } from "lucide-react";
 import Image from "next/image";
-import Projects from "@/data/projects";
+import { PROJECTS } from "@/lib/projects";
 
 const ProjectsSection = () => {
-  // Dynamically extract unique categories from projects data
-  const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(Projects.map(project => project.category))];
-    return uniqueCategories.map(cat => ({
-      id: cat,
-      label: cat.charAt(0).toUpperCase() + cat.slice(1)
-    }));
-  }, []);
-
-  const [activeTab, setActiveTab] = useState(categories[0]?.id || 'personal');
-  
-  const filteredProjects = Projects.filter(project => project.category === activeTab);
-  const showTabs = categories.length > 1;
+  const filteredProjects = PROJECTS;
 
   return (
     <section id="projects" className="px-4 md:px-12 lg:px-24 py-16 md:py-20">
@@ -37,32 +24,11 @@ const ProjectsSection = () => {
             My Projects
           </h2>
 
-          {/* Tabs - Only show if multiple categories */}
-          {showTabs && (
-            <div className="flex justify-center gap-4 mb-12">
-              {categories.map((category) => (
-                <motion.button
-                  key={category.id}
-                  onClick={() => setActiveTab(category.id)}
-                  className={`px-6 py-3 rounded-md text-xs font-semibold transition-colors ${
-                    activeTab === category.id
-                      ? 'bg-primary text-primary-foreground'
-                      : 'border border-primary text-primary hover:bg-primary/10'
-                  }`}
-                  data-cursorvariant="hover"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  [{category.id}]
-                </motion.button>
-              ))}
-            </div>
-          )}
         </AnimatedSection>
 
         {/* Projects Grid */}
         <motion.div 
-          key={activeTab}
+          key="projects"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
@@ -70,7 +36,7 @@ const ProjectsSection = () => {
         >
           {filteredProjects.map((project, index) => (
             <motion.div
-              key={project.title}
+              key={project.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-50px" }}
@@ -79,16 +45,16 @@ const ProjectsSection = () => {
               data-cursorvariant="hover"
             >
               {/* Project Image */}
-              {project.imageUrl && (
+              {project.image && (
                 <a 
-                  href={project.liveUrl || project.githubUrl || '#'}
+                  href={project.url || project.github || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block border-b border-border"
                 >
                   <Image
-                    src={project.imageUrl}
-                    alt={`${project.title} preview`}
+                    src={project.image}
+                    alt={`${project.name} preview`}
                     className="w-full aspect-video object-cover"
                     width={500}
                     height={300}
@@ -99,16 +65,16 @@ const ProjectsSection = () => {
               {/* Content */}
               <div className="p-6 space-y-4">
                 <h3 className="text-foreground font-bold text-lg">
-                  {project.title}
+                  {project.name}
                 </h3>
                 
                 <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                  {project.description}
+                  {project.description[0]}
                 </p>
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
+                  {project.stack.map((tech) => (
                     <span 
                       key={tech}
                       className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium"
@@ -120,9 +86,9 @@ const ProjectsSection = () => {
 
                 {/* Links */}
                 <div className="flex items-center gap-4 pt-2">
-                  {project.githubUrl && (
+                  {project.github && (
                     <a 
-                      href={project.githubUrl}
+                      href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-muted-foreground hover:text-primary text-sm transition-colors"
@@ -132,9 +98,9 @@ const ProjectsSection = () => {
                       <span>GitHub</span>
                     </a>
                   )}
-                  {project.liveUrl && (
+                  {project.url && (
                     <a 
-                      href={project.liveUrl}
+                      href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-muted-foreground hover:text-primary text-sm transition-colors"
