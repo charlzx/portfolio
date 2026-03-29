@@ -14,16 +14,7 @@ describe("PROJECTS data", () => {
       expect(project.stack.length).toBeGreaterThan(0);
       expect(project.description.length).toBeGreaterThan(0);
       expect(project.metaDescription.length).toBeGreaterThan(0);
-      expect(Number.isNaN(Date.parse(project.publishedAt))).toBe(false);
       expect(project.url.startsWith("https://") || project.url === "").toBe(true);
-    }
-  });
-
-  it("is sorted by newest publishedAt first", () => {
-    for (let i = 1; i < PROJECTS.length; i++) {
-      const previous = Date.parse(PROJECTS[i - 1].publishedAt);
-      const current = Date.parse(PROJECTS[i].publishedAt);
-      expect(previous).toBeGreaterThanOrEqual(current);
     }
   });
 });

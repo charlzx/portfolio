@@ -65,7 +65,6 @@ export default async function Page(
       name: "Charles Obuzor",
       url: "https://charlz.dev",
     },
-    dateCreated: p.year,
     ...(p.github ? { codeRepository: p.github } : {}),
   };
 

@@ -4,8 +4,6 @@ export type Project = {
   image: string;
   url: string;
   github: string;
-  publishedAt: string;
-  year: string;
   tagline: string;
   stack: string[];
   role: string;
@@ -21,8 +19,6 @@ const PROJECTS_DATA: Project[] = [
     image: "/crwn3.webp",
     url: "https://crwn3.vercel.app/",
     github: "https://github.com/charlzx/shop",
-    publishedAt: "2024-06-01",
-    year: "2024",
     tagline: "Full-featured e-commerce storefront.",
     stack: ["React", "Vite", "Tailwind", "Leaflet.js"],
     role: "Solo — design & development",
@@ -44,8 +40,6 @@ const PROJECTS_DATA: Project[] = [
     image: "/heirswealth.webp",
     url: "https://heirswealth.com",
     github: "",
-    publishedAt: "2024-11-01",
-    year: "2024",
     tagline: "Solar energy company website.",
     stack: ["React", "Vite", "Tailwind", "Framer Motion"],
     role: "Freelance — design & development",
@@ -66,8 +60,6 @@ const PROJECTS_DATA: Project[] = [
     image: "/radio.webp",
     url: "https://gta-live.vercel.app/",
     github: "https://github.com/charlzx/gta-radio",
-    publishedAt: "2024-09-01",
-    year: "2024",
     tagline: "Real-time synchronized GTA radio.",
     stack: ["React", "Vite", "Tailwind"],
     role: "Solo — design & development",
@@ -89,8 +81,6 @@ const PROJECTS_DATA: Project[] = [
     image: "/gymx.webp",
     url: "https://gymx.vercel.app/",
     github: "https://github.com/charlzx/gym-app",
-    publishedAt: "2023-07-01",
-    year: "2023",
     tagline: "Responsive fitness web experience.",
     stack: ["React", "Vite", "Tailwind", "Recharts"],
     role: "Solo — design & development",
@@ -111,8 +101,6 @@ const PROJECTS_DATA: Project[] = [
     image: "/solisys.webp",
     url: "https://solisys.vercel.app/",
     github: "https://github.com/charlzx/solisys",
-    publishedAt: "2024-10-01",
-    year: "2024",
     tagline: "Off-grid solar system designer.",
     stack: ["React", "Tailwind", "Vite"],
     role: "Solo — design & development",
@@ -133,8 +121,6 @@ const PROJECTS_DATA: Project[] = [
     image: "/my-portfolio.webp",
     url: "https://charlz.dev",
     github: "https://github.com/charlzx/portfolio",
-    publishedAt: "2025-03-01",
-    year: "2025",
     tagline: "Personal portfolio & showcase.",
     stack: ["Next.js", "TypeScript", "CSS"],
     role: "Solo — design & development",
@@ -152,6 +138,4 @@ const PROJECTS_DATA: Project[] = [
   },
 ];
 
-export const PROJECTS: Project[] = [...PROJECTS_DATA].sort(
-  (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt),
-);
+export const PROJECTS: Project[] = PROJECTS_DATA;
