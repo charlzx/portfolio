@@ -1,63 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { name: "about", href: "about" },
-  { name: "projects", href: "projects" },
-  { name: "skills", href: "skills" },
-  { name: "experience", href: "experience" },
-  { name: "contact", href: "contact" },
+  { name: "About", href: "about" },
+  { name: "Projects", href: "projects" },
+  { name: "Skills", href: "skills" },
+  { name: "Contact", href: "contact" },
 ];
-
-// Animated hamburger menu path component
-const Path = (props: React.ComponentProps<typeof motion.path>) => (
-  <motion.path
-    fill="transparent"
-    strokeWidth="3"
-    stroke="currentColor"
-    strokeLinecap="round"
-    {...props}
-  />
-);
-
-const MenuToggle = ({ toggle, isOpen }: { toggle: () => void; isOpen: boolean }) => (
-  <motion.button 
-    onClick={toggle} 
-    className="lg:hidden p-2 z-50 text-foreground"
-    initial={false}
-    animate={isOpen ? "open" : "closed"}
-  >
-    <svg width="23" height="23" viewBox="0 0 23 23">
-      <Path
-        variants={{
-          closed: { d: "M 2 2.5 L 20 2.5" },
-          open: { d: "M 3 16.5 L 17 2.5" }
-        }}
-      />
-      <Path
-        d="M 2 9.423 L 20 9.423"
-        variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 }
-        }}
-        transition={{ duration: 0.1 }}
-      />
-      <Path
-        variants={{
-          closed: { d: "M 2 16.346 L 20 16.346" },
-          open: { d: "M 3 2.5 L 17 16.346" }
-        }}
-      />
-    </svg>
-  </motion.button>
-);
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { scrollTo } = useSmoothScroll();
+
+  useEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverflow = html.style.overflow;
+
+    if (isOpen) {
+      body.style.overflow = "hidden";
+      html.style.overflow = "hidden";
+    }
+
+    return () => {
+      body.style.overflow = previousBodyOverflow;
+      html.style.overflow = previousHtmlOverflow;
+    };
+  }, [isOpen]);
 
   const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
@@ -67,82 +41,105 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-[70] border-b border-border/80 bg-background/95 backdrop-blur">
         <div className="px-6 md:px-12 lg:px-24">
-          <div className="max-w-6xl mx-auto flex items-center justify-between h-16">
-            <button 
+          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between">
+            <button
               onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="flex items-center gap-2" 
+              className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground"
               data-cursorvariant="hover"
             >
-              <svg width="24" height="24" viewBox="0 0 100 100">
-                <path d="M20,80 L50,20 L80,80 Z" fill="none" className="stroke-primary" strokeWidth="8"/>
-                <path d="M25,70 L75,70" fill="none" className="stroke-primary" strokeWidth="8"/>
-              </svg>
-              <span className="text-lg font-bold tracking-wider">CHARLZ</span>
+              Charles Obuzor
             </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden items-center gap-2 lg:flex">
               {navItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={(e) => handleNavClick(e, item.href)}
                   data-cursorvariant="hover"
-                  className="px-3 py-2 rounded-md text-muted-foreground hover:text-primary transition-colors text-sm"
+                  className="rounded-md px-2.5 py-1.5 text-[11px] uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  <span className="text-border">[</span>
                   {item.name}
-                  <span className="text-border">]</span>
                 </button>
               ))}
             </div>
 
-            {/* Mobile/Tablet Menu Button */}
-            <MenuToggle toggle={() => setIsOpen(!isOpen)} isOpen={isOpen} />
+            <button
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="relative h-9 w-9 rounded-md p-2 text-foreground lg:hidden"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {isOpen ? (
+                  <motion.span
+                    key="icon-close"
+                    initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <X size={17} />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="icon-menu"
+                    initial={{ opacity: 0, rotate: 90, scale: 0.7 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: -90, scale: 0.7 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Menu size={17} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Fullscreen Mobile/Tablet Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-background lg:hidden"
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-[60] bg-background lg:hidden"
           >
-            <motion.div 
-              className="flex flex-col items-start justify-center h-full px-8 gap-6"
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={{
-                open: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
-                closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
-              }}
-            >
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.name}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="text-2xl md:text-3xl text-muted-foreground hover:text-primary transition-colors font-mono"
-                  variants={{
-                    open: { y: 0, opacity: 1 },
-                    closed: { y: 20, opacity: 0 }
-                  }}
+            <div className="flex h-full flex-col px-6 py-6 md:px-12">
+              <div className="flex items-center justify-between border-b border-border pb-4">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Menu</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 text-foreground"
+                  aria-label="Close navigation menu"
                 >
-                  <span className="text-border">[</span>
-                  {item.name}
-                  <span className="text-border">]</span>
-                </motion.button>
-              ))}
-            </motion.div>
+                  <X size={18} />
+                </button>
+              </div>
+
+              <div className="my-auto flex flex-col gap-3">
+                {navItems.map((item) => (
+                  <motion.button
+                    key={item.name}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="border-b border-border py-3 text-left text-[14px] uppercase tracking-[0.14em] text-foreground"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    {item.name}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
