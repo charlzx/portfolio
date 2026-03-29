@@ -1,7 +1,6 @@
 "use client";
 
-import { Terminal, ArrowUp } from "lucide-react";
-import Link from "next/link";
+import { ArrowUp } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 import { useEffect, useState } from "react";
 
@@ -55,15 +54,6 @@ const Footer = () => {
               <span className="hidden sm:inline">|</span>
               <span className="hidden sm:inline"><span className="text-primary">uptime:</span> 99.9%</span>
               <span className="hidden sm:inline">|</span>
-              <Link
-                href="/terminal"
-                data-cursorvariant="hover"
-                className="text-muted-foreground hover:text-primary transition-colors p-2"
-                title="Terminal"
-              >
-                <Terminal size={14} />
-              </Link>
-              <span>|</span>
               <div className="p-2">
                 <ThemeSelector iconOnly />
               </div>

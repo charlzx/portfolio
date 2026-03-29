@@ -21,15 +21,29 @@ const ContactSection = () => {
 
   const FORMSPREE_ID = 'mandvdpe';
   const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+  const isValidEmail = (value: string) => /[^\s@]+@[^\s@]+\.[^\s@]+/.test(value);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName || !trimmedMessage || !isValidEmail(trimmedEmail) || trimmedMessage.length < 10) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('sending');
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message })
+        body: JSON.stringify({
+          name: trimmedName,
+          email: trimmedEmail,
+          message: trimmedMessage,
+        })
       });
       if (res.ok) {
         setStatus('success');
@@ -66,7 +80,7 @@ const ContactSection = () => {
                 </p>
                 
                 <p className="text-muted-foreground text-sm">
-                  I'm always interested in hearing about new projects, opportunities, 
+                  I&apos;m always interested in hearing about new projects, opportunities, 
                   or just connecting with fellow developers.
                 </p>
               </div>

@@ -27,45 +27,35 @@ export const useInteractiveCursor = (isTouchDevice: boolean) => {
     useEffect(() => {
         if (isTouchDevice) return;
 
-        const onMouseEnter = (e: Event) => {
-            const target = e.target as HTMLElement;
-            if (target.dataset.cursorvariant) {
-                setCursorVariant(target.dataset.cursorvariant);
+        const getVariant = (target: EventTarget | null) => {
+            if (!(target instanceof HTMLElement)) return null;
+            const interactive = target.closest<HTMLElement>('[data-cursorvariant]');
+            return interactive?.dataset.cursorvariant ?? null;
+        };
+
+        const onMouseOver = (e: MouseEvent) => {
+            const variant = getVariant(e.target);
+            if (variant) {
+                setCursorVariant(variant);
             }
         };
-        const onMouseLeave = () => setCursorVariant("default");
 
-        const attachListeners = () => {
-            const interactiveElements = document.querySelectorAll('[data-cursorvariant]');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', onMouseEnter);
-                el.addEventListener('mouseleave', onMouseLeave);
-            });
-            return interactiveElements;
+        const onMouseOut = (e: MouseEvent) => {
+            const fromVariant = getVariant(e.target);
+            if (!fromVariant) return;
+
+            const toVariant = getVariant(e.relatedTarget);
+            if (toVariant !== fromVariant) {
+                setCursorVariant(toVariant ?? "default");
+            }
         };
 
-        // Initial attach
-        let elements = attachListeners();
-
-        // Re-attach on DOM changes using MutationObserver
-        const observer = new MutationObserver(() => {
-            // Detach old listeners
-            elements.forEach(el => {
-                el.removeEventListener('mouseenter', onMouseEnter);
-                el.removeEventListener('mouseleave', onMouseLeave);
-            });
-            // Attach to new elements
-            elements = attachListeners();
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
+        document.addEventListener('mouseover', onMouseOver);
+        document.addEventListener('mouseout', onMouseOut);
 
         return () => {
-            observer.disconnect();
-            elements.forEach(el => {
-                el.removeEventListener('mouseenter', onMouseEnter);
-                el.removeEventListener('mouseleave', onMouseLeave);
-            });
+            document.removeEventListener('mouseover', onMouseOver);
+            document.removeEventListener('mouseout', onMouseOut);
         };
     }, [isTouchDevice]);
 

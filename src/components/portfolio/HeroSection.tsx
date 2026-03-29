@@ -70,8 +70,8 @@ const HeroSection = () => {
               repeatDelay: 1,
               ease: "easeInOut"
             }}
-            aria-label="waving hand"
-          >👋🏾</motion.span>, I'm Charlz
+            aria-hidden="true"
+          >👋🏾</motion.span>, I&apos;m Charlz
         </motion.h1>
         
         <motion.h2 

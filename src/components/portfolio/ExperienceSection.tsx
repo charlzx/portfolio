@@ -25,7 +25,7 @@ const ExperienceSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {Experience.map((exp, index) => (
               <motion.div 
-                key={index}
+                key={`${exp.role}-${exp.org}`}
                 className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

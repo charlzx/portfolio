@@ -18,8 +18,8 @@ const EducationSection = () => {
           </div>
         </AnimatedSection>
 
-        {Education.map((edu, index) => (
-          <AnimatedSection key={index} delay={0.1}>
+        {Education.map((edu) => (
+          <AnimatedSection key={`${edu.title}-${edu.place}`} delay={0.1}>
             <TerminalWindow title="education.md">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-secondary rounded">

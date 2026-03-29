@@ -31,10 +31,10 @@ const AboutSection = () => {
             <div className="max-w-6xl mx-auto">
               <div className="space-y-4 text-foreground/90">
                 {About.paragraphs.map((text, index) => (
-                  <p key={index}>
+                  <p key={`${text.slice(0, 24)}-${index}`}>
                     {index === 0 && text.includes("Charlz") ? (
                       <>
-                        I'm <span className="text-primary font-semibold">Charlz</span>
+                        I&apos;m <span className="text-primary font-semibold">Charlz</span>
                         {text.slice(11)}
                       </>
                     ) : (
