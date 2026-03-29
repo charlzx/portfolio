@@ -8,7 +8,7 @@ const AboutSection = () => {
     <section id="about" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">About</p>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">[About]</p>
           <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
             I build interfaces that feel intentional and usable.
           </h2>
@@ -32,7 +32,7 @@ const AboutSection = () => {
             </div>
 
             <div className="border border-border bg-card p-5 md:p-6">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Interests</p>
+              <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">[Interests]</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {About.interests.map((interest) => (
                   <span

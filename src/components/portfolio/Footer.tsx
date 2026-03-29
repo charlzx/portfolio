@@ -45,10 +45,6 @@ const Footer = () => {
             <div className="order-2 text-[10px] uppercase tracking-[0.12em] text-muted-foreground md:order-1">
               © {currentYear} Charles Obuzor
             </div>
-
-            <div className="order-1 flex items-center gap-4 md:order-2">
-              <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground">Designing and building on the web</span>
-            </div>
           </div>
         </div>
       </footer>

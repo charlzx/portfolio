@@ -52,7 +52,7 @@ const Navigation = () => {
               className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground"
               data-cursorvariant="hover"
             >
-              Charles Obuzor
+              charlz~
             </button>
 
             <div className="hidden items-center gap-2 lg:flex">
@@ -63,7 +63,7 @@ const Navigation = () => {
                   data-cursorvariant="hover"
                   className="rounded-md px-2.5 py-1.5 text-[11px] uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {item.name}
+                  [{item.name}]
                 </button>
               ))}
             </div>
@@ -115,7 +115,7 @@ const Navigation = () => {
           >
             <div className="flex h-full flex-col px-6 py-6 md:px-12">
               <div className="flex items-center justify-between border-b border-border pb-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Menu</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">[Menu]</span>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 text-foreground"
@@ -135,7 +135,7 @@ const Navigation = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.18 }}
                   >
-                    {item.name}
+                    [{item.name}]
                   </motion.button>
                 ))}
               </div>

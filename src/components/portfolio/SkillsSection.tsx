@@ -34,7 +34,7 @@ const SkillsSection = () => {
     <section id="skills" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Tools</p>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">[Tools]</p>
           <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
             Core technologies and systems I work with.
           </h2>
@@ -51,7 +51,7 @@ const SkillsSection = () => {
               className="grid border-b border-border py-5 md:grid-cols-[140px_minmax(0,1fr)] md:gap-6"
             >
               <p className="mb-3 text-[10px] uppercase tracking-[0.14em] text-muted-foreground md:mb-0">
-                {group.label}
+                [{group.label}]
               </p>
 
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">

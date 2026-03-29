@@ -47,7 +47,7 @@ const ContactSection = () => {
     <section id="contact" className="px-4 py-14 md:px-12 md:py-18 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <AnimatedSection>
-          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Contact</p>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">[Contact]</p>
           <h2 className="mt-2 text-xl font-semibold tracking-[-0.01em] text-foreground md:text-2xl">
             Have a project in mind? Let&apos;s talk.
           </h2>

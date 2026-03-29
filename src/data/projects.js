@@ -6,7 +6,7 @@ const Projects = [
     liveUrl: 'https://checkwall.dev',
     githubUrl: '',
     imageUrl: '/checkwall.webp',
-    category: 'personal',
+    category: 'collaboration',
   },
   {
     title: 'JSON Tree',
@@ -51,7 +51,7 @@ const Projects = [
     liveUrl: 'https://oreon.com.ng',
     githubUrl: '',
     imageUrl: '/oreon.webp',
-    category: 'collaborations',
+    category: 'client',
   },
   {
     title: 'Audiophilx',
@@ -87,7 +87,7 @@ const Projects = [
     liveUrl: 'https://heirswealth.com',
     githubUrl: '',
     imageUrl: '/heirswealth.webp',
-    category: 'collaborations',
+    category: 'client',
   },
   {
     title: 'My Portfolio',

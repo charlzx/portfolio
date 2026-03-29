@@ -19,33 +19,17 @@ const HeroSection = () => {
         transition={{ duration: 0.35 }}
       >
         <div className="space-y-6">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Frontend Developer · Nigeria
+          <p className="text-[12px] uppercase tracking-[0.18em] text-muted-foreground md:text-[13px]">
+            Charles Obuzor.
           </p>
 
-          <h1 className="max-w-[14ch] text-2xl font-semibold leading-[1.05] tracking-[-0.02em] text-foreground md:text-4xl">
-            Building clean digital products with strong interaction detail.
+          <h1 className="max-w-[24ch] text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-foreground md:text-6xl">
+            I build stuff.
           </h1>
 
-          <p className="max-w-[56ch] text-[12px] leading-6 text-muted-foreground">
-            I design and ship modern web experiences focused on clarity, performance,
-            and product feel. My stack is React, Next.js, TypeScript, and practical UI systems.
+          <p className="max-w-[80ch] text-[14px] leading-7 text-muted-foreground md:text-[16px]">
+            React · Next.js · React Native · TypeScript.
           </p>
-
-          <div className="grid gap-3 pt-1 md:grid-cols-3">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Focus</p>
-              <p className="mt-1.5 text-[12px] leading-5 text-foreground">Product UI Engineering</p>
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Stack</p>
-              <p className="mt-1.5 text-[12px] leading-5 text-foreground">React · Next.js · TypeScript</p>
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Availability</p>
-              <p className="mt-1.5 text-[12px] leading-5 text-foreground">Open for select freelance work</p>
-            </div>
-          </div>
 
           <div className="flex flex-wrap gap-2.5 pt-2">
             <motion.button
@@ -55,7 +39,7 @@ const HeroSection = () => {
               whileHover={{ y: -1 }}
               whileTap={{ y: 0 }}
             >
-              View Projects
+              [view_projects]
             </motion.button>
             <motion.button
               onClick={() => handleNavigate("contact")}
@@ -64,7 +48,7 @@ const HeroSection = () => {
               whileHover={{ y: -1 }}
               whileTap={{ y: 0 }}
             >
-              Contact
+              [contact_me]
             </motion.button>
           </div>
         </div>
