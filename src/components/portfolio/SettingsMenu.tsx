@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Settings, Moon, Sun } from "lucide-react";
+import { Settings, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 interface SettingsMenuProps {
@@ -12,7 +12,7 @@ interface SettingsMenuProps {
 const SettingsMenu = ({ iconOnly = false }: SettingsMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { mode, setMode } = useTheme();
+  const { mode } = useTheme();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -50,34 +50,13 @@ const SettingsMenu = ({ iconOnly = false }: SettingsMenuProps) => {
             transition={{ duration: 0.15 }}
             className="absolute right-0 bottom-10 w-56 rounded-lg border border-border bg-card p-3 shadow-xl"
           >
-            <p className="text-xs text-muted-foreground mb-2">
-              <span className="text-primary">&gt;</span> Mode
+            <p className="mb-2 text-xs text-muted-foreground">
+              <span className="text-primary">&gt;</span> Theme
             </p>
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => setMode("light")}
-                className={`flex items-center justify-center gap-1 rounded-md border px-2 py-2 text-xs transition-colors ${
-                  mode === "light"
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-secondary text-muted-foreground hover:text-primary"
-                }`}
-              >
-                <Sun size={14} />
-                Navy
-              </button>
-
-              <button
-                onClick={() => setMode("dark")}
-                className={`flex items-center justify-center gap-1 rounded-md border px-2 py-2 text-xs transition-colors ${
-                  mode === "dark"
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-secondary text-muted-foreground hover:text-primary"
-                }`}
-              >
-                <Moon size={14} />
-                Sunset
-              </button>
+            <div className="flex items-center justify-center gap-1 border border-primary bg-primary/10 px-2 py-2 text-xs text-primary">
+              <Moon size={14} />
+              {mode}
             </div>
           </motion.div>
         )}

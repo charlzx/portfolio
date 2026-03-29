@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const urbanist = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://charlz.dev'),
@@ -77,6 +77,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const modeScript = `
+    (function () {
+      var root = document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add("dark");
+    })();
+  `;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -106,14 +114,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: modeScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${urbanist.className} antialiased`}>
         <Providers>
           {children}
         </Providers>
