@@ -1,13 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/lib/projects";
 import { PROJECTS } from "@/lib/projects";
 import { useGlobalDarkMode } from "@/hooks/useGlobalDarkMode";
 
+const FALLBACK_PROJECT_IMAGE = "/placeholder.svg";
+
 export default function ProjectDetail({ project: p }: { project: Project }) {
   const { dark, setDark } = useGlobalDarkMode(true);
+  const [imageSrc, setImageSrc] = useState(p.image || FALLBACK_PROJECT_IMAGE);
 
   const theme = dark ? {
     "--bg":     "#111111",
@@ -213,15 +217,17 @@ export default function ProjectDetail({ project: p }: { project: Project }) {
           marginBottom: 64,
           boxShadow: "0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10)",
           maxWidth: 900,
+          position: "relative",
+          aspectRatio: "16 / 9",
         }}>
           <Image
-            src={p.image}
+            src={imageSrc}
             alt={`${p.name} — ${p.tagline}`}
-            style={{ width: "100%", height: "auto", display: "block" }}
-            width={1200}
-            height={750}
+            fill
+            className="object-cover"
             priority
             sizes="(max-width: 900px) 100vw, 900px"
+            onError={() => setImageSrc(FALLBACK_PROJECT_IMAGE)}
           />
         </div>
 

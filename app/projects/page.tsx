@@ -7,6 +7,7 @@ import { PROJECTS } from "@/lib/projects";
 import { useGlobalDarkMode } from "@/hooks/useGlobalDarkMode";
 
 const CARD_ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
+const FALLBACK_PROJECT_IMAGE = "/placeholder.svg";
 
 function useInView() {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,6 +37,21 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
     }}>
       {children}
     </div>
+  );
+}
+
+function ProjectBoardImage({ src, alt }: { src: string; alt: string }) {
+  const [imageSrc, setImageSrc] = useState(src || FALLBACK_PROJECT_IMAGE);
+
+  return (
+    <Image
+      src={imageSrc}
+      alt={alt}
+      fill
+      className="nbp-photo-img"
+      sizes="(max-width: 540px) 100vw, (max-width: 960px) 50vw, 33vw"
+      onError={() => setImageSrc(FALLBACK_PROJECT_IMAGE)}
+    />
   );
 }
 
@@ -320,7 +336,7 @@ export default function ProjectsPage() {
         .nbp-photo-img-wrap {
           position: relative;
           width: 100%;
-          aspect-ratio: 16 / 10;
+          aspect-ratio: 16 / 9;
           overflow: visible;
           box-shadow:
             0 2px 4px rgba(0,0,0,0.10),
@@ -490,13 +506,9 @@ export default function ProjectsPage() {
                 style={{ transform: `rotate(${CARD_ROTATIONS[i % CARD_ROTATIONS.length]}deg)` }}
               >
                 <div className="nbp-photo-img-wrap">
-                    <Image
+                    <ProjectBoardImage
                       src={p.image}
                       alt={`${p.name} — ${p.tagline}`}
-                      className="nbp-photo-img"
-                      width={800}
-                      height={500}
-                      sizes="(max-width: 540px) 100vw, (max-width: 960px) 50vw, 33vw"
                     />
                 </div>
                 <div className="nbp-photo-info">

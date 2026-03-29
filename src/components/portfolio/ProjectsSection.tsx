@@ -1,10 +1,29 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { Github, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { PROJECTS } from "@/lib/projects";
+
+const FALLBACK_PROJECT_IMAGE = "/placeholder.svg";
+
+function ProjectCardImage({ src, alt }: { src: string; alt: string }) {
+  const [imageSrc, setImageSrc] = useState(src || FALLBACK_PROJECT_IMAGE);
+
+  return (
+    <Image
+      src={imageSrc}
+      alt={alt}
+      className="w-full aspect-video object-cover"
+      width={1600}
+      height={900}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      onError={() => setImageSrc(FALLBACK_PROJECT_IMAGE)}
+    />
+  );
+}
 
 const ProjectsSection = () => {
   const filteredProjects = PROJECTS;
@@ -52,12 +71,9 @@ const ProjectsSection = () => {
                   rel="noopener noreferrer"
                   className="block border-b border-border"
                 >
-                  <Image
+                  <ProjectCardImage
                     src={project.image}
                     alt={`${project.name} preview`}
-                    className="w-full aspect-video object-cover"
-                    width={500}
-                    height={300}
                   />
                 </a>
               )}
