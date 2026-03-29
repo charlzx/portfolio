@@ -594,7 +594,9 @@ export default function Terminal() {
       // Only skip if Enter is pressed while processing AND not immediately after submitting
       if (e.key === 'Enter' && isProcessing && !justSubmittedRef.current) {
         e.preventDefault();
-        skipAllTyping();
+        setHistory(h => h.map(entry => ({ ...entry, isTyping: false })));
+        setIsProcessing(false);
+        inputRef.current?.focus();
       }
     };
     
