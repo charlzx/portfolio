@@ -71,15 +71,17 @@ export const useInteractiveCursor = (isTouchDevice: boolean) => {
 
     const cursorVariants = {
         default: { 
-            width: 20, 
-            height: 20, 
+            width: 12,
+            height: 12,
             backgroundColor: 'white',
+            borderRadius: '9999px',
             mixBlendMode: 'difference' as const
         },
         hover: { 
-            width: 50, 
-            height: 50, 
+            width: 30,
+            height: 30,
             backgroundColor: 'white',
+            borderRadius: '9999px',
             mixBlendMode: 'difference' as const
         },
     };

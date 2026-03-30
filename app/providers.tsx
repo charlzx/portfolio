@@ -54,10 +54,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
             variants={cursorVariants}
             animate={cursorVariant}
             transition={springConfig}
-            className="pointer-events-none fixed top-0 left-0 z-[100] rounded-full"
+            className="pointer-events-none fixed top-0 left-0 z-[100]"
             style={{
               x: smoothCursorX,
               y: smoothCursorY,
+              borderRadius: '9999px',
               translateX: '-50%',
               translateY: '-50%'
             }}
