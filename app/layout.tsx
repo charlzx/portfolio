@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     siteName: 'charlz.dev',
     images: [
       {
-        url: 'https://charlz.dev/my-portfolio.webp',
+        url: '/opengraph-image.png',
         width: 1200,
         height: 630,
         alt: 'Charles Obuzor — Frontend Developer Portfolio',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: 'Charles Obuzor — Frontend Developer',
     description: 'Frontend developer building web and mobile products with React, Next.js, and TypeScript.',
     creator: '@charlzObuzor',
-    images: ['https://charlz.dev/my-portfolio.webp'],
+    images: ['/twitter-image.png'],
   },
   robots: {
     index: true,
